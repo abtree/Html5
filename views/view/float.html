@@ -34,16 +34,15 @@
             border-color: gray;
             width: 60%;     /* 将div的宽度缩小 */
             margin: auto;   /* auto会设置左右两边边距相等 这里的目的是居中显示 */
+            box-sizing: border-box; /* 默认padding会将容器撑大， 设置该属性后padding将不能将容器撑大 */
+            padding-left: 25px;
         }
-        #txt p{
-            margin-left: 25px;
-        }
+
         #image{
             background-image: url("/views/imgs/eff_hx_zhfz_book_01.png");
             background-repeat: no-repeat;
             background-size: 100%;
             float: left;
-            margin-left: 25px;
             width: 100px;
             height: 100px;
         }
