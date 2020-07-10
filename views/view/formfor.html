@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单关联</title>
+    <style type="text/css">
+        div{
+            width: 60%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form action="#">
+            <table>
+                <colgroup span="3" width="300px" align="center" />
+                <tr>
+                    <td>
+                        <!--
+                        for属性将label标签和input标签变为一个整体 此时点击label相当于点击了input标签
+                         -->
+                        <label for="username">用户名：</label>
+                        <input id="username" type="text" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="password">密 码：</label>
+                        <input id="password" type="password" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="man" name="sex" type="radio" />
+                        <label for="man">男</label>
+                        <input id="woman" name="sex" type="radio" />
+                        <label for="woman">女</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="提交" style="margin: 0px 20px" />
+                        <input type="reset" value="重置" style="margin: 0px 20px" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

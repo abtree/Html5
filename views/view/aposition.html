@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>a标签定位</title>
+
+    <style type="text/css">
+        #list{
+            position: fixed;
+            width: 20%;
+            top: 300px;
+            right: 0px;
+        }
+        #list a{
+            text-decoration: none;
+        }
+        #content div{
+            width: 60%;
+            margin: auto;
+            height: 500px;
+        }
+        #html{
+            background-color: lightgreen;
+        }
+        #css{
+            background-color: lightblue;
+        }
+        #javascript{
+            background-color: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+    <div id="list">
+        <ul>
+            <li><a href="#html">HTML</a></li>
+            <li><a href="#css">CSS</a></li>
+            <li><a href="#javascript">JavaScript</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <div id="html">
+            <h1>HTML</h1>
+            <p>简介</p>
+        </div>
+        <div id="css">
+            <h1>CSS</h1>
+            <p>简介</p>
+        </div>
+        <div id="javascript">
+            <h1>JavaScript</h1>
+            <p>简介</p>
+        </div>
+    </div>
+</body>
+</html>

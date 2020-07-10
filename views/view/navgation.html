@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>页面布局</title>
+
+    <style type="text/css">
+        div{
+            margin-left: 10%;
+            margin-right: 10%;
+            text-align: center;
+        }
+        #banner{
+            height: 500px;
+            background-color: gray;
+            line-height: 500px;     /* 将line-height 和 height 设置为一样 是为了文字居中显示*/
+        }
+        #navigation{
+            height: 50px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        #bottom{
+            position: absolute;
+            bottom: 0px;
+            background-color: lightgray;
+            width: 80%;
+            height: 100px;
+            padding-top: 30px;  /* 这里也是为了文字居中显示 */
+        }
+        a {
+            margin-left: 10px;
+            margin-right: 10px;
+            text-decoration: none;
+            font-size: large;
+            font-weight: bold;
+            color: dodgerblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="banner">大图片</div>
+    <div id="navigation">
+        <a href="#">导航1</a>
+        <a href="#">导航2</a>
+        <a href="#">导航3</a>
+        <a href="#">导航4</a>
+        <a href="#">导航5</a>
+        <a href="#">导航6</a>
+    </div>
+    <div>
+        <h3>欢迎来到布局</h3>
+        <p>
+            以上是布局说明
+        </p>
+        <p>
+            以上是布局说明，以上是布局说明，以上是布局说明，以上是布局说明，以上是布局说明
+        </p>
+
+    </div>
+    <div style="text-align: right; font-style: italic" >
+        2020.7.8
+    </div>
+    <div id="bottom">底部信息</div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>元素浮动布局</title>
+
+    <style type="text/css">
+        .box{
+            overflow: auto; /* 这里是让box div被内部的浮动div撑开 即根据浮动div设置大小 */
+        }
+
+        .box div{
+            height: 100px;
+        }
+        #list{
+            width: 20%;
+            float: left;
+            background-color: green;
+        }
+        #context{
+            width: 60%;
+            float: left;
+            background-color: orange;
+        }
+        #info{
+            width: 20%;
+            float: left;
+            background-color: blue;
+        }
+
+        #txt{
+            border-width: 1px;
+            border-style: solid;
+            border-color: gray;
+            width: 60%;     /* 将div的宽度缩小 */
+            margin: auto;   /* auto会设置左右两边边距相等 这里的目的是居中显示 */
+        }
+        #txt p{
+            margin-left: 25px;
+        }
+        #image{
+            background-image: url("/views/imgs/eff_hx_zhfz_book_01.png");
+            background-repeat: no-repeat;
+            background-size: 100%;
+            float: left;
+            margin-left: 25px;
+            width: 100px;
+            height: 100px;
+        }
+
+        #chatbg {
+            /* 这里采用锚点定位 */
+            position: fixed;
+            width: 20%;
+            height: 500px;
+            top: 106px;
+            right: 0px;
+            border-style: solid;
+            border-color: red;
+            text-align: center;
+        }
+        #chatbg .chat {
+            float: left;
+            clear: both;    /* 这里的目的是 换行显示 不然聊天内容会在一行显示 */
+            background-color: lightblue;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 横向排版div -->
+    <div class="box"> <!-- 因为浮动div会漂浮在上面 这里设置一个非浮动的包裹浮动的 目的是后面的div不会跑到浮动div下面去 -->
+        <div id="list"></div>
+        <div id="context"></div>
+        <div id="info"></div>
+    </div>
+
+    <!-- 文本排版 -->
+    <div>
+        <div id="txt">
+            <div id="image"></div>
+            <p>文字不会被浮动div覆盖</p>
+            <p>而是会根据浮动div重新排版</p>
+            <p>文字不会被浮动div覆盖</p>
+            <p>而是会根据浮动div重新排版</p>
+            <p>文字不会被浮动div覆盖</p>
+            <p>而是会根据浮动div重新排版</p>
+            <p>文字不会被浮动div覆盖</p>
+            <p>而是会根据浮动div重新排版</p>
+            <p>文字不会被浮动div覆盖</p>
+            <p>而是会根据浮动div重新排版</p>
+        </div>
+    </div>
+
+    <!-- 聊天框演示 -->
+    <div id="chatbg">
+        <h1>聊天室</h1>
+        <div class="chat">说话</div>
+        <div class="chat">说话</div>
+        <div class="chat" style="float: right">说话</div>
+        <div class="chat">说话</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>改变元素的类型</title>
+
+    <style type="text/css">
+        .box{
+            float: left;
+            height: 300px;
+            width: 200px;
+            text-align: center;
+            margin: 0px 10px;
+            background-color: lightgray;
+            position: relative;
+        }
+        .box img{
+            width: 80px;
+            margin: 10px;
+        }
+        .box p{
+            margin: 20px;
+        }
+        .box a{
+            text-decoration: none;
+            background-color: lightblue;
+            display: block;
+            width: 100%;
+            position: absolute;
+            bottom: 20px;
+        }
+         .box a:hover{  /* hover 表示鼠标进入事件 */
+             text-decoration: underline;
+         }
+</style>
+</head>
+<body>
+    <!--
+        元素类型分为：
+        块元素（block）: <p> <ul li> <h1 ~ h6> <div> <form> <table>
+            特点：宽度为100% 竖向排列 可以设置宽高
+        内联元素 (inline): <i> <b> <span> <a>
+            特点：横向排列 根据内容自动调节宽高 不能设置宽高
+        内联块元素 (inline-block):  <img> <input>
+            同时具备两种属性:
+
+        *可以通过 display 属性改变标签类型
+    -->
+    <div style="overflow: auto; padding-left: 20%">
+        <div class="box">
+            <img src="/views/imgs/XSLB_LB01.png">
+            <h3>标题1</h3>
+            <p>描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本</p>
+            <a href="#">更多信息</a>
+        </div>
+        <div class="box">
+            <img src="/views/imgs/XSLB_LB03.png">
+            <h3>标题2</h3>
+            <p>描述文本描述文本描述文本描述文本描述文本描述文本</p>
+            <a href="#">更多信息</a>
+        </div>
+        <div class="box">
+            <img src="/views/imgs/XSLB_LB04.png">
+            <h3>标题3</h3>
+            <p>描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本</p>
+            <a href="#">更多信息</a>
+        </div>
+        <div class="box">
+            <img src="/views/imgs/XSLB_LB05.png">
+            <h3>标题4</h3>
+            <p>描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本描述文本</p>
+            <a href="#">更多信息</a>
+        </div>
+    </div>
+</body>
+</html>

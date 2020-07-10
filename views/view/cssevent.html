@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css 事件</title>
+
+    <style type="text/css">
+        /*
+            注意 这四个事件必须按以下顺序添加
+            一般只需要设置 hover 事件
+        */
+        a:link{ /* 访问前样式 只能用于a标签 */
+            color: blue;
+        }
+        a:visited{ /* 访问后样式 只能用于a标签 */
+            color: orange;
+        }
+        a:hover{    /* 鼠标进入 */
+            color: green;
+        }
+        a:active{ /* 鼠标按下 */
+            color: red;
+        }
+
+        /*
+            :after      向标签后添加内容
+            :before     向标签前添加内容
+        */
+        #ab:before{
+            content: "before ";
+            color: green;
+        }
+        #ab:after{
+            content: " after";
+            color: orange;
+        }
+        /*
+          用nth-of-type实现隔行变色效果
+        */
+        li{
+            background-color: green;
+        }
+        li:nth-of-type(2n){ /* 2n 表示所有偶数行 */
+            background-color: orange;
+        }
+        /* 所有只有一个该类型子标签的标签 */
+        div:only-of-type{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <a href="">这是测试事件</a>
+    <div id="ab">
+        medium
+    </div>
+    <ul>
+        <li>aaaaaaaaaaaaaaa</li>
+        <div>ddddddddddddd</div>
+        <li>aaaaaaaaaaaaaaa</li>
+        <li>aaaaaaaaaaaaaaa</li>
+        <li>aaaaaaaaaaaaaaa</li>
+        <li>aaaaaaaaaaaaaaa</li>
+        <li>aaaaaaaaaaaaaaa</li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单表格</title>
+
+    <style type="text/css">
+        table caption {
+           text-align: left;        /* 文字靠左 */
+           font-weight: bold;       /* 粗体 */
+           font-size: 24px;         /* 字体大小 */
+           color: darkgray;         /* 颜色 */
+           font-style: italic;      /* 斜体 */
+           caption-side: bottom;    /* 显示位置 底部 */
+        }
+        table th{
+            text-align: center;
+        }
+        table td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table border="1px" cellspacing="0" >
+        <caption>前端技术阶段划分标准</caption>
+        <tbody>
+            <colgroup span="1" width="150px" ></colgroup>
+            <colgroup span="4" width="200px" ></colgroup>
+            <tr>
+                <th></th>
+                <th>初级</th>
+                <th>中级</th>
+                <th>高级</th>
+                <th>专家</th>
+            </tr>
+            <tr>
+                <td>标准</td>
+                <td>被产品怼得说不出话</td>
+                <td>跟产品经理互怼不相上下</td>
+                <td>怼得产品经理无话可说</td>
+                <td>直接将产品经理怼辞职</td>
+            </tr>
+            <tr>
+                <td>张三</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>李四</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>王五</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

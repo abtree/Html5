@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css 属性继承</title>
+    <style type="text/css">
+        /*
+        css的继承
+        文字相关的样式是可以继承的
+        布局样式默认是不能继承的，但可以设置继承
+        */
+        div{
+            border: 1px solid black;  /* 默认不继承 */
+            color: red;         /* 默认直接继承 */
+            font-size: 24px;    /* 默认直接继承 */
+        }
+        div p {
+            border: inherit;    /* 设置继承父标签的边框 */
+            font-size: initial; /* 设置为默认值 取消继承 */
+        }
+    </style>
+</head>
+<body>
+ <div>
+     测试CSS的继承
+     <p>测试CSS的继承</p>
+ </div>
+</body>
+</html>

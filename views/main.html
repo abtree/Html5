@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+
+    <style type="text/css">
+        /*
+        css 样式表权重值计算 : 原则 选择范围越小 权重值越高
+
+        行内选择器： 权重值 1000       // <a style=""></a>
+        id选择器： 权重值 100          // <a id=""></a>
+        class选择器 ： 权重值 10       // <a class=""></a>
+        标签选择器 ： 权重值 1         // <a></a>
+        通用选择器（*） ： 权重值 0     // *
+
+        如： #box p .tt 权重值为 100 + 1 + 10 = 111
+        */
+        /*
+            css 层次选择器
+            M N     后代选择器 会递归找M下面的所有N选择器 包括N下面的N标签
+            M > N   父子选择器 会找M下面第一层的N标签不会找N下面的N标签
+            M ~ N   兄弟选择器 找寻与M同层的所有N标签
+            M + N   相邻选择器 找M下面的第一个N标签
+        */
+        /*
+            css 属性选择器
+            M[attr] 选择 M元素中指定了attr的元素
+            M[attr=value] 选择 M元素中attr=value的元素 全字匹配 只能匹配<div class="value" />
+            M[attr*=value] 选择M元素中attr值包含value的元素 如 <div class="value" /> <div class="value-other" /> 都能被选中 只要包含value
+            M[attr^=value] 选择M元素中attr的起始值为value的集合 只要属性值以value开始的都能匹配 如上
+            M[attr$=value] 选择M元素中attr的结束值为value的集合  只要属性值以value结尾的都能匹配
+            M[attr1][attr1] 选择M元素中同时设置attr1和attr2的集合
+        */
+    </style>
+    <!-- base标签用于辅助a标签设置默认属性 -->
+    <base target="_blank" />
+</head>
+<body>
+    <ul>
+        <li><a href="/views/view/blog.html" >博客</a></li>
+        <li><a href="/views/view/images.html" >图片列表</a></li>
+        <li><a href="/views/view/table1.html" >简单表格</a></li>
+        <li><a href="/views/view/table2.html" >个人简历</a></li>
+        <li><a href="/views/view/description.html" >简介</a></li>
+        <li><a href="/views/view/navgation.html" >页面布局</a></li>
+        <li><a href="/views/view/backimg.html" >背景图</a></li>
+        <li><a href="/views/view/supsub.html" >上标下标</a></li>
+        <li><a href="/views/view/float.html" >元素浮动</a></li>
+        <li><a href="/views/view/display.html" >改变元素的类型和hover</a></li>
+        <li><a href="/views/view/aposition.html" >a标签定位</a></li>
+        <li><a href="/views/view/formfor.html">表单关联</a></li>
+        <li><a href="/views/view/attachbg.html">固定背景效果</a></li>
+        <li><a href="/views/view/cssevent.html">css事件(伪类)</a></li>
+        <li><a href="/views/view/inherit.html">css继承</a></li>
+    </ul>
+</body>
+</html>
