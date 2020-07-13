@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>横向排版样式</title>
+
+    <style type="text/css">
+        body,dt,dd{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        #news {
+            width: 80%;
+            margin: 0 auto;
+        }
+        #news dt,dd{
+            float: left;
+        }
+        #news dt{
+            width: 30%;
+            border: black 1px solid;
+            box-sizing: border-box;
+        }
+        #news dd{
+            width: 70%;
+        }
+        #news dd ul li{
+            width: 49%;
+            float: left;
+            margin-right: 1%;
+            margin-bottom: 30px;
+        }
+        #news dd ul li div{
+            float: left;
+        }
+        #news dd ul li .news_date{
+            width: 20%;
+            text-align: center;
+            border-right: 1px gray solid;
+            box-sizing: border-box;
+            height: 200px;
+        }
+        #news dd ul li .news_text{
+            width: 80%;
+            box-sizing: border-box;
+            padding-left: 5%;
+            height: 200px;
+        }
+        #news dd ul li .news_date i{
+            font-size: 44px;
+            font-weight: bold;
+            color: aqua;
+            line-height: 120px;
+            display: block;
+            float: left;
+            width: 100%;
+        }
+        #news dd ul li .news_date span{
+            display: block;
+            float: left;
+            width: 100%;
+            font-size: 18px;
+            line-height: 20px;
+        }
+        #news dd ul li .news_text h3{
+            line-height: 80px;
+        }
+        #news dd ul li .news_text p{
+
+        }
+    </style>
+</head>
+<body>
+    <div id="news">
+        <dl>
+            <dt>
+                <img src="/views/imgs/eff_hx_zhfz_book_01.png" width="100%" />
+            </dt>
+            <dd>
+                <ul>
+                    <li>
+                        <div class="news_date">
+                            <i>09</i>
+                            <span>Jan</span>
+                        </div>
+                        <div class="news_text">
+                            <h3><a href="#">网站进入排名前三的技巧</a></h3>
+                            <p>很多客户都会纳闷为什么自己的网站老是优化不到搜索引擎首页，更不用说进入首页前三了。那么网站优...</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="news_date">
+                            <i>09</i>
+                            <span>Jan</span>
+                        </div>
+                        <div class="news_text">
+                            <h3><a href="#">网站进入排名前三的技巧</a></h3>
+                            <p>很多客户都会纳闷为什么自己的网站老是优化不到搜索引擎首页，更不用说进入首页前三了。那么网站优...</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="news_date">
+                            <i>09</i>
+                            <span>Jan</span>
+                        </div>
+                        <div class="news_text">
+                            <h3><a href="#">网站进入排名前三的技巧</a></h3>
+                            <p>很多客户都会纳闷为什么自己的网站老是优化不到搜索引擎首页，更不用说进入首页前三了。那么网站优...</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="news_date">
+                            <i>09</i>
+                            <span>Jan</span>
+                        </div>
+                        <div class="news_text">
+                            <h3><a href="#">网站进入排名前三的技巧</a></h3>
+                            <p>很多客户都会纳闷为什么自己的网站老是优化不到搜索引擎首页，更不用说进入首页前三了。那么网站优...</p>
+                        </div>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</body>
+</html>
