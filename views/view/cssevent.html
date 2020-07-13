@@ -47,6 +47,18 @@
         div:only-of-type{
             background-color: red;
         }
+        #addblock{
+            border: 1px black solid;
+        }
+        #addblock:after{
+            /*
+                这里给div内添加一个空的块元素
+                并且清除float 这样父div就会被他撑开
+            */
+            content: "";
+            display: block;
+            clear: both;
+        }
     </style>
 </head>
 <body>
@@ -63,5 +75,8 @@
         <li>aaaaaaaaaaaaaaa</li>
         <li>aaaaaaaaaaaaaaa</li>
     </ul>
+    <div id="addblock" >
+        <div style="float: left; width: 200px; height: 100px">after伪类把浮动的div的父元素撑开 效果如overflow：auto</div>
+    </div>
 </body>
 </html>

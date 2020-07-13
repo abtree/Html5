@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单下拉菜单</title>
+
+    <style type="text/css">
+        p{
+            text-align: center;
+        }
+        ul{
+            list-style: none;
+            display: none;
+            line-height: 24px;
+        }
+        div{
+            position: relative;
+            width: 200px;
+            margin: auto;
+            border: 1px black solid;
+        }
+        div ul{
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            width: 200px;
+            left: -1px;
+            background-color: white;
+            border: 1px black solid;
+        }
+        div:hover ul{
+            display: block;
+        }
+        div ul li:hover{
+            background-color: lightgray;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        菜单
+        <ul>
+            <li>下拉菜单</li>
+            <li>下拉菜单</li>
+            <li>下拉菜单</li>
+            <li>下拉菜单</li>
+            <li>下拉菜单</li>
+        </ul>
+    </div>
+    <p>这是下面的文字 为了测试效果</p>
+</body>
+</html>

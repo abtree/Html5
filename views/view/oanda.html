@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>处理越界和透明度</title>
+
+    <style type="text/css">
+        div {
+            width: 200px;
+            height: 100px;
+            margin: 10px;
+        }
+        #rgba{
+            background-color: rgba(255, 0, 0, 0.5);
+            overflow: auto;
+        }
+        #opac{
+            background-color: red;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div id="rgba">
+        文字不继承半透明效果，并且超框后会出现滚动条
+        文字不继承半透明效果，并且超框后会出现滚动条
+        文字不继承半透明效果，并且超框后会出现滚动条
+        文字不继承半透明效果，并且超框后会出现滚动条
+        文字不继承半透明效果，并且超框后会出现滚动条
+    </div>
+    <div id="opac">
+        文字也继承了半透明效果
+    </div>
+</body>
+</html>
