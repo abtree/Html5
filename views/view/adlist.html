@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>广告列表</title>
+
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .l {
+            float: left;
+        }
+        .adlist{
+            width: 500px;
+            height: 220px;
+            border-bottom: 1px black solid;
+        }
+        .adlist .adlist_left{
+            width: 180px;
+            height: 178px;
+            margin: 20px 20px;
+            border: 1px black solid;
+            position: relative;
+            overflow: hidden;   /* 溢出隐藏 */
+        }
+        .adlist .adlist_left img{
+            width: 100%;
+        }
+        .adlist .adlist_left .adlist_left_border{
+            position: absolute;
+            width: 138px;
+            height: 141px;
+            left:20px;
+            top:19px;
+            border: 1px gray solid;
+
+            transform-origin: 0 0;      /* 以左上点为中心点变化 */
+            transition-duration: 1s;
+            transform: translate(0, -50px)  rotate(-90deg);
+        }
+        .adlist .adlist_left .adlist_left_text{
+            position: absolute;
+            width: 118px;
+            left: 30px;
+            height: 12px;
+            text-align: center;
+            font-size: 12px;
+            bottom: 49px;
+            color: red;
+
+            transform-origin: 0 0;      /* 以左上点为中心点变化 */
+            transition-duration: 1s;
+            transform: translate(0, 80px);
+        }
+        .adlist .adlist_desc{
+            width: 250px;
+            margin-top: 50px;
+        }
+        .adlist:hover .adlist_left_border{
+            transform: translate(0, 0) rotate(0);
+        }
+        .adlist:hover .adlist_left_text{
+            transform: translate(0, 0);
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li class="adlist">
+            <div class="adlist_left l">
+                <img src="/views/imgs/eff_hmm_buff_hjnw_skill_bb_alpha.png" alt="" />
+                <div class="adlist_left_border"></div>
+                <div class="adlist_left_text">Hover文字</div>
+            </div>
+            <div class="adlist_desc l">
+                描述文字,描述文字,描述文字,描述文字描述文字,描述文字描述文字描述文字描述文字
+            </div>
+        </li>
+        <li class="adlist">
+            <div class="adlist_left l">
+                <img src="/views/imgs/eff_hmm_buff_hjnw_skill_bb_alpha.png" alt="" />
+                <div class="adlist_left_border"></div>
+                <div class="adlist_left_text">Hover文字</div>
+            </div>
+            <div class="adlist_desc l">
+                描述文字,描述文字,描述文字,描述文字描述文字,描述文字描述文字描述文字描述文字
+            </div>
+        </li>
+        <li class="adlist">
+            <div class="adlist_left l">
+                <img src="/views/imgs/eff_hmm_buff_hjnw_skill_bb_alpha.png" alt="" />
+                <div class="adlist_left_border"></div>
+                <div class="adlist_left_text">Hover文字</div>
+            </div>
+            <div class="adlist_desc l">
+                描述文字,描述文字,描述文字,描述文字描述文字,描述文字描述文字描述文字描述文字
+            </div>
+        </li>
+        <li class="adlist">
+            <div class="adlist_left l">
+                <img src="/views/imgs/eff_hmm_buff_hjnw_skill_bb_alpha.png" alt="" />
+                <div class="adlist_left_border"></div>
+                <div class="adlist_left_text">Hover文字</div>
+            </div>
+            <div class="adlist_desc l">
+                描述文字,描述文字,描述文字,描述文字描述文字,描述文字描述文字描述文字描述文字
+            </div>
+        </li>
+    </ul>
+</body>
+</html>

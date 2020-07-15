@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>位移 缩放 旋转 斜切</title>
+    <style type="text/css">
+        #translate,#scare,#rotate,#skew{
+            width: 200px;
+            height: 200px;
+            border: black 1px solid;
+        }
+        #translate div,#scare div,#rotate div,#skew div{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+
+            transition-duration: 1s;
+        }
+        #translate:hover div{
+            transform: translate(50px, 50px);
+        }
+        #scare:hover div{
+            transform: scale(0.5, 0.5); /* 比例 */
+        }
+        #rotate:hover div{
+            transform: rotate(45deg);    /* 角度deg 或 弧度 */
+        }
+        #skew:hover div{
+            transform: skew(12deg, 24deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="translate">
+        <div></div>
+    </div>
+    <div id="scare">
+        <div></div>
+    </div>
+    <div id="rotate">
+        <div></div>
+    </div>
+    <div id="skew">
+        <div></div>
+    </div>
+</body>
+</html>

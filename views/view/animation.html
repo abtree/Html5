@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画</title>
+    <style type="text/css">
+        .box1{
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            border: 1px black solid;
+        }
+        .box1 .box2{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        .box1:hover .box2{
+            animation-name: myMove;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes myMove {
+            form{ /* 0% */
+                transform: translate(0, 0) scale(1, 1);
+            }
+            25%{
+                transform: translate(200px, 0px) scale(0.5, 0.5);
+            }
+            50%{
+                transform: translate(200px, 200px) scale(1, 1);
+            }
+            75%{
+                transform: translate(0px, 200px) scale(1.5, 1.5);
+            }
+            to{ /* 100% */
+                transform: translate(0, 0) scale(1, 1);
+            }
+        }
+
+        ul {
+            width: 150px;
+            height: 50px;
+            list-style: none;
+            margin: 0 auto;
+        }
+        ul li{
+            width: 50px;
+            height: 50px;
+            float: left;
+            position: relative;
+        }
+        ul li img{
+            width: 30px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -15px 0 0 -15px;
+        }
+
+        ul li:hover img{
+            animation-name: myJump;
+            animation-duration: 0.5s;
+        }
+        @keyframes myJump {
+            0%{
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            60%{
+                transform: translate(0, -30px);
+                opacity: 0;
+            }
+            61%{
+                transform: translate(0, 30px);
+                opacity: 0;
+            }
+            100%{
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+        }
+
+        .loading{
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .loading .loading_p4,.loading_p8{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .loading .loading_p4 div,.loading_p8 div{
+            width: 10px;
+            height: 10px;
+            background-color: blue;
+            border-radius: 50%;
+            border: 1px blue solid;
+            position: absolute;
+
+            animation-name: myScale;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes myScale {
+            0%{ transform: scale(1); }
+            50%{ transform: scale(0); }
+            100%{ transform: scale(1); }
+        }
+        .loading .loading_p8{
+            transform: rotate(45deg);
+        }
+        .loading .loading_p4 div:nth-of-type(1){
+            top: 0;
+            left: 0;
+
+            animation-delay: 0s;
+        }
+        .loading .loading_p4 div:nth-of-type(2){
+            top: 0;
+            right: 0;
+
+            animation-delay: 0.4s;
+        }
+        .loading .loading_p4 div:nth-of-type(3){
+            bottom: 0;
+            right: 0;
+
+            animation-delay: 0.8s;
+        }
+        .loading .loading_p4 div:nth-of-type(4){
+            bottom: 0;
+            left: 0;
+
+            animation-delay: 1.2s;
+        }
+        .loading .loading_p8 div:nth-of-type(1){
+            top: 0;
+            left: 0;
+
+            animation-delay: 0.2s;
+        }
+        .loading .loading_p8 div:nth-of-type(2){
+            top: 0;
+            right: 0;
+
+            animation-delay: 0.6s;
+        }
+        .loading .loading_p8 div:nth-of-type(3){
+            bottom: 0;
+            right: 0;
+
+            animation-delay: 1s;
+        }
+        .loading .loading_p8 div:nth-of-type(4){
+            bottom: 0;
+            left: 0;
+
+            animation-delay: 1.4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="box2"></div>
+    </div>
+
+    <ul>
+        <li>
+            <img src="/views/imgs/eff_hx_buff_01.png" />
+        </li>
+        <li>
+            <img src="/views/imgs/eff_hx_buff_02.png" />
+        </li>
+        <li>
+            <img src="/views/imgs/eff_hx_buff_03.png" />
+        </li>
+    </ul>
+
+    <div class="loading">
+        <div class="loading_p4">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="loading_p8">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</body>
+</html>
