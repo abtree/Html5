@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D相关</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .container{
+            width: 500px;
+            height: 500px;
+            border: 1px gray dashed;
+            margin: 30px auto;
+
+            perspective: 200px;   /* 景深 摄像机离画面的距离 */
+            backface-visibility: hidden;
+        }
+        .container .box{
+            width: 100px;
+            height: 100px;
+
+            position: relative;
+            margin: 200px auto;
+
+            transform-style: preserve-3d;   /* 设置3d模式 */
+            transition-duration: 4s;
+            transform-origin: center center -50px;
+        }
+        .container .box li{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            line-height: 100px;
+            text-align: center;
+            opacity: 0.5;
+        }
+        .container .box .box_front{
+            background-color: red;
+            left: 0;
+            top: 0;
+        }
+        .container .box .box_left{
+            background-color: orange;
+            left: -100px;
+            top: 0;
+
+            transform-origin: right;
+            transform: rotateY(-90deg);
+        }
+        .container .box .box_right{
+            background-color: yellow;
+            right: -100px;
+            top: 0;
+
+            transform-origin: left;
+            transform: rotateY(90deg);
+        }
+        .container .box .box_up{
+            background-color: green;
+            left: 0;
+            top: -100px;
+
+            transform-origin: bottom;
+            transform: rotateX(90deg);
+        }
+        .container .box .box_down{
+            background-color: blue;
+            left: 0;
+            bottom: -100px;
+
+            transform-origin: top;
+            transform: rotateX(-90deg);
+        }
+        .container .box .box_back{
+            background-color: purple;
+            left: 0;
+            top: 0;
+
+            transform: translateZ(-100px) rotateY(180deg);
+        }
+        .container:hover .box{
+            transform: rotateY(360deg);
+        }
+    </style>
+    <style type="text/css">
+        img{
+            display: block;
+        }
+        .Carousel{
+            width: 600px;
+            height: 300px;
+            border: 1px gray dashed;
+            margin: 30px auto;
+
+            perspective: 800px;
+        }
+        .Carousel ul{
+            width: 257px;
+            height: 143px;
+            position: relative;
+            margin: 50px auto;
+
+            transform-style: preserve-3d;
+            transition-duration: 8s;
+        }
+
+        .Carousel:hover ul{
+            transform: rotateY(360deg);
+        }
+
+        .Carousel ul li{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .Carousel ul li:nth-child(1){
+            transform: rotateY(0) translateZ(400px);
+        }
+        .Carousel ul li:nth-child(2){
+            transform: rotateY(60deg) translateZ(400px);
+        }
+        .Carousel ul li:nth-child(3){
+            transform: rotateY(120deg) translateZ(400px);
+        }
+        .Carousel ul li:nth-child(4){
+            transform: rotateY(180deg) translateZ(400px);
+        }
+        .Carousel ul li:nth-child(5){
+            transform: rotateY(240deg) translateZ(400px);
+        }
+        .Carousel ul li:nth-child(6){
+            transform: rotateY(300deg) translateZ(400px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul class="box">
+            <li class="box_front">1</li>
+            <li class="box_left">2</li>
+            <li class="box_right">3</li>
+            <li class="box_up">4</li>
+            <li class="box_down">5</li>
+            <li class="box_back">6</li>
+        </ul>
+    </div>
+
+    <div class="Carousel">
+        <ul>
+            <li>
+                <img src="/views/imgs/XSLB_LB01.png">
+            </li>
+            <li>
+                <img src="/views/imgs/XSLB_LB03.png">
+            </li>
+            <li>
+                <img src="/views/imgs/XSLB_LB04.png">
+            </li>
+            <li>
+                <img src="/views/imgs/XSLB_LB05.png">
+            </li>
+            <li>
+                <img src="/views/imgs/XSLB_LB06.png">
+            </li>
+            <li>
+                <img src="/views/imgs/XSLB_LB07.png">
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
