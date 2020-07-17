@@ -12,8 +12,8 @@
             list-style: none;
         }
         .container{
-            width: 500px;
-            height: 500px;
+            width: 200px;
+            height: 200px;
             border: 1px gray dashed;
             margin: 30px auto;
 
@@ -25,7 +25,7 @@
             height: 100px;
 
             position: relative;
-            margin: 200px auto;
+            margin: 50px auto;
 
             transform-style: preserve-3d;   /* 设置3d模式 */
             transition-duration: 4s;
@@ -139,6 +139,51 @@
             transform: rotateY(300deg) translateZ(400px);
         }
     </style>
+    <style type="text/css">
+        .Reverse{
+            width: 500px;
+            height: 300px;
+            margin: 30px auto;
+            border: 1px gray dashed;
+
+            perspective: 200px;
+        }
+        .Reverse ul{
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 50px auto;
+        }
+        .Reverse ul li{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transition-duration: 1s;
+            backface-visibility: hidden;
+        }
+        .Reverse ul li img{
+            width: 100%;
+        }
+        .Reverse ul li:nth-child(1){
+            top: 0;
+            left: 0;
+
+            transform: rotateY(0);
+        }
+        .Reverse ul li:nth-child(2){
+            top: 0;
+            left: 0;
+
+            transform: rotateY(-180deg);
+        }
+        .Reverse ul:hover li:nth-child(1){
+            transform: rotateY(-180deg);
+        }
+        .Reverse ul:hover li:nth-child(2){
+            transform: rotateY(0);
+        }
+
+    </style>
 </head>
 <body>
     <div class="container">
@@ -171,6 +216,17 @@
             </li>
             <li>
                 <img src="/views/imgs/XSLB_LB07.png">
+            </li>
+        </ul>
+    </div>
+
+    <div class="Reverse">
+        <ul>
+            <li>
+                <img src="/views/imgs/eff_hx_zhfz_book_01.png">
+            </li>
+            <li>
+                <img src="/views/imgs/eff_hx_zhfz_book_02.png">
             </li>
         </ul>
     </div>

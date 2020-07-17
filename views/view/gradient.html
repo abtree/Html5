@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>渐变</title>
+
+    <style type="text/css">
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px black solid;
+        }
+        .line{
+            background-image: linear-gradient(to right bottom, red, blue, green);
+        }
+        .angle{
+            /* 0度 == center bottom */
+            /* -45度 == left bottom 逆时针旋转45deg */
+            /* 45度 == right bottom 顺时针旋转45deg */
+            background-image: linear-gradient(-45deg, red, blue, green, yellow);
+        }
+        .half{
+            background-image: linear-gradient(to right bottom, red 50%, blue 50%);
+        }
+        .radial{
+            background-image: radial-gradient(red, blue, yellow);
+        }
+        .process{
+            width: 300px;
+            height: 30px;
+            border: 1px black solid;
+            background-image: linear-gradient(to right top,#999 25%, #080 25%,#080 50%, #999 50%, #999 75%, #080 75%);
+            background-size: 30px 30px;  /* 缩小尺寸 利用repeat填满整个空间 */
+            background-repeat: repeat-x;
+
+            animation-name: myMove;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;  /* 指定线性运动 匀速运动 */
+
+            transition-duration: 2s;
+            transform-origin: left;
+            transition-timing-function: linear;
+        }
+        @keyframes myMove {
+            from{
+                background-position: 0 0;
+            }
+            to{
+                background-position: 300px 0;
+            }
+        }
+        .process:hover{
+            transform: scaleX(2);
+        }
+    </style>
+</head>
+<body>
+<div class="line"></div>
+<div class="angle"></div>
+<div class="half"></div>
+<div class="radial"></div>
+<div class="process"></div>
+</body>
+</html>
