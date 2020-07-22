@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>遮罩 模糊 和 计算</title>
+
+    <style type="text/css">
+        .mask{
+            width: 300px;
+            height: 300px;
+            background: url("/views/imgs/eff_hx_zhfz_book_01.png") no-repeat;
+            background-size: contain;
+            -webkit-mask: url("/views/imgs/eff_hmm_buff_hjnw_skill_bb_alpha.png") no-repeat center center/100px 100px;
+            /* 可以设置多遮罩 逗号分割 */
+        }
+        .mask:hover{
+            -webkit-mask-size: contain;
+        }
+        .blur{
+            filter: blur(10px);
+        }
+        .blur:hover{
+            filter: blur(0);
+        }
+        .big{
+            width: 300px;
+            height: 200px;
+            border:1px black solid;
+        }
+        .big div{
+            width: calc(100% - 50px);   /* 这里表示 比父容器width小50px */
+            height: 50px;
+            background-color: blue;
+            transition-duration: 2s;
+            transition-timing-function: linear;
+        }
+        .big:hover{
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+<div class="mask"></div>
+<img src="/views/imgs/XSLB_LB01.png" class="blur" />
+<div class="big">
+    <div></div>
+</div>
+</body>
+</html>
