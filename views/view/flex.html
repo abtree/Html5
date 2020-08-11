@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹性</title>
+
+    <style type="text/css">
+        .l{
+            float: left;
+        }
+
+        #box1{ width: 100px; height: 100px; border: gray 1px dotted;
+            display: flex;  /* 设置为弹性布局 */
+        }
+        #box1 > div{ width: 20px; height:20px; font-size: 12px; line-height: 20px;
+            background-color: #ff2200; border: black 1px solid; text-align: center;
+            margin: auto;   /* 这样就可以在垂直方向上使用auto了 */
+        }
+
+        #box2{ width: 100px; height: 100px; border: gray 1px dotted;
+            display: flex;
+            flex-direction: column-reverse; /* 有多个子div时 可设置其排列方式 */
+        }
+        #box2 > div{ width: 20px; height:20px; font-size: 12px; line-height: 20px;
+            background-color: #ff2200; border: black 1px solid; text-align: center;}
+        #box2 div:nth-child(2){
+            background-color: #ff8800;
+            order: 1;  /* 设置flex中的排序 值越大 排越后 默认为0 */
+        }
+
+        #box3{ width: 100px; height: 100px; border: gray 1px dotted;
+            display: flex;
+            flex-wrap: wrap;   /* 设置是否自动换行 */
+        }
+        #box3 > div{ width: 20px; height:20px; font-size: 12px; line-height: 20px;
+            background-color: #ff2200; border: black 1px solid; text-align: center;}
+
+        #box4{ width: 100px; height: 100px; border: gray 1px dotted;
+            display: flex;
+            flex-flow: row-reverse wrap;   /* flex-flow = flex-direction + flex-wrap */
+        }
+        #box4 > div{ width: 20px; height:20px; font-size: 12px; line-height: 20px;
+            background-color: #ff2200; border: black 1px solid; text-align: center;}
+
+        #box5{ width: 100px; height: 100px; border: gray 1px dotted;
+            display: flex;
+            justify-content: space-around; /* 设置对其方式 */
+        }
+        #box5 > div{ width: 20px; height:20px; font-size: 12px; line-height: 20px;
+            background-color: #ff2200; border: black 1px solid; text-align: center;}
+
+        #box6{ width: 100px; height: 100px; border: gray 1px dotted;
+            display: flex; flex-wrap: wrap;
+            align-items: center;    /* 行内的对齐方式 */
+            align-content: space-around;    /* 多行间的对齐方式 */
+        }
+        #box6 > div{ width: 20px; font-size: 12px; background-color: #ff2200; border: black 1px solid;
+            text-align: center; overflow: auto; word-break: break-all; }
+        #box6 div:nth-child(1){
+            background-color: #ff8800;
+            align-self: flex-start; /* 单独设置某一个元素的对齐方式 */
+        }
+
+        #box7{ width: 100px; height: 100px; border: gray 1px dotted;
+            display: flex;
+        }
+        #box7 > div{ width: 20px; height:20px; font-size: 12px; line-height: 20px;
+            background-color: #ff2200; border: black 1px solid; text-align: center;}
+        #box7 div:nth-child(2){
+            background-color: #ff8800;
+            flex-grow: 1;   /* 占满剩余空间 */
+        }
+
+        #box8{ width: 100px; height: 100px; border: gray 1px dotted;
+            display: flex;
+        }
+        #box8 > div{ width: 20px; height:20px; font-size: 12px; line-height: 20px;
+            background-color: #ff2200; border: black 1px solid; text-align: center;}
+        #box8 div:nth-child(2){
+            background-color: #ff8800;
+            flex-shrink: 0; /* 当剩余空间不足时 该项不收缩 */
+            /* flex = flex-grow + flex-shrink + flex-basis */
+            /* flex-basis 可设置放大或收缩的基准值 功能类似于设置width或height */
+        }
+    </style>
+</head>
+<body>
+<div class="l" id="box1">
+    <div>1</div>
+</div>
+
+<div class="l" id="box2">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+</div>
+
+<div class="l" id="box3">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+    <div>7</div>
+    <div>8</div>
+</div>
+
+<div class="l" id="box4">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+</div>
+
+<div class="l" id="box5">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+</div>
+
+<div class="l" id="box6">
+    <div>1111</div>
+    <div>222</div>
+    <div>33333</div>
+    <div>444</div>
+    <div>5555</div>
+    <div>666</div>
+</div>
+
+<div class="l" id="box7">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+</div>
+
+<div class="l" id="box8">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+</div>
+
+</body>
+</html>
