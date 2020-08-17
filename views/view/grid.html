@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网格布局</title>
+
+    <style type="text/css">
+        div{
+            border: 1px gray dashed;
+        }
+
+        body > div{
+            margin: 10px;
+            float: left;
+        }
+
+        #box1{
+            width: 300px; height: 300px; border: 1px black solid;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* repeat(3, 1fr); == 1fr 1fr 1fr */
+        }
+
+        #box2 {
+            width: 300px; height: 300px; border: 1px black solid;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* repeat(3, 1fr); == 1fr 1fr 1fr */
+            grid-template-areas:
+                    "a1 a1 a1"
+                    "a2 a2 a3"
+                    "a2 a2 a3";
+        }
+        #box2 div:nth-child(1){ grid-area: a1;}
+        #box2 div:nth-child(2){ grid-area: a2;}
+        #box2 div:nth-child(3){ grid-area: a3;}
+
+        #box3{
+            width: 300px; height: 300px; border: 1px black solid;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* repeat(3, 1fr); == 1fr 1fr 1fr */
+
+            justify-items: center;  /* 设置水平方向内容居中 */
+            align-items: center;    /* 设置垂直方向内容居中 */
+        }
+        #box3 div{
+            background-color: red;
+        }
+
+        #box4{
+             width: 300px; height: 300px; border: 1px black solid;
+             display: grid;
+             grid-template-rows: repeat(3, 1fr);
+             grid-template-columns: repeat(3, 1fr); /* repeat(3, 1fr); == 1fr 1fr 1fr */
+
+             grid-column-gap: 10px;  /* 设置边距 */
+             grid-row-gap: 10px;
+         }
+        #box4 div{
+            background-color: red;
+        }
+
+        #box5{
+            width: 300px; height: 300px; border: 1px black solid;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* repeat(3, 1fr); == 1fr 1fr 1fr */
+        }
+        #box5 div{
+            background-color: red;
+            grid-column-start: 2;   /* 表示列从2 - 3 */
+            grid-column-end: 3;
+            grid-row-start: 1;  /* 表示行从1 */
+            grid-row-end: span 2; /* 表示行站2个格子 */
+        }
+    </style>
+    <style type="text/css">
+        #touzi{
+            clear: both;
+            display: flex;
+            border: initial;
+        }
+        #touzi > div{
+            width: 100px;
+            height: 100px;
+            border: 1px black solid;
+            display: grid;
+        }
+        #touzi div div{
+            background: black;
+            border: initial;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            justify-self: center;
+            align-self: center;
+        }
+        #touzi #touzi1{
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr;
+        }
+        #touzi #touzi2{
+            grid-template-rows: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+        }
+        #touzi #touzi2 div:first-child{
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+        #touzi #touzi2 div:last-child{
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+        }
+        #touzi #touzi3{
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+        }
+        #touzi #touzi3 div:first-child{
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+        #touzi #touzi3 div:nth-child(2){
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+        }
+        #touzi #touzi3 div:last-child{
+            grid-column: 3 / 4;
+            grid-row: 3 / 4;
+        }
+        #touzi #touzi4{
+            grid-template-rows: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+        }
+        #touzi #touzi5{
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+        }
+        #touzi #touzi5 div:nth-child(1){
+            grid-column: 1/span 1;
+            grid-row: 1/ span 1;
+        }
+        #touzi #touzi5 div:nth-child(2){
+            grid-column: 1/span 1;
+            grid-row: 3/ span 1;
+        }
+        #touzi #touzi5 div:nth-child(3){
+            grid-column: 2/span 1;
+            grid-row: 2/ span 1;
+        }
+        #touzi #touzi5 div:nth-child(4){
+            grid-column: 3/span 1;
+            grid-row: 1/ span 1;
+        }
+        #touzi #touzi5 div:nth-child(5){
+            grid-column: 3/span 1;
+            grid-row: 3/ span 1;
+        }
+        #touzi #touzi6{
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+        }
+    </style>
+</head>
+<body>
+<div id="box1">
+    <div>1</div><div>2</div><div>3</div>
+    <div>4</div><div>5</div><div>6</div>
+    <div>7</div><div>8</div><div>9</div>
+</div>
+
+<div id="box2">
+    <div>1</div><div>2</div><div>3</div>
+</div>
+
+<div id="box3">
+    <div>1</div><div>2</div><div>3</div>
+    <div>4</div><div>5</div><div>6</div>
+    <div>7</div><div>8</div><div>9</div>
+</div>
+
+<div id="box4">
+    <div>1</div><div>2</div><div>3</div>
+    <div>4</div><div>5</div><div>6</div>
+    <div>7</div><div>8</div><div>9</div>
+</div>
+
+<div id="box5">
+    <div>1</div>
+</div>
+
+<div id="touzi">
+    <div id="touzi1">
+        <div></div>
+    </div>
+    <div id="touzi2">
+        <div></div>
+        <div></div>
+    </div>
+    <div id="touzi3">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id="touzi4">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id="touzi5">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id="touzi6">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+</body>
+</html>
