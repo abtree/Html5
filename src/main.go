@@ -1,12 +1,12 @@
 package main
 
 import (
+	_ "HtmlBase/routes"
 	"log"
 	"net/http"
-	_ "routes"
 )
 
-func main()  {
+func main() {
 	err := http.ListenAndServe(":8082", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: 8082 ", err)

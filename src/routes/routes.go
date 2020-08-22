@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"controllers"
+	"HtmlBase/controllers"
 	"log"
 	"net/http"
 )
@@ -9,10 +9,10 @@ import (
 type HandleFnc func(http.ResponseWriter, *http.Request)
 
 //处理异常的闭包封装函数
-func logPanics(f HandleFnc)HandleFnc{
-	return func(w http.ResponseWriter, r *http.Request){
-		defer func(){
-			if x := recover(); x != nil{
+func logPanics(f HandleFnc) HandleFnc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if x := recover(); x != nil {
 				log.Printf("[%v] caught panic: %v", r.RemoteAddr, x)
 			}
 		}()
@@ -20,8 +20,8 @@ func logPanics(f HandleFnc)HandleFnc{
 	}
 }
 
-func init(){
-	http.Handle("/views/", http.StripPrefix("/views/", http.FileServer(http.Dir("views"))))
+func init() {
+	http.Handle("/views/", http.StripPrefix("/views/", http.FileServer(http.Dir("../views"))))
 
 	http.HandleFunc("/", logPanics(controllers.BaseCtr.Init))
 }
