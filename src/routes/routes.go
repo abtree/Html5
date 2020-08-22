@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"controllers"
+	"HtmlBase/controllers"
 	"log"
 	"net/http"
 )
@@ -21,7 +21,7 @@ func logPanics(f HandleFnc)HandleFnc{
 }
 
 func init(){
-	http.Handle("/views/", http.StripPrefix("/views/", http.FileServer(http.Dir("views"))))
+	http.Handle("/views/", http.StripPrefix("/views/", http.FileServer(http.Dir("../views"))))
 
 	http.HandleFunc("/", logPanics(controllers.BaseCtr.Init))
 }
