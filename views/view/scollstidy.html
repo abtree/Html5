@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(滚动捕捉)根据滚动条粘连</title>
+
+    <style type="text/css" >
+        .box{
+            width: 200px; height: 100px; border: 1px black solid; overflow: auto;
+        }
+        .box ul{
+            width: 600px; height: 90px;  list-style: none; display: flex; justify-content: space-around; scroll-snap-type: x mandatory;
+        }
+        .box ul li{
+            width: 100px; height: 50px; background-color: red;
+            scroll-snap-align: center; /* 目前该浏览器还不支持 */
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li>1111</li>
+            <li>2222</li>
+            <li>3333</li>
+            <li>4444</li>
+            <li>5555</li>
+        </ul>
+    </div>
+</body>
+</html>

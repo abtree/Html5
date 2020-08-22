@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字环绕效果</title>
+    <style type="text/css">
+    .box{
+        width: 300px;
+        height: 300px;
+        border: 1px black solid;
+    }
+    .box .shape{
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        border: 10px black solid;
+        margin: 10px;
+        float: left;
+        border-radius: 50%;
+        text-align: center;
+
+        shape-outside: margin-box;  /* 在margin区域环绕 */
+    }
+
+    .box1{
+        width: 300px;
+        height: 300px;
+        border: 1px black solid;
+    }
+    .box1 .shape1{
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        border: 10px black solid;
+        margin: 10px;
+        float: left;
+        text-align: center;
+        background-color: red;
+        
+        clip-path:  polygon(0 0, 0 100px, 100px 100px);
+        shape-outside: polygon(0 0, 0 100px, 100px 100px);
+        shape-margin: 15px; /* 设置环绕边距 */
+    }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="shape">aaa</div>
+        文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果
+    </div>
+
+    <div class="box1">
+        <div class="shape1">aaa</div>
+        文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果文字环绕效果
+    </div>
+</body>
+</html>

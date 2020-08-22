@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>变量</title>
+
+    <style type="text/css" >
+    :root{  /* 默认变量在这里定义 */
+        --color: red;
+        --number: 100px;
+        --number2 : 10;
+        --size: 12px;
+    }
+
+    .box{
+        --size: 18px;   /* 在这里也可以定义变量 */
+
+        background-color: var(--color);
+        width: var(--number);
+        height: calc(var(--number2) * 10px);
+        font-size: var(--size, 18px);
+    }
+    </style> 
+</head>
+<body>
+    <div class="box">aaaaaaaaaaaaa</div>
+</body>
+</html>

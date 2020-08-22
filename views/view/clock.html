@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时钟</title>
+    <style type="text/css" >
+    *{
+        margin: 0; padding: 0;
+    }
+    #clock{
+        width: 300px; height: 300px; border: 1px black solid; border-radius: 50%; margin: 0 auto; position: relative;
+    }
+    #clock ul{
+        width: 100%; height: 100%; position: relative; list-style: none;
+    }
+    #clock ul li{
+        width: 4px; height: 8px; background-color: black; position: absolute; left: 149px; top: 0; transform-origin: center 150px;
+    }
+    #clock #hour{
+        width: 6px; height: 50px; background-color: black; position:absolute; left: 149px; top:50%; transform-origin: center bottom; margin:-50px 0 0 -3px;
+    }
+    #clock #min{
+        width: 4px; height: 80px; background-color: black; position:absolute; left: 149px; top:50%; transform-origin: center bottom; margin: -80px 0 0 -2px;
+
+    }
+    #clock #sec{
+        width: 2px; height: 120px; background-color: black; position:absolute; left: 149px; top:50%; transform-origin: center bottom; margin: -120px 0 0 -1px;
+    }
+    #clock #boll{
+        width: 20px; height: 20px; background-color: blue; position:absolute; left: 149px; top: 50%; border-radius: 50%; margin: -10px 0 0 -10px;
+    }
+    </style>
+</head>
+<body>
+    <div id="clock">
+        <ul id="dot"></ul>
+        <div id="hour"></div>
+        <div id="min"></div>
+        <div id="sec"></div>
+        <div id="boll"></div>       
+    </div> 
+
+    <script type="text/javascript">
+        var dot = document.getElementById("dot");
+        for(var i = 0; i < 60; i++){
+            var liadd = document.createElement("li");
+            liadd.style.transform = "rotate("+(i * 6)+"deg)";
+            if(i % 5 === 0){
+                liadd.style.height = "15px";
+            }
+            dot.appendChild(liadd);
+        }
+
+        var eh = document.getElementById("hour");
+        var em = document.getElementById("min");
+        var es = document.getElementById("sec");
+
+        Run();
+        setInterval(Run, 1000);
+
+        function Run(){
+            var date = new Date();
+            var iH = date.getHours();
+            var iM = date.getMinutes();
+            var iS = date.getSeconds();
+
+            //console.log(date);
+
+            eh.style.transform = "rotate("+(iH* 30 + iM/2)+"deg)";
+            em.style.transform = "rotate("+(iM* 6)+"deg)";
+            es.style.transform = "rotate("+(iS* 6)+"deg)";
+        }
+    </script>
+</body>
+</html>

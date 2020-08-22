@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>响应式布局</title>
+    <style type="text/css">
+        *{
+            margin: 0; padding: 0;
+        }
+        .container{
+            padding-left: 15px; padding-right: 15px;
+        }
+        /* media属性可以用于link 并且可以判断移动设备的横屏和竖屏 */
+        @media all and (min-width: 768px) { /* 当屏幕尺寸大于768px时 用以下样式 */
+            .container{
+                width: 720px;
+            }
+        }
+        @media all and (min-width: 1080px) { /* 当屏幕尺寸大于1080px时 用以下样式 */
+            .container{
+                width: 980px;
+            }
+        }
+    </style>
+</head>
+<body>
+</body>
+    <div class="container"></div>
+</html>
