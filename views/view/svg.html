@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一个svg的简单样式</title>
+
+    <style type="text/css">
+    div{
+        width: 300px;
+        height: 300px;
+        margin: 100px auto;
+        /* border: 1px gray dashed; */
+    }
+    svg{
+        margin: 30px;
+        fill: none;
+    }
+    svg .load{
+        stroke: red;    /* border */
+        stroke-width: 20px;
+        stroke-dasharray: 504px;
+        stroke-dashoffset: 470px;
+        animation: load 2s ease-in-out infinite;
+        transform-origin: center center;
+    }
+    svg .load:nth-child(2){
+        stroke: yellow;
+        animation-delay: 0.07s;
+    }
+    svg .load:nth-child(3){
+        stroke: blue;
+        animation-delay: 0.14s;
+    }
+    @keyframes load{
+        0%, 100%{
+            stroke-dashoffset: 470px;
+        }
+        50%{
+            stroke-dashoffset: 500px;
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+
+    svg .point{
+        animation: point 1s ease-in-out infinite;
+    }
+    svg .point:nth-child(4){
+        fill: red;  /* 填充 */
+    }
+    svg .point:nth-child(5){
+        fill: yellow;
+        animation-delay: 0.1s;
+    }
+    svg .point:nth-child(6){
+        fill: blue;
+        animation-delay: 0.2s;
+    }
+    @keyframes point{
+        0%,50%,100%{
+            transform: translateY(0);
+        }
+        25%{
+            transform: translateY(-5px);
+        }
+        75%{
+            transform: translateY(5px);
+        }
+    }
+    </style>
+</head>
+<body>
+    <div>
+        <svg width="240px" height="240px" >
+            <circle class="load" cx="120px" cy="120px" r="80px" ></circle>
+            <circle class="load" cx="120px" cy="120px" r="80px" ></circle>
+            <circle class="load" cx="120px" cy="120px" r="80px" ></circle>
+            <circle class="point" cx="90px" cy="120px" r="10px" ></circle>
+            <circle class="point" cx="120px" cy="120px" r="10px" ></circle>
+            <circle class="point" cx="150px" cy="120px" r="10px" ></circle>
+        </svg>
+    </div>
+</body>
+</html>
