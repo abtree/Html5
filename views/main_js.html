@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript练习</title>
+    <style type="text/css">
+        ul{
+            width: 15%;
+            float: left;
+            margin-left: 50px;
+        }
+        ul li{
+            cursor: pointer;
+            color: blue;
+        }
+        ul li:hover{
+            text-decoration: underline;
+        }
+        #content{
+            float: left;
+            width: 80%;
+            height: 750px;
+        }
+    </style>
+    <script type="text/javascript">
+    window.onload = function(){
+        var ocontent = document.getElementById("content");
+        // var olis = document.querySelectorAll("ul li");
+        // for(var i in olis){
+        //     olis[i].onclick = function(){
+        //         ocontent.src = this.getAttribute("href");
+        //     }
+        // }
+
+        //采用委托
+        var oul = document.querySelector("ul");
+        oul.onclick = function(evt){
+            var e = evt || window.event;
+            var target = e.target || window.event.srcElement;
+            if(target.nodeName.toLowerCase() == "li"){
+                ocontent.src = target.getAttribute("href");
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <ul>
+        <li href="/views/view_js/mousehere.html">鼠标跟随事件</li>
+        <li href="/views/view_js/div_follow.html">div跟随鼠标事件</li>
+        <li href="/views/view_js/drag_div.html">div拖拽</li>
+        <li href="/views/view_js/chat.html">简单聊天功能</li>
+        <li href="/views/view_js/heart.html">心心(点击试试)</li>
+    </ul>
+    <iframe id="content" frameborder="1" scrolling="auto">
+    </iframe>
+</body>
+</html>

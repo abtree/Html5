@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Div拖拽</title>
+
+    <style type="text/css">
+        div{
+            width: 100px; height: 100px; background-color: red; box-shadow: 0px 5px 10px 3px #ccc;
+            position: fixed;
+        }
+        div:last-of-type{
+            background-color: blue;
+            top: 100px;
+        }
+    </style>
+
+    <script type="text/javascript" src="/views/js/drag.js" ></script>
+    <script type="text/javascript">
+    window.onload = function(){
+        var odiv = document.querySelectorAll("div");
+        darg(odiv[0]);
+        dargLimit(odiv[1]);
+    }
+    </script>
+</head>
+<body>
+    <div>不限制边框</div>
+    <div>限制边框</div>
+</body>
+</html>

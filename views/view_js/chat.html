@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天</title>
+    <style type="text/css">
+        #input_div{
+            width: 300px;
+            border: 1px solid black;
+            background-color: #ccc;
+            position: fixed;
+            z-index: 1;
+        }
+        #input_div textarea{
+            width: calc(100% - 5px);
+            border: none;
+        }
+        #input_div button{
+            display: block;
+            width: 130px;
+            margin: 5px auto;
+        }
+
+        #show_div{
+            position: absolute;
+            left: 350px;
+            top: 10px;
+            width: 500px;
+            border: 1px solid black;
+            background-color: #ccc;
+            min-height: 500px;
+        }
+        #show_div div{
+            border-bottom: gray 1px dashed;
+            padding: 3px;
+        }
+        #show_div div button{
+            float: right;
+        }
+    </style>
+
+    <script type="text/javascript" src="/views/js/drag.js"></script>
+    <script type="text/javascript">
+    window.onload = function(){
+        var txt = document.querySelector("#input_div textarea");
+        var subbtn = document.querySelector("#input_div button");
+        var showdiv = document.querySelector("#show_div");
+        var subdiv = document.querySelector("#input_div");
+        subbtn.onclick = function(){
+            if(txt.value == "")
+                return;
+            var nele = document.createElement("div")
+            var nt = document.createTextNode(txt.value);
+            nele.appendChild(nt);
+            var btn = document.createElement("button");
+            var nx = document.createTextNode("x");
+            btn.appendChild(nx);
+            nele.appendChild(btn);
+            showdiv.appendChild(nele);
+            txt.value = "";
+        }
+
+        window.onkeydown = function(evt){
+            if(txt.value == "")
+                return;
+            var e = evt || window.event;
+            var which = e.keyCode || e.which;
+            if(e.ctrlKey && which == 13){
+                subbtn.onclick();
+            }
+        }
+
+        dargLimit(subdiv);
+
+        showdiv.onclick = function(evt){
+            var e = evt || window.event;
+            var target = e.target || window.event.srcElement;
+            if(target.nodeName.toLowerCase() == "button"){
+                showdiv.removeChild(target.parentNode);
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="input_div">
+        <textarea rows="4" placeholder="请输入内容" ></textarea>
+        <button>提交(Ctrl+Enter)</button> 
+    </div>
+    <div id="show_div">
+        <div>xxxxxxx<button>x</button></div>
+        <div>xxxxxxx<button>x</button></div>
+        <div>xxxxxxx<button>x</button></div>
+    </div>
+</body>
+</html>

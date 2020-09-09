@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鼠标跟随事件</title>
+
+    <style type="text/css" >
+    .box{
+        width: 500px; height: 200px; display: flex; justify-content: space-between;
+        border: 1px dashed gray;
+        position: relative;
+    }
+    .box > p{
+        display: block;
+        width: 100px;
+        height: 100px;
+        background-color: burlywood;
+    }
+    .box > div{
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        background-color: gray;
+        color: white;
+        display: none;
+    }
+    </style>
+    
+    <script type="text/javascript">
+        window.onload = function(){
+            var ops = document.querySelectorAll(".box > p");
+            var tip = document.querySelector(".box > div");
+            for(var i in ops){
+                ops[i].onmouseenter = function(evt){
+                    var e = evt || window.event;
+                    tip.innerHTML = this.innerHTML;
+                    tip.style.display = 'block';
+                    tip.style.left = evt.clientX + 1 + 'px';
+                    tip.style.top = evt.clientY + 1 + 'px';
+                }
+                ops[i].onmouseleave = function(){
+                    tip.style.display = 'none';
+                }
+                ops[i].onmousemove = function(evt){
+                    var e = evt || window.event;
+                    tip.style.left = evt.clientX + 1 + 'px';
+                    tip.style.top = evt.clientY + 1 + 'px';
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="box" class="box">
+        <p>区域1</p>
+        <p>区域2</p>
+        <p>区域3</p>
+        <p>区域4</p>
+
+        <div></div>
+    </div>
+</body>
+</html>

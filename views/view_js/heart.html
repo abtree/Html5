@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心心</title>
+
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .heart{
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            background-color: red;
+            left: 500px;
+            top:500px;
+            /* transform: rotate(45deg) scale(0.2);  */
+            animation: ToUp 2s ease-in-out;
+            opacity: 0;
+        }
+        .heart::before{
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: absolute;
+            left: -50px;
+            background-color: inherit;
+        }
+        .heart::after{
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: absolute;
+            top:-50px;
+            background-color: inherit;
+        }
+        @keyframes ToUp {
+            0%{
+                opacity: 1;
+                transform: translateY(0) rotate(45deg) scale(0.2);
+            }
+            100%{
+                opacity: 0;
+                transform: translateY(-100px) rotate(45deg) scale(0.2);
+            }
+        }
+    </style>
+    <script type="text/javascript" src="/views/js/tools.js"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+            var oh = document.querySelector(".heart");
+            window.onclick = function(evt){
+                var e = evt || window.event;
+                var clone = oh.cloneNode(true);
+                clone.style.top = e.clientY + 'px';
+                clone.style.left = e.clientX + 'px';
+                clone.style.backgroundColor = randColor();
+                document.body.appendChild(clone);
+
+                window.setTimeout(function(){
+                    document.body.removeChild(clone);
+                }, 2000);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="heart"></div>
+</body>
+</html>
