@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打砖块</title>
+
+    <style type="text/css">
+        #contianer{
+            width: 700px; height: 700px; border: 1px solid black;
+            margin: 100px auto; position: relative;
+        }
+        #contianer #block{
+            width: 700px; height: 200px; 
+            /* display: grid; grid-template-rows: repeat(10, 1fr); grid-template-columns: repeat(7, 1fr); */
+        }
+         #contianer #block > div{
+            width: 100px; height: 20px; float: left;
+        }
+        #contianer #boll{
+            width: 20px; height: 20px; background-color: red; border-radius: 50%;
+            position: absolute; bottom: 20px; left: 340px;
+        }
+        #contianer #bat{
+            width: 100px; height: 20px; background-color: blue; position: absolute;
+            bottom: 0; left: 300px;
+        }
+        p{
+            text-align: center;
+        }
+    </style>
+
+    <script type="text/javascript" src="/views/js/tools.js"></script>
+    <script type="text/javascript" src="/views/js/knock.js"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+            var block = document.querySelector("#contianer #block");
+            var boll = document.querySelector("#contianer #boll");
+            var bat = document.querySelector("#contianer #bat");
+            //添加砖块
+            for(var i =0; i<70; i++){
+                let div = document.createElement("div");
+                div.style.backgroundColor = randColor();
+                block.appendChild(div);
+            }
+
+            //转成绝对定位
+            var clones = document.querySelectorAll("#contianer #block > div");
+            //先设置定位坐标
+            for(var i = 0; i < clones.length; i++){
+                clones[i].style.top = clones[i].offsetTop + "px";
+                clones[i].style.left = clones[i].offsetLeft + "px";
+            }
+            //将float的div转换为绝对定位的div
+            for(var i = 0; i < clones.length; i++){
+                clones[i].style.float = "none";
+                clones[i].style.position = "absolute";
+            }
+            //让球拍可以移动
+            window.onkeydown = function(evt){
+                var e = evt || window.event;
+                var key = e.which || e.keyCode;
+                if(key == 37){
+                    var l = bat.offsetLeft;
+                    l -= 6;
+                    if(l <= 0){
+                        l = 0;
+                    }
+                    bat.style.left = l+"px";
+                }else if(key == 39){
+                    var l = bat.offsetLeft;
+                    l += 6;
+                    if(l >= 600){
+                        l = 600;
+                    }
+                    bat.style.left = l+"px";
+                }
+            }
+            //让小球运动起来
+            var speadX = 6;
+            var speadY = 6;
+            window.setInterval(function(){
+                //console.log(boll)
+                let l = boll.offsetLeft;
+                let t = boll.offsetTop;
+                //console.log(`left: ${l} top: ${t}`);
+                if(l < 0){
+                    speadX = 6;
+                }else if(l >= 680){
+                    speadX = -6;
+                }
+                if(t < 0){
+                    speadY = 6;
+                }else if(t >= 680){
+                    speadY = -6;
+                }
+                boll.style.left = l + speadX + "px";
+                boll.style.top = t + speadY + "px";
+                //console.log(boll.style.left);
+                //console.log(boll.style.top);
+                if(knock(boll, bat)){
+                    speadY *= -1;
+                }
+                var clones = document.querySelectorAll("#contianer #block > div");
+                for(var i = 0; i < clones.length; i++){
+                    if(knock(boll, clones[i])){
+                        speadY *= -1;
+                        block.removeChild(clones[i]);
+                        //clones[i].style.display = 'none';
+                    }
+                }
+            }, 30);
+        }
+    </script>
+</head>
+<body>
+    <div id="contianer">
+        <div id="block">
+        </div>
+        <div id="boll"></div>
+        <div id="bat"></div>
+    </div>
+    <p>按下方向键 &lt;- 和 -&gt; 移动球拍</p>
+</body>
+</html>

@@ -20,8 +20,10 @@
     <script type="text/javascript">
     window.onload = function(){
         var odiv = document.querySelectorAll("div");
-        darg(odiv[0]);
-        dargLimit(odiv[1]);
+        new Drag(odiv[0]);
+        new DragLimit(odiv[1]);
+        //darg(odiv[0]);
+        //dargLimit(odiv[1]);
     }
     </script>
 </head>

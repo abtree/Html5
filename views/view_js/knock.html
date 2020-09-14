@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>碰撞</title>
+    <style type="text/css">
+        div{
+            width: 100px; height: 100px; position: fixed; font-size: 18px; font-weight: bold; line-height: 100px; text-align: center;
+        }
+        #box1{
+            background-color: red; top: 500px; left: 500px;
+        }
+        #box2{
+            background-color: blue; top: 200px; left: 200px; color: yellow; 
+        }
+    </style>
+    <script type="text/javascript" src="/views/js/knock.js">
+    </script>
+    <script type="text/javascript" src="/views/js/drag.js">
+    </script>
+    <script type="text/javascript" src="/views/js/knock.js"></script>
+    <script type="text/javascript">
+    window.onload = function(){
+        var div2 = document.querySelector("#box2");
+        var div1 = document.querySelector("#box1");
+
+        var func = function(){
+            if(knock(div2, div1)){
+                div1.style.backgroundColor = 'black';
+            }else{
+                div1.style.backgroundColor = 'red';
+            }
+        };
+
+        //dargLimitFunc(div2, func);
+        new DragLimitFilter(div2, func);
+    }
+    </script>
+</head>
+<body>
+    <div id="box1">撞我</div>
+    <div id="box2">拖动</div>
+</body>
+</html>
