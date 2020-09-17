@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画一个圆</title>
+
+    <style type="text/css">
+        .pen{
+            width: 30px; height: 30px; background-color: red; position: absolute;
+        }
+        .point{
+            width: 5px; height: 5px; background-color: black; position:absolute;
+        }
+    </style>
+    <script type="text/javascript">
+    window.onload = function(){
+        document.onclick=function(evt){
+            var e = evt || window.event;
+            var pl = e.clientX;
+            var pt = e.clientY;
+            var r = 100;
+            var obj = document.createElement("div");
+            obj.className = "pen";
+            obj.style.top = "-100px";
+            node.style.left = "-100px";
+            document.body.appendChild(obj);
+            var i = 0;
+            
+            var timer = window.setInterval(function(){
+                i++;
+                var l = pl + Math.sin(i*Math.PI/180)*r;
+                var t = pt - Math.cos(i*Math.PI/180)*r;
+                obj.style.top = t + "px";
+                obj.style.left = l + "px";
+
+                var node = document.createElement("div");
+                node.className = "point";
+                node.style.top = obj.offsetTop + "px";
+                node.style.left = obj.offsetLeft + "px";
+                
+                document.body.appendChild(node);
+                if(i > 360){
+                    window.clearInterval(timer);
+                    document.body.removeChild(obj);
+                }
+            }, 30);
+        }
+    }
+    </script>
+</head>
+<body>
+    <p>点击屏幕选择圆心</p>
+</body>
+</html>

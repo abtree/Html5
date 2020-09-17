@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>banner图片效果</title>
+
+    <style type="text/css">
+        .container{
+            width: 828px; height: 266px; border: 1px solid black; margin: 50px auto; position: relative; 
+            overflow: hidden;
+        }
+        .container .banner{
+            width: 1656px; height: 100%; position: absolute;
+        }
+        .container .banner > img{
+            width: 256px;
+            display: block;
+            margin: 5px 10px;
+            float: left;
+        }
+    </style>
+    <script type="text/javascript">
+    window.onload = function(){
+        var oBanner = document.querySelector(".container .banner");
+        oBanner.innerHTML += oBanner.innerHTML;
+
+        window.setInterval(function(){
+            if(oBanner.offsetLeft <= -oBanner.offsetWidth/2){
+                oBanner.style.left = "0px";
+            }
+            // console.log(oBanner.offsetLeft + "," + (-oBanner.offsetWidth/2));
+            var end = oBanner.offsetLeft - 276;
+            var timer = window.setInterval(() => {
+                if(oBanner.offsetLeft > end){
+                    let l = oBanner.offsetLeft - 8;
+                    if(l < end) //因为最后算出来可能偏移值会大于276 所以这里要注意修正
+                        l = end;
+                    oBanner.style.left = l + "px";
+                }else{
+                    window.clearInterval(timer);
+                }
+            }, 30);
+        }, 2000);
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <img src="/views/imgs/eff_hx_zhfz_book_01.png" />
+            <img src="/views/imgs/eff_hx_zhfz_book_02.png" />
+            <img src="/views/imgs/eff_hx_zhfz_book_03.png" />
+        </div>
+    </div>
+</body>
+</html>

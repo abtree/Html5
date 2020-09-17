@@ -24,4 +24,5 @@ func init() {
 	http.Handle("/views/", http.StripPrefix("/views/", http.FileServer(http.Dir("../views"))))
 
 	http.HandleFunc("/", logPanics(controllers.BaseCtr.Init))
+	http.HandleFunc("/ajax/base", logPanics(controllers.BaseCtr.AjAxBase))
 }

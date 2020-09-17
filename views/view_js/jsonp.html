@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsonp实现跨域数据获取</title>
+
+    <style type="text/css">
+        #jsonp .operator{
+            width: 814px;
+            margin: 10px auto;
+            border: 1px black solid;
+        }
+        #jsonp .operator::after{
+            content: "";
+            display: block;
+            clear: both;
+        }
+        #jsonp input,button{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 18px;
+            height: 30px;
+            border: none;
+            display: block;
+            float: left;
+        }
+        #jsonp input{
+            width: 700px; 
+        }
+        #jsonp button{
+            width: 100px;
+            margin-left: 10px;
+        }
+        #jsonp button:hover{
+            background-color: gray;
+        }
+        #jsonp table{
+            border: 1px solid blue; margin: 10px auto;
+        }
+        #jsonp .jsonp_cap{
+            font-weight: bold; font-size: 24px; background-color: lightblue;
+        }
+        #jsonp table tr{
+            text-align: center;
+        }
+        #jsonp table th,td{
+            width: 200px;
+            border: 1px solid gray;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function download(data){
+            //console.log(data);
+            var ocap = document.querySelector("#jsonp .jsonp_cap");
+            var obody = document.querySelector("#jsonp .jsonp_body");
+            //var data = JSON.parse(data);
+            var strbody = "";
+            for(let i in data["weather"]){
+                strbody += `<tr>
+                        <td>${data["weather"][i]["date"]}</td>
+                        <td>${data["weather"][i]["weather"]}</td>
+                        <td>${data["weather"][i]["wind"]}</td>
+                        <td>${data["weather"][i]["temp"]}</td>
+                    </tr>`;
+            }
+            ocap.innerHTML =  data["city"];
+            obody.innerHTML = strbody;
+
+            var tmp = document.querySelector("#tmp");
+            document.body.removeChild(tmp);
+        }
+    </script>
+    <script type="text/javascript">
+        window.onload = function(){
+            var jsonpbtn = document.querySelector("#jsonp button");
+            var city = document.querySelector("#jsonp input");
+            jsonpbtn.onclick = function(){
+                let s = document.createElement("script");
+                s.src = `https://api.asilu.com/weather/?city=${city.value}&callback=download`;
+                s.id = "tmp";
+                document.body.appendChild(s);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="jsonp">
+        <div class="operator">
+            <input type="text" name="city" />
+            <button>点击获取</button>
+        </div>
+        <table cellspacing="0" >
+            <tr>
+                <th>日期</th>
+                <th>天气</th>
+                <th>风</th>
+                <th>温度</th>
+            </tr>
+            <tbody class="jsonp_body">
+            </tbody>
+            <caption class="jsonp_cap"></caption>
+        </table>
+    </div>
+</body>
+</html>

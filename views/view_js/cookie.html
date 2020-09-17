@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cookie测试</title>
+
+    <script type="text/javascript" src="/views/js/cookie.js">
+    </script>
+    <script type="text/javascript">
+        window.onload = function(){
+            var add = document.getElementById("add");
+            var find = document.getElementById("find");
+            var del = document.getElementById("del");
+
+            add.onclick = function(){
+                SetCookie("测试","测试值",{expires:7});
+            }
+
+            find.onclick = function(){
+                alert(GetCookie("测试"));
+            }
+
+            del.onclick = function(){
+                ClearCookie("测试");
+            }
+        }
+    </script>
+</head>
+<body>
+    <button id="add">设置cookie</button>
+    <button id="find">查看cookie</button>
+    <button id="del">删除cookie</button>
+</body>
+</html>

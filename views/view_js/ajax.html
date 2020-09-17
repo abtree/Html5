@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS原生AjAX</title>
+    <script type="text/javascript" src="/views/js/ajax.js"></script>
+    <script type="text/javascript">
+        function OnClock(){
+            
+            ajax({
+                method:"get",
+                url:"/ajax/base",
+                params:{
+                    fname:"aaa",
+                    lname:"bbb"
+                },
+                callback: function(text){
+                    document.getElementById("result").innerHTML = text;
+                }
+            });
+            // var xhttp = null;
+            // if (window.XMLHttpRequest) {
+            //     // code for modern browsers
+            //     xhttp = new XMLHttpRequest();
+            // } else {
+            //     // code for old IE browsers
+            //     xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            // }
+
+            // xhttp.onreadystatechange = function() {
+            //     if (this.readyState == 4 && this.status == 200) {
+            //         document.getElementById("result").innerHTML = this.responseText;
+            //     }
+            // };
+            // xhttp.open("GET", "/ajax/base?fname=aaa&lname=bbb", true);
+            // xhttp.send();
+        }
+
+        function OnClickPost(){
+            ajax({
+                method:"post",
+                url:"/ajax/base",
+                params:{
+                    fname:"aaa",
+                    lname:"bbb"
+                },
+                callback: function(text){
+                    document.getElementById("result").innerHTML = text;
+                }
+            });
+            // var xhttp = null;
+            // if (window.XMLHttpRequest) {
+            //     // code for modern browsers
+            //     xhttp = new XMLHttpRequest();
+            // } else {
+            //     // code for old IE browsers
+            //     xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            // }
+
+            // xhttp.onreadystatechange = function() {
+            //     if (this.readyState == 4 && this.status == 200) {
+            //         document.getElementById("result").innerHTML = this.responseText;
+            //     }
+            // };
+            // xhttp.open("POST", "/ajax/base", true);
+            // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");    //这个必须写
+            // xhttp.send("fname=aaa&lname=bbb");
+        }
+    </script>
+</head>
+<body>
+    <button onclick="OnClock();">点击</button>
+    <button onclick="OnClickPost();">点击 带参数</button>
+    <div id="result"></div>
+</body>
+</html>
