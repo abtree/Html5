@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner图(jQuery版本)</title>
+    <style type="text/css">
+        ol, ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .banner{
+            width: 257px; height: 143px; border: 1px solid black; margin: 100px auto; position: relative; overflow: hidden;
+        }
+        .banner ol{
+            width: 257px; height: 1001px; position: absolute;
+        }
+        .banner li{
+            display: block;
+        }
+        .banner ol li{
+            width: 257px; height: 143px;
+        }
+        .banner ol li img{
+            width: 100%;
+        }
+        .banner ul{
+            position: absolute; width: 100%; height: 20px; right: 0; bottom: 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 5px;
+        }
+        .banner ul li{
+            width: 15px; height: 15px; float: right; border: 1px gray solid; border-radius: 50%; margin: 0 2px;text-align: center; line-height: 15px; color: gray; cursor: pointer;
+        }
+        .banner ul li:hover{
+            color: black; border-color: black;
+        }
+        .banner ul li.active{
+            background-color: gray; color: orange;
+        }
+    </style>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        $(".banner ol li").eq(0).clone().appendTo(".banner ol");    //先在最后多复制一个
+
+        var oBtns = $(".banner ul li");
+        var oOl = $(".banner ol");
+        var timer = null;
+
+        timer = setInterval(() => {
+            let i = $(".banner ul li").filter(".active").index();
+            //console.log(i + 1);
+            goNext(i+1);
+        }, 2000);
+
+        oBtns.click(function(){
+            goNext($(this).index());
+        });
+
+        $(".banner").mouseenter(function(){
+            clearInterval(timer);
+        }).mouseleave(function(){
+            timer = setInterval(() => {
+                let i = $(".banner ul li").filter(".active").index();
+                console.log(i);
+                goNext(i+1);
+            }, 2000);
+        });
+
+        function goNext(index){
+            if(index == oBtns.length){
+                oBtns.eq(0).addClass("active").siblings().removeClass("active");
+            }else{
+                oBtns.eq(index).addClass("active").siblings().removeClass("active");
+            }
+            oOl.animate({top: -143 * index}, 500, "swing", function(){
+                if(index == oBtns.length){
+                    oOl.css({top: 0});
+                }
+            });
+        }
+    });
+    </script>
+</head>
+<body>
+    <div class="banner">
+        <ol>
+            <li><img src="/views/imgs/XSLB_LB01.png" alt=""></li>
+            <li><img src="/views/imgs/XSLB_LB03.png" alt=""></li>
+            <li><img src="/views/imgs/XSLB_LB04.png" alt=""></li>
+            <li><img src="/views/imgs/XSLB_LB05.png" alt=""></li>
+            <li><img src="/views/imgs/XSLB_LB06.png" alt=""></li>
+            <li><img src="/views/imgs/XSLB_LB07.png" alt=""></li>
+        </ol>
+        <ul>
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>放大镜(JQuery版本)</title>
+
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: #ccc;
+        }
+        #small{
+            width: 128px;
+            height: 128px;
+            position: relative;
+            float: left;
+            margin-left: 50px;
+            margin-top: 50px;
+            border: 1px black solid;
+        }
+        #small img{
+            width: 100%;
+        }
+        #small div{
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0.5; filter:alpha(opacity=40);
+            background-color: white;
+            display: none;
+        }
+        #big{
+            width: 256px;
+            height: 256px;
+            float: left;
+            border: 1px solid gray;
+            margin-left: 50px;
+            margin-top: 50px;
+            box-shadow: 0px 5px 10px 3px white;
+            overflow: hidden;
+            display: none;
+            position: relative;
+        }
+        #big img{
+            position: absolute;
+            width: 1024px;
+        }
+    </style>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        $("#small").mouseenter(function(){
+            $("#small div").css("display", "block");
+            $("#big").css("display", "block");
+        }).mouseleave(function(){
+            $("#small div").css("display", "none");
+            $("#big").css("display", "none");
+        }).mousemove(function(ev){
+            let l = ev.pageX - $(this).offset().left - 16;
+            let t = ev.pageY - $(this).offset().top - 16;
+            if(l < 0) 
+                l = 0;
+            else if(l > 96)
+                l = 96;
+            if(t < 0) 
+                t = 0;
+            else if(t > 96)
+                t = 96;
+            $("#small div").css({
+                left : l,
+                top : t
+            });
+            $("#big img").css({
+                left : -8*l,
+                top : -8*t
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <div id="small">
+        <img src="/views/imgs/eff_hx_zhfz_book_02.png">
+        <div></div>
+    </div>
+    <div id="big">
+        <img src="/views/imgs/eff_hx_zhfz_book_02.png">
+    </div id="big">
+</body>
+</html>
