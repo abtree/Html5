@@ -25,4 +25,5 @@ func init() {
 
 	http.HandleFunc("/", logPanics(controllers.BaseCtr.Init))
 	http.HandleFunc("/ajax/base", logPanics(controllers.BaseCtr.AjAxBase))
+	http.HandleFunc("/ajax/sellitem", logPanics(controllers.BaseCtr.AjAxSellItem))
 }
