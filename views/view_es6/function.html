@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>es6函数扩展</title>
+</head>
+<body>
+    <script>
+        //1 带参数默认值的函数
+        function add(a,b){
+            //传统做法
+            a =a || 10;
+            b = b||20;
+            console.log("a + b = "+(a+b));
+        }
+        add();
+        
+        function addEs6(a=10, b= 20){
+            //es6做法
+            console.log("a + b = "+(a+b));
+        }
+        addEs6();
+
+        function addEs6Func(a=10,b = (()=>2+3)()){
+            //默认参数可以是函数或匿名函数
+            console.log("a + b = "+(a+b));
+        }
+        addEs6Func(5);
+    </script>
+    <script>
+        //2 变参函数
+        let book={
+            title:"es6 learn",
+            author:"alex",
+            year:2019
+        }
+        
+        function pick(book){
+            //传统做法
+            let dat = Object.create(null);
+            for(let i = 1; i < arguments.length;i++){
+                dat[arguments[i]] = book[arguments[i]];
+            }
+            return dat;
+        }
+        let dat = pick(book, "title", "year");
+        console.log(dat);
+
+        function pickES6(book, ...params){
+            //es6 的可变参数
+            let dat = {}
+            for(let i = 0; i<params.length;i++){
+                dat[params[i]] = book[params[i]];
+            }
+            return dat;
+        }
+
+        let dat1 = pickES6(book, "title", "year");
+        console.log(dat1);
+
+        //可变参数也可以用于参数分割
+        const arr = [10,20,30,50,100];
+        //传统做法
+        console.log(Math.max.apply(null, arr));
+        //es6做法
+        console.log(Math.max(...arr));
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解构赋值</title>
+</head>
+<body>
+    <script>
+        //解构赋值(可设置默认值)
+        let obj1={
+            name:"alex",
+            age:18
+        }
+        let {age,name="json"} = obj1; //将obj1中的属性解构出来(注意 名字要一样才能解构)
+        console.log(name + ":" + age);
+        obj1.c = {
+            phone:123456,
+            address:"street"
+        }
+        let {c} = obj1;     //只解构c属性
+        console.log(c);
+
+        obj1.d = "other";
+        let {d, ...res} = obj1; //用可变参数解构(需要新版本浏览器才支持)
+        console.log(res);   //res是个对象 而不是数组 它包含了obj1中，除d外的其它所有属性
+    </script>
+    <script>
+        //数组的解构(可嵌套)
+        const arr=[1,[2],3];
+        let[aa,[bb],cc]=arr;
+        console.log(`a=${aa};b=${bb};c=${cc}`);
+    </script>
+</body>
+</html>

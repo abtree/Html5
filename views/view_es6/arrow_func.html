@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>箭头函数</title>
+</head>
+<body>
+    <script>
+        //箭头函数
+        let f1 = ()=>5+6;
+        console.log(f1());
+        //带默认参数的箭头函数
+        let add = (a=10, b=20)=>a+b;
+        console.log(add());
+        //返回对象
+        let getObj = id=>{
+            return{
+                id:id,
+                name:"alex"
+            }
+        };
+        //等价于
+        let getObj1 = id=>({
+            id:id,
+            name:"json"
+        });
+        console.log(getObj(1));
+        console.log(getObj1(2));
+    </script>
+    <script>
+        //this绑定
+        //传统的this指向取决于调用该函数的上下文对象
+        let obj = {
+            id:123,
+            init:function(){
+                document.addEventListener('click', function(evt){
+                    this.print(evt.type);
+                    //传统方法需要将this指针绑定到对象上
+                    //否则this指针指向document
+                }.bind(this), false);
+                document.addEventListener('dblclick', (evt)=>{
+                    //这里没有this指针绑定 他会使用init函数的this指针 如果init函数也是箭头函数 他会使用obj的this指针
+                    this.print(evt.type)
+                });
+            },
+            print: function(type){
+                console.log(`type=${type} and id=${this.id}`);
+            }
+        }
+        obj.init();
+        //箭头函数没有this绑定 它的this会查找它的作用域链确定
+        //箭头函数没有arguements参数列表
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>let 和 const</title>
+    <script type="text/javascript">
+    // let和var区别
+    // 1 没有变量提升（var声明变量相当于在脚本开头声明 let在当前位置声明）
+    // 2 块作用域（var声明变量与声明位置无关 都是在脚本开头）
+    // 3 不能重复声明（因为var声明变量和位置无关，所以重复声明只算是重新赋值）
+    let a = 10;
+    if(true){
+        let a = 20;
+        console.log("a="+a);
+    }
+    console.log("a="+a);
+
+    //属性与let一致，但是不能修改值
+    const max = 30;
+    console.log("max="+max);
+    const person ={
+        name:"json"
+    }
+    person.name = "alex";   //合法 可以修改属性
+    console.log("person.name="+person.name);
+    person.age = 20 //合法 可以添加属性
+    console.log("person="+person);
+    //但不能对person重新赋值 如下
+    // person={
+    //     name:"new",
+    //     age:11
+    // }
+
+    //例：经典的区分 var和let的实例
+    const arr = []
+    for(let i = 0; i< 10;i++){
+        arr[i]= function(){
+            return i;
+        }
+    }
+    for(let i = 0; i< arr.length;i++){
+        console.log(""+i+"="+arr[i]());
+    }
+    </script>
+</head>
+<body>
+    <h1>请查看控制台</h1>
+</body>
+</html>
