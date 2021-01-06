@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //map 键值对的有序列表
+        let map = new Map();
+        map.set("a",1);
+        map.set("b",2);
+        console.log(map.has("a"));
+        map.forEach((v,k)=>{
+            console.log(k+"=>"+v);
+        });
+        console.log(map.get('b'));
+        console.log(map);
+        map.clear();
+    </script>
+</body>
+</html>

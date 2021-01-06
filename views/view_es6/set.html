@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Set 集合 无重复项的有序列表
+        let set1 = new Set();
+        set1.add(1);
+        set1.add("2");
+        set1.add([3,4,5]);
+        console.log(set1);
+        set1.delete("2");
+        console.log(set1.has(1));
+        set1.clear();
+
+        //将数组转换为set 去重
+        let arr = [4,3,3,2,2,2,1,1,0]
+        arr.forEach(e=>{
+            set1.add(e)
+        });
+        console.log(set1);
+        //再将set转换为数组
+        arr = [...set1]
+        console.log(arr);
+    </script>
+</body>
+</html>

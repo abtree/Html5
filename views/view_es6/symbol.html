@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>独一无二的值</title>
+</head>
+<body>
+    <script>
+        //Symbol 声明一个独一无二的变量值
+        //一般用于对象的私有化属性或方法
+        const name = Symbol("alex");
+        const name1 = Symbol("alex");
+        console.log(Object.is(name, name1));    //false
+        console.log(name === name1);    //false
+        console.log(name == name1);     //false
+
+        //定义对象的私有化属性
+
+        const obj = {
+            prop:Symbol("mprop")    //这里定义了一个独一无二的变量
+        }
+        const obj1 = {
+            [obj.prop]:"alex"   //用这个独一无二的变量定义属性
+        }
+        console.log(obj);
+        console.log(obj1[obj.prop]);    //属性只能通过这个独一无二的变量访问 如果外部访问不到这个变量 就拿不到这个属性
+
+        //注意：
+        //  for(let key in obj1)   无法遍历到用Symbol定义的属性
+        //  Object.keys(obj1)      也无法遍历到用Symbol定义的属性
+        console.log(Object.getOwnPropertySymbols(obj1));    //可以获取到Symbol定义的变量
+        console.log(Reflect.ownKeys(obj1)); //反射 也可以得到Symbol定义的变量
+    </script>
+</body>
+</html>

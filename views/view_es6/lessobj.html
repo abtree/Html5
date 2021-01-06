@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扩展对象功能</title>
+</head>
+<body>
+    <script>
+        const name="alex",
+        age=18;
+        const person={
+            name,   //传统写法 name:name
+            age,    //传统写法 age:age
+            getName(){  //传统写法 getName:function(){
+                return name;
+            },
+            setName(newName){   //传统写法setName:(newName)=>{}
+                name=newName;
+            }
+        }
+        console.log(person);
+    </script>
+    <script>
+        //通过拼属性名 函数名 定义函数和属性
+        const suffixName = "m",
+        suffixFunc="f";
+        const obj ={
+            [suffixName+"prop"]:"true",
+            [suffixFunc+"add"]:(a,b)=>{
+                return a+b;
+            }
+        }
+        console.log(obj);
+    </script>
+    <script>
+        //比较
+        console.log(1=='1')     //true
+        console.log(1==='1')    //false
+        console.log(NaN == NaN);    //false
+        console.log(NaN === NaN);   //false
+        console.log(Object.is(NaN,NaN));    //true
+    </script>
+    <script>
+        //Object.assign 主要用于合并多个对象
+        const mergeObj = Object.assign({
+            a:1,
+            f:()=>{
+                return a;
+            }
+        },{
+            b:2,
+            getB(){
+                return b;
+            }
+        },{
+            f(){
+                console.log("Hallo World!");    //覆盖上面的f 并被下面的f覆盖
+            }
+        },{
+            f(){
+                console.log("Hallo World last!");   //下面的覆盖上面的
+            } 
+        });
+        console.log(mergeObj);
+    </script>
+</body>
+</html>

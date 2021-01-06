@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组扩展方法</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script>
+        //1 from() 将伪数组转换为真数组
+        function add(){
+            //传统做法
+            let arrOld = [].slice.call(arguments);
+            console.log(arrOld);
+            //ES6做法
+            let arr = Array.from(arguments);
+            console.log(arr);
+        }
+        add(1,2,3,4);
+        //用处 获取所有的li标签
+        let lis = document.querySelectorAll("ul li");
+        //将lis转换为数组的方法1
+        console.log(Array.from(lis));
+        //将lis转换为数组的方法2
+        console.log([...lis]);
+        //将lis中的文本转换为数组
+        console.log(Array.from(lis, e=>e.textContent));
+
+        //2 of() 将一组数据处理为一个数组 数据可以是任意类型
+        console.log(Array.of(1,"2",[3,4],{id:5}));
+
+        //3 copyWithin() 将数组内部指定位置元素 复制到其它指定位置 返回原数组
+        console.log([1,2,3,8,9,10].copyWithin(0,3));    //[8,9,10,8,9,10] 将位置3后面的值覆盖位置为0的值
+
+        //4 find() findIndex()
+        const v = [1,2,-3,-4].find(v=>v<0)  //查找第一个小于0的数
+        console.log(v);
+        const pos = [1,2,-3,-4].findIndex(v=>v<0)  //查找第一个小于0的下标
+        console.log(pos);
+
+        //5 includes()
+        console.log([1,2,3].includes(2));   //true 数组中包含该元素
+    </script>
+    <script>
+        //数组的遍历
+        const list = ["a",'b','c'];
+        for(let pos of list.keys()){    //遍历索引
+            console.log(pos);
+        }
+
+        for (const ele of list.entries()) {
+            console.log(ele[0]+":"+ele[1]); //遍历索引和值
+        }
+
+        for(const ele of list.values()){    //遍历值
+            console.log(ele);
+        }
+        for (const e in list) {
+            console.log(e);  //遍历索引
+        }
+        list.forEach(v=>{
+            console.log(v);     //遍历值
+        })
+    </script>
+</body>
+</html>
