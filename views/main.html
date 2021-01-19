@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>主页</title>
-
     <link rel="stylesheet" type="text/css" href="/views/css/define.css" />
     <style type="text/css">
         /*
@@ -33,20 +33,23 @@
             M[attr$=value] 选择M元素中attr的结束值为value的集合  只要属性值以value结尾的都能匹配
             M[attr1][attr1] 选择M元素中同时设置attr1和attr2的集合
         */
-        ul{
+        ul {
             list-style: initial;
             width: 15%;
             float: left;
             margin-left: 50px;
         }
-        ul li{
+
+        ul li {
             cursor: pointer;
             color: blue;
         }
-        ul li:hover{
+
+        ul li:hover {
             text-decoration: underline;
         }
-        #content{
+
+        #content {
             float: left;
             width: 80%;
             height: 750px;
@@ -54,8 +57,8 @@
     </style>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
-        $(function() {
-            $("li").click(function() {
+        $(function () {
+            $("li").click(function () {
                 var url = $(this).attr("href");
                 $("#content").attr("src", url);
             });
@@ -64,19 +67,20 @@
     <!-- base标签用于辅助a标签设置默认属性 -->
     <base target="_blank" />
 </head>
+
 <body>
     <ul>
-        <li href="/views/view/blog.html" >博客</li>
-        <li href="/views/view/images.html" >图片列表</li>
-        <li href="/views/view/table1.html" >简单表格</li>
-        <li href="/views/view/table2.html" >个人简历</li>
-        <li href="/views/view/description.html" >简介</li>
-        <li href="/views/view/navgation.html" >页面布局</li>
-        <li href="/views/view/backimg.html" >背景图</li>
-        <li href="/views/view/supsub.html" >上标下标</li>
-        <li href="/views/view/float.html" >元素浮动</li>
-        <li href="/views/view/display.html" >改变元素的类型和hover</li>
-        <li href="/views/view/aposition.html" >a标签定位</li>
+        <li href="/views/view/blog.html">博客</li>
+        <li href="/views/view/images.html">图片列表</li>
+        <li href="/views/view/table1.html">简单表格</li>
+        <li href="/views/view/table2.html">个人简历</li>
+        <li href="/views/view/description.html">简介</li>
+        <li href="/views/view/navgation.html">页面布局</li>
+        <li href="/views/view/backimg.html">背景图</li>
+        <li href="/views/view/supsub.html">上标下标</li>
+        <li href="/views/view/float.html">元素浮动</li>
+        <li href="/views/view/display.html">改变元素的类型和hover</li>
+        <li href="/views/view/aposition.html">a标签定位</li>
         <li href="/views/view/formfor.html">表单关联</li>
         <li href="/views/view/attachbg.html">固定背景效果</li>
         <li href="/views/view/cssevent.html">css事件(伪类)</li>
@@ -112,4 +116,5 @@
     <iframe id="content" frameborder="1" scrolling="auto">
     </iframe>
 </body>
+
 </html>

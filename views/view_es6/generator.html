@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成器(协程)</title>
+</head>
+
+<body>
+    <script>
+        //生成器函数 函数名前面需要有*号
+        function* fn(param) {
+            yield 2;        //yield只能用在函数内
+            yield param;    //挂起
+            yield 3;
+            console.log("fn is end");
+        }
+        let o = fn(123);
+        console.log(o.next());    //value=2 done=false;
+        console.log(o.next());    //value=param done=false;
+        console.log(o.next());    //value=3 done=false;
+        console.log(o.next());    //value=undefine done=true;
+
+        //生成器传参
+        function* add() {
+            console.log("start");
+            let x = yield '2';
+            console.log("one:" + x);
+            let y = yield '3';
+            console.log("two:" + y);
+            return x + y;
+        }
+        const o1 = add();
+        console.log(o1.next());     //value = '2'
+        console.log(o1.next(1));    //这里给x赋值   value = '3'
+        console.log(o1.next(2));    //这里给y赋值   value=x+y=3
+        console.log(o1.return(100));   //这里可以直接调return value=100
+
+        //给对象添加生成器
+        let obj = {
+            name: "alex",
+            age: 18,
+            *[Symbol.iterator]() {  //创建迭代器
+                const prop = Object.keys(this);
+                for (const k of prop) {
+                    yield [k, this[k]]
+                }
+            }
+        }
+        for (const itobj of obj) {  //通过迭代器遍历
+            console.log(itobj);
+        }
+    </script>
+    <script type="text/javascript" src="/views/js/ajax.js"></script>
+    <script>
+        //应用 多ajax异步请求
+        function* ajaxs() {
+            let res = yield oneAjax();  //第一次ajax
+            console.log(res);   //处理第一次ajax结果
+            let res1 = yield oneAjax(); //第二次ajax
+            console.log(res1); //处理第二次ajax结果
+        }
+        const ite = ajaxs();
+        ite.next(); //启动ajaxs
+
+        function oneAjax() {
+            ajax({
+                method: "get",
+                url: "/ajax/base",
+                params: {
+                    fname: "aaa",
+                    lname: "bbb"
+                },
+                callback: function (text) {
+                    ite.next(text); //这里返回ajax结果
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

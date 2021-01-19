@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迭代器</title>
+</head>
+
+<body>
+    <script>
+        const arr = [1, 2, 3, 4, 5, 6]
+        const it = arr[Symbol.iterator]();  //获取迭代器
+        while (true) {
+            let itr = it.next();    //迭代函数
+            console.log(itr.value);
+            if (itr.done)   //为true表示迭代完成
+                break;
+        }
+    </script>
+</body>
+
+</html>
