@@ -77,6 +77,22 @@
                 }
             });
         }
+
+        //应用 加载数据
+        function* load() {
+            console.log("Loading...");  //显示正在加载数据
+            yield loadData();   //等待数据加载完成
+            console.log("Loaded");  //取消显示正在加载数据
+        }
+        const it2 = load();
+        it2.next();
+
+        function loadData() {
+            setTimeout(() => {
+                console.log("load data fin");
+                it2.next();
+            }, 1000)
+        }
     </script>
 </body>
 

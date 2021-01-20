@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>permise</title>
+</head>
+
+<body>
+    <script>
+        //特点：
+        // 1 对象的状态不受外界影响 三个状态 Pending(进行中) Resolved(完成) Rejected(失败)
+        // 2 一旦状态改变 就不会再变
+
+        let pro = new Promise((resolved, rejected) => {
+            let res = { //创建一个数据对象
+                code: 200,
+                data: {
+                    name: 'alex'
+                },
+                error: {
+                    msg: 'failed'
+                }
+            }
+            setTimeout(() => {  //等待1秒
+                if (res.code == 200) {  //根据code值返回对象数据
+                    resolved(res.data); //成功返回 data
+                } else {
+                    rejected(res.error);  //失败返回 msg
+                }
+            }, 1000)
+        })
+        pro.then((val) => {
+            //接收成功返回
+            console.log(val);
+        }).catch((val) => {
+            //接收失败返回
+            console.log(val);
+        })
+
+        //封装带timeout的函数
+        function timeOut(ms) {
+            return new Promise((r, j) => {
+                setTimeout(() => {
+                    r("Success");
+                }, ms);
+            })
+        }
+        timeOut(1000).then((val) => {
+            console.log(val);
+        })
+    </script>
+    <script type="text/javascript" src="/views/js/ajax.js"></script>
+    <script>
+        //封装ajax
+        function pajax() {
+            return new Promise((r, j) => {
+                ajax({
+                    method: "get",
+                    url: "/ajax/base",
+                    params: {
+                        fname: "aaa",
+                        lname: "bbb"
+                    },
+                    callback: r,
+                    errback: j
+                });
+            })
+        }
+        pajax().then((data) => {    //then函数可以传两个参数 第一个是成功回调 第二个是失败回调
+            console.log(data);      //then函数返回Permise 返回的permise的then函数成功回调为 上一个then的return
+        }).catch((err) => {
+            console.log(err);
+        })
+    </script>
+    <script>
+        //将其它对象转换为Promise
+        const suc = Promise.resolve("alex");    //将字符串转换为Promise 状态为resolved
+        const fail = Promise.reject("alex");     //将字符串转换为Promise 状态为rejected
+        fail.catch(val => {
+            console.log(val);
+        })
+
+        //等待多个promise执行完成
+        let allp = Promise.all([new Promise((r, j) => {
+            //第一个promise
+            r(1);
+        }), new Promise((r, j) => {
+            //第二个promise
+            r(2);
+        }), new Promise((r, j) => {
+            //第三个promise
+            r(3);
+        })])
+        allp.then(data => {   //三个都成功才返回成功
+            console.log(data);  //返回数组 包含三个promise的返回
+        }).catch(err => {   //任意一个失败返回失败
+            console.log(err);
+        }).finally(() => {
+            //不管成功失败 一定会执行的代码
+            console.log("finally");
+        })
+
+        //不管成功或失败 哪个promise先返回 返回哪个的结果 可用于做超时
+        let racep = Promise.race([new Promise((r, j) => {
+            setTimeout(() => {
+                r("Success");   //成功时返回
+            }, 2000);
+        }), new Promise((r, j) => {
+            setTimeout(() => {
+                j("TimeOut");   //失败返回
+            }, 1000);
+        })]);
+        racep.then(val => {
+            console.log(val);   //接收任意一个成功的返回
+        }).catch(val => {
+            console.log(val);   //接收任意一个失败的返回
+        });
+    </script>
+</body>
+
+</html>
