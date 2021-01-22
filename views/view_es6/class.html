@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类</title>
+</head>
+
+<body>
+    <script>
+        //传统类
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.SetName = function (name) {
+            this.name = name;
+        }
+        let p = new Person('alex', 20);
+        console.log(p);
+
+        //class方法(只是语法糖)
+        class PersonES6 {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            SetName(name) {
+                this.name = name;
+            }
+            Name() {
+                return this.name;
+            }
+        }
+        let p2 = new PersonES6('es6', 30);
+        console.log(p2);
+    </script>
+    <script>
+        //类的继承 extends
+        class Animal {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            Name() {
+                return this.name;
+            }
+            Age() {
+                return this.age;
+            }
+        }
+
+        class Dog extends Animal {
+            constructor(name, age, hair) {
+                super(name, age);
+                this.hair = hair;
+            }
+        }
+    </script>
+</body>
+
+</html>

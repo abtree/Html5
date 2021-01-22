@@ -8,7 +8,42 @@
 </head>
 
 <body>
+    <script>
+        //async 类似于对generator的封装
+        async function f() {
+            let s = await 'Hello async';
+            let arr = await s.split('');
+            return arr; //函数会等待所有await执行完成后返回
+        }
+        f().then(v => {
+            console.log(v);
+        })
 
+        async function f1() {
+            await Promise.reject("error");  //await 只要有一个出错了 就不会继续执行下面的await 而是直接返回
+            await Promise.resolve("data");  //该await不会被执行
+        }
+    </script>
+    <script type="text/javascript" src="/views/js/ajax.js"></script>
+    <script>
+        async function GetAjax() {
+            return await new Promise((r, j) => ajax({
+                method: "get",
+                url: "/ajax/base",
+                params: {
+                    fname: "aaa",
+                    lname: "bbb"
+                },
+                callback: r,
+                errback: j
+            }));
+        }
+        GetAjax().then(v => {
+            console.log(v);
+        }).catch(e => {
+            console.log(e);
+        })
+    </script>
 </body>
 
 </html>
