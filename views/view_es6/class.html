@@ -56,7 +56,13 @@
                 super(name, age);
                 this.hair = hair;
             }
+            //重写父类
+            Name() {
+                return "dogName:" + super.Name();
+            }
         }
+        let dog = new Dog("fixxx", 1, 'yellow');
+        console.log(dog.Name());
     </script>
 </body>
 

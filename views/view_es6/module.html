@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模块</title>
+</head>
+
+<body>
+    <script type="module">
+        //es6 模块化包括export(导出)和import(导入)
+        import def, { name, sayName } from "/views/es6/exp.mjs";  //注意 这里要求比较严格 必须用mjs做后缀名 否则会报错
+        console.log(name);
+        console.log(sayName());
+        console.log(def);
+    </script>
+
+    <script type="module">
+        //es6 模块化包括export(导出)和import(导入)
+        import * as obj from "/views/es6/exp.mjs";  //一般用通配符表示导出的所有数据
+        console.log(obj);
+        console.log(obj.name);
+        console.log(obj.sayName());
+        console.log(obj.default);
+    </script>
+</body>
+
+</html>
