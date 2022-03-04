@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小样式</title>
+    <style type="text/css">
+        .context{
+            min-width: 15%;
+            float: left;
+        }
+        ul {
+            margin-left: 50px;
+            white-space: nowrap;
+            overflow: visible;
+        }
+        li{
+            cursor: pointer;
+            color: blue;
+        }
+        li:hover{
+            text-decoration: underline;
+        }
+
+        #content {
+            float: left;
+            width: 80%;
+            height: 750px;
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("li").click(function () {
+                var url = $(this).attr("href");
+                $("#content").attr("src", url);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="context">
+        <ul>
+            <li href="/views/demos/login1.html">登录框</li>
+            <li href="/views/demos/cardRotate3D.html">3D卡片旋转效果</li>
+            <li href="/views/demos/flexNav.html">伸缩式导航栏</li>
+            <li href="/views/demos/LoginAndRegister.html">滑动切换的注册登录界面</li>
+            <li href="/views/demos/inputEffect.html">输入框效果</li>
+            <li href="/views/demos/glassIcon.html">玻璃图标悬浮效果</li>
+            <li href="/views/demos/jumpNav.html">富有弹性的导航栏</li>
+            <li href="/views/demos/leftNav.html">侧边导航栏</li>
+            <li href="/views/demos/Calculator.html">计算器</li>
+            <li href="/views/demos/notice.html">hover提示</li>
+            <li href="/views/demos/MenuToggle.html">弹性旋转菜单</li>
+            <li href="/views/demos/FluxayButton.html">流光按钮</li>
+            <li href="/views/demos/FullScreenMenu.html">全屏导航栏菜单</li>
+        </ul>
+    </div>
+    <iframe id="content" scrolling="auto">
+    </iframe>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>富有弹性的导航栏</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style type="text/css">
+        *{
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            text-align: center;
+        }
+        .wrapper{
+            /* 窗口的60%宽度 */
+            width: 60vw; height: 60px;
+            line-height: 60px;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+            border-radius: 50px;
+        }
+        .wrapper nav{
+            display: flex; position: relative;
+        }
+        .wrapper nav label{
+            flex: 1; width: 100%; position: relative; z-index: 1; cursor: pointer;
+        }
+        .wrapper nav label a{
+            position: relative;
+            z-index: -1;
+            text-decoration: none;
+        }
+        .wrapper nav label i{
+            /* 这里字体大小  */
+            color: #333; font-size: 25px; font-weight: 500;
+            margin: 0 7px; 
+        }
+        .wrapper nav input{
+            display: none;
+        }
+        .wrapper nav .tab{
+            position: absolute;
+            height: 100%; width: 20%; left: 0; bottom: 0;
+            background: linear-gradient(to right, #f09819, #ff5858);
+            border-radius: 50px;
+            /* 加个平滑动画 */
+            transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.6s;
+        }
+        #home:checked ~ label:nth-child(6) a i,
+        #comment:checked ~ label:nth-child(7) a i,
+        #envelope:checked ~ label:nth-child(8) a i,
+        #heart:checked ~ label:nth-child(9) a i,
+        #user:checked ~ label:nth-child(10) a i{
+            color: #fff;
+            transition: all 0.6s;
+        }
+        #comment:checked ~ .tab{
+            left: 20%;
+        }
+        #envelope:checked ~ .tab{
+            left: 40%;
+        }
+        #heart:checked ~ .tab{
+            left: 60%;
+        }
+        #user:checked ~ .tab{
+            left: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <nav>
+            <input type="radio" name="tab" id="home" checked>
+            <input type="radio" name="tab" id="comment">
+            <input type="radio" name="tab" id="envelope">
+            <input type="radio" name="tab" id="heart">
+            <input type="radio" name="tab" id="user">
+            <label for="home"><a href="#"><i class="iconfont icon-icon-test" aria-hidden="true">Home</i></a></label>
+            <label for="comment"><a href="#"><i class="iconfont icon-icon-test2" aria-hidden="true">Comment</i></a></label>
+            <label for="envelope"><a href="#"><i class="iconfont icon-icon-test3" aria-hidden="true">Envelope</i></a></label>
+            <label for="heart"><a href="#"><i class="iconfont icon-icon-test4" aria-hidden="true">Heart</i></a></label>
+            <label for="user"><a href="#"><i class="iconfont icon-icon-test5" aria-hidden="true">User</i></a></label>
+            <div class="tab"></div>
+        </nav>
+    </div>
+</body>
+</html>

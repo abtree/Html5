@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侧边导航栏</title>
+
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e2c8db;
+        }
+        ul{
+            list-style: none;
+        }
+        nav{
+            position: fixed;
+            width: 300px;
+            height: 650px;
+            background-color: #c584b3;
+        }
+        .menus{
+            margin: 50px 0; 
+            color: #fff;
+        }
+        .li{
+            letter-spacing: 2px;
+            font-weight: 600;
+            padding: 16px 0; 
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .menus li:hover{
+            background-color: #d2a6c6;
+        }
+        .li .iconfont{
+            font-size: 41px; 
+            text-align: center; 
+            margin-left: 8px;
+        }
+        .li span{
+            font-size: 17px;
+            position: relative;
+            top: -7px;
+        }
+        .li ul{
+            width: 0; 
+            height: 550px; 
+            padding: 50px 0; 
+            background-color: #a06993; 
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            overflow: hidden; 
+            transition: 0.3s;
+            z-index: 1;
+        }
+        .li ul li{
+            padding: 16px 24px;
+            white-space: nowrap;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .li:hover ul{
+            width: 250px;
+        }
+        .li ul li:hover{
+            background-color: #c28fb4;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="menus">
+            <li class="li">
+                <i class="iconfont icon-icon-test" aria-hidden="true"></i><span>基础组件</span>
+                <ul>
+                    <li>Button按钮</li>
+                    <li>Cell单元格</li>
+                    <li>Icon图标</li>
+                    <li>Image图片</li>
+                    <li>Layout布局</li>
+                    <li>Popup弹出框</li>
+                    <li>Toast轻提示</li>
+                </ul>
+            </li>
+            <li class="li">
+                <i class="iconfont icon-icon-test1" aria-hidden="true"></i><span>表单组件</span>
+                <ul>
+                    <li>Calender日历</li>
+                    <li>Cascader级联选择</li>
+                    <li>Checkbox复选框</li>
+                    <li>Field输入框</li>
+                    <li>Picker选择器</li>
+                    <li>Radio单选框</li>
+                    <li>Rate评分</li>
+                    <li>Slider滑块</li>
+                    <li>Stepper步进器</li>
+                    <li>Switch开关</li>
+                </ul>
+            </li>
+            <li class="li">
+                <i class="iconfont icon-icon-test2" aria-hidden="true"></i><span>反馈组件</span>
+                <ul>
+                    <li>Dialog弹出框</li>
+                    <li>Loading加载器</li>
+                    <li>Notify消息通知</li>
+                    <li>Overlay遮罩层</li>
+                </ul>
+            </li>
+            <li class="li">
+                <i class="iconfont icon-icon-test3" aria-hidden="true"></i><span>展示组件</span>
+                <ul>
+                    <li>Badge徽标</li>
+                    <li>Circle环形进度条</li>
+                    <li>Collapse折叠面板</li>
+                    <li>CountDown倒计时</li>
+                    <li>List列表</li>
+                    <li>NoticeBar通知栏</li>
+                    <li>Progress进度条</li>
+                    <li>Steps步骤条</li>
+                    <li>Tag标签</li>
+                </ul>
+            </li>
+            <li class="li">
+                <i class="iconfont icon-icon-test4" aria-hidden="true"></i><span>导航组件</span>
+                <ul>
+                    <li>Grid网格</li>
+                    <li>IndexBarsh索引栏</li>
+                    <li>NavBar导航栏</li>
+                    <li>Pagination分页</li>
+                    <li>Sidebar侧边导航</li>
+                    <li>Tab标签页</li>
+                    <li>Tabbar标签栏</li>
+                    <li>TreeSelect分类选择</li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

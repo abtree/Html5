@@ -7,10 +7,9 @@ import (
 )
 
 func main() {
-	err := http.ListenAndServe(":8082", nil)
+	log.Println("start server on 8081")
+	err := http.ListenAndServe(":8081", nil)
 	if err != nil {
-		log.Fatal("ListenAndServe: 8082 ", err)
-	} else {
-		log.Println("start server on 8082")
+		log.Fatal("ListenAndServe: 8081 ", err)
 	}
 }

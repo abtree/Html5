@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基础</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="vue_det">
+        <!-- 属性调用 -->
+        {{message}}
+        <!-- 函数调用 -->
+        <p>{{check()}}</p>
+        <!-- 绑定属性 -->
+        <button v-bind:style=`display:${show};`>按钮</button>
+        <!-- 模板中JavaScript 表达式支持 -->
+        <p>{{data.split('').reverse().join('')}}</p>
+        <!-- 如果v-if为true 则插入p -->
+        <p v-if="condition">如果v-if为true 则插入p</p>
+        <p v-else>否则显示这个</p>
+        <!-- 循环插入 -->
+        <ul><li v-for="txt in items">{{txt}}</li></ul>
+        <!-- 绑定事件 -->
+        <button v-on:click="myalert">绑定事件</button>
+        <!-- 输入绑定(双向绑定) -->
+        <input type="text" v-model="uname" placeholder="用户名">
+    </div>
+    <div id="example">
+        <p>使用双大括号的文本插值: {{ rawHtml }}</p>
+        <p>使用 v-html 指令: <span v-html="rawHtml"></span></p>
+    </div>
+    <script>
+        const HelloApp = {
+            data() {
+                return {
+                    message: "Hello Vue3",
+                    count: 0,
+                    show: 'none',
+                    data: "reverse",
+                    condition: true,
+                    items:['Buidu', 'Goodle'],
+                    uname:"Alex"
+                }
+            },
+            methods: {
+                check: function(){
+                    return "function: " + new Date().toString();
+                },
+                increase: function(){
+                    return this.count += 1;
+                },
+                myalert:function(){
+                    alert("helloVue3");
+                }
+            }
+        }
+        const vm = Vue.createApp(HelloApp).mount('#vue_det')
+        console.log(vm.increase())
+        console.log(vm.increase())
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    rawHtml: '<span style="color: red">这里会显示红色！</span>'
+                }
+            },
+        }).mount("#example")
+    </script>
+</body>
+</html>

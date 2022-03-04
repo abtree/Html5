@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算器</title>
+
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: consolas;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+        }
+        body.light{
+            background-color: #f8f8f8;
+        }
+        .container{
+            position: relative;
+            min-width: 300px;
+            min-height: 400px;
+            background-color: #333;
+            padding: 40px 30px 30px;
+            border-radius: 20px;
+            box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.25),
+            10px 10px 70px rgba(0, 0, 0, 0.25),
+            inset -5px -5px 15px rgba(0, 0, 0, 0.5),
+            inset 5px 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        body.light .container{
+            background-color: #fafafa;
+            box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.15),
+            10px 10px 70px rgba(0, 0, 0, 0.15),
+            inset -5px -5px 15px rgba(0, 0, 0, 0.15),
+            inset 5px 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .calculator{
+            position: relative;
+            display: grid;
+        }
+        .calculator .value{
+            position: relative;
+            grid-column: span 4;
+            height: 100px;
+            width: 100%;
+            border: none;
+            outline: none;
+            background-color: #a7af7c;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.75);
+            text-align: right;
+            padding: 10px;
+            font-size: 2em;
+        }
+        .calculator span{
+            position: relative;
+            display: grid;
+            place-items: center;
+            width: 80px;
+            height: 80px;
+            margin: 8px;
+            background: linear-gradient(180deg, #2f2f2f, #3f3f3f);
+            box-shadow: inset -8px 0 8px rgba(0, 0, 0, 0.15),
+            inset 0 -8px 8px rgba(0, 0, 0, 0.25),
+            0 0 0 2px rgba(0, 0, 0, 0.75),
+            10px 20px 25px rgba(0, 0, 0, 0.4);
+            user-select: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        body.light .calculator span{
+            background: linear-gradient(180deg, #fafafa, #f4f4f4);
+            box-shadow: inset -8px 0 8px rgba(0, 0, 0, 0.15),
+            inset 0 -8px 8px rgba(0, 0, 0, 0.15),
+            0 0 0 2px rgba(0, 0, 0, 1),
+            10px 20px 25px rgba(0, 0, 0, 0.25);
+        }
+        .calculator span::before{
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 4px;
+            bottom: 14px;
+            right: 12px;
+            background: linear-gradient(90deg, #2d2d2d, #4d4d4d);
+            border-radius: 10px;
+            box-shadow: -5px -5px 15px rgba(0, 0, 0, 0.1),
+            10px 5px 10px rgba(0, 0, 0, 0.15);
+            border-left: 1px solid #0004;
+            border-bottom: 1px solid #0004;
+            border-top: 1px solid #0009;
+        }
+        body.light .calculator span::before{
+            background: linear-gradient(90deg, #e6e6e6, #efefef);
+            box-shadow: -10px -10px 10px rgba(255, 255, 255, 0.25),
+            10px 5px 10px rgba(0, 0, 0, 0.15);
+            border-left: 1px solid #fff4;
+            border-bottom: 1px solid #fff4;
+            border-top: 1px solid #fff9;
+        }
+        .calculator span:active{
+            filter: brightness(1.5);
+        }
+        body.light .calculator span:active{
+            filter: brightness(0.9);
+        }
+        .calculator span i{
+            color: #fff;
+            font-weight: 700;
+            font-size: 30px;
+            z-index: 2;
+        }
+        body.light .calculator span i{
+            color: #333;
+        }
+        body.light .calculator .clear,
+        .calculator .clear{
+            grid-column: span 2;
+            width: 170px;
+            background: #f00;
+        }
+        body.light .calculator .clear::before,
+        .calculator .clear::before{
+            background: linear-gradient(90deg, #d20000, #ffffff5c);
+            border-left: 1px solid #fff4;
+            border-bottom: 1px solid #fff4;
+            border-top: 1px solid #fff4;
+        }
+        .calculator .plus{
+            grid-row: span 2;
+            height: 170px;
+        }
+        body.light .calculator .equal,
+        .calculator .equal{
+            background: #2196f3;
+        }
+        body.light .calculator .equal i,
+        body.light .calculator .clear i{
+            color: #fff;
+        }
+        body.light .calculator .equal::before,
+        .calculator .equal::before{
+            background: linear-gradient(90deg, #1479c9, #ffffff5c);
+            border-left: 1px solid #fff4;
+            border-bottom: 1px solid #fff4;
+            border-top: 1px solid #fff4;
+        }
+        .btn{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #333;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.25),
+            5px 5px 30px rgba(0, 0, 0, 0.25),
+            inset -2px -2px 5px rgba(0, 0, 0, 0.25),
+            inset 2px 2px 5px rgba(0, 0, 0, 0.25);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        body.light .btn{
+            background-color: #fafafa;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1),
+            5px 5px 30px rgba(0, 0, 0, 0.1),
+            inset -2px -2px 5px rgba(0, 0, 0, 0.1),
+            inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .btn span{
+            font-size: 40px;
+        }
+        .btn .icon-icon-test{
+            color: rgba(40, 189, 73, 0.733);
+            display: none;
+        }
+        .btn .icon-icon-test1{
+            color: #2196f3;
+        }
+        body.light .btn .icon-icon-test{
+            display: block;
+        }
+        body.light .btn .icon-icon-test1{
+            display: none;
+        }
+    </style>
+    <script>
+        window.onload = ()=>{
+            let body = document.querySelector("body");
+            let btn = document.querySelector(".btn");
+            btn.addEventListener("click", ()=>{
+                body.classList.toggle("light");
+            });
+        };
+    </script>
+</head>
+
+<body>
+    <div class="btn">
+        <span class="iconfont icon-icon-test"></span>
+        <span class="iconfont icon-icon-test1"></span>
+    </div>
+    <section class="container">
+        <form action="" class="calculator" name="calc">
+            <input type="text" class="value" name="txt" readonly />
+            <span class="num clear" onclick="calc.txt.value=''" ><i>C</i></span>
+            <span class="num" onclick="calc.txt.value+='/'" ><i>/</i></span>
+            <span class="num" onclick="calc.txt.value+='*'" ><i>*</i></span>
+            <span class="num" onclick="calc.txt.value+='7'" ><i>7</i></span>
+            <span class="num" onclick="calc.txt.value+='8'" ><i>8</i></span>
+            <span class="num" onclick="calc.txt.value+='9'" ><i>9</i></span>
+            <span class="num" onclick="calc.txt.value+='-'" ><i>-</i></span>
+            <span class="num" onclick="calc.txt.value+='4'" ><i>4</i></span>
+            <span class="num" onclick="calc.txt.value+='5'" ><i>5</i></span>
+            <span class="num" onclick="calc.txt.value+='6'" ><i>6</i></span>
+            <span class="num plus" onclick="calc.txt.value+='+'" ><i>+</i></span>
+            <span class="num" onclick="calc.txt.value+='1'" ><i>1</i></span>
+            <span class="num" onclick="calc.txt.value+='2'" ><i>2</i></span>
+            <span class="num" onclick="calc.txt.value+='3'" ><i>3</i></span>
+            <span class="num" onclick="calc.txt.value+='0'" ><i>0</i></span>
+            <span class="num" onclick="calc.txt.value+='00'"><i>00</i></span>
+            <span class="num" onclick="calc.txt.value+='.'" ><i>.</i></span>
+            <span class="num equal" onclick="calc.txt.value=eval(calc.txt.value)"><i>=</i></span>
+        </form>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件</title>
+
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="app">
+        <vcom v-for="item in items" v-bind:title="item"></vcom>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    items: ["aaa", "bbb", "ccc"]
+                }
+            },
+        });
+        app.component("vcom", {
+            props: {
+                ["title"]:{ //获取属性 并做简单的验证
+                    type: String,
+                    default: "Undefined"
+                }
+            },
+            template: `<li>{{"props:" + title}}</li>`
+        });
+        const vm = app.mount("#app");
+    </script>
+</body>
+</html>

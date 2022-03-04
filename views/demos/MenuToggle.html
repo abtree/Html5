@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹性旋转菜单</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        *{margin: 0; padding: 0;}
+        body{
+            background: linear-gradient(to right, #ed6ea0, #ec8c69);
+            height: 100vh;
+        }
+        .menu_toggler{
+            position: absolute;
+            display: block;
+            /* 设置居中显示 */
+            top: 0; bottom: 0; left: 0; right: 0; margin: auto;
+            width: 40px;
+            height: 40px;
+            z-index: 2;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .menu_toggler:hover + label,
+        .menu_toggler:hover + label::before,
+        .menu_toggler:hover + label::after{
+            background-color: #fff;
+        }
+        .menu_toggler:checked + label{
+            background: transparent;
+        }
+        .menu_toggler:checked + label::before,
+        .menu_toggler:checked + label::after{
+            top: 0;
+            width: 40px;
+            /* 设置变形原点 */
+            transform-origin: 50% 50%;  
+        }
+        .menu_toggler:checked + label::before{
+            transform: rotate(45deg);
+        }
+        .menu_toggler:checked + label::after{
+            transform: rotate(-45deg);
+        }
+        .menu_toggler:checked ~ ul .menu_item{
+            opacity: 1;
+        }
+        .menu_toggler:checked ~ ul .menu_item:nth-child(1){
+            transform: rotate(0deg) translateX(-110px);
+        }
+        .menu_toggler:checked ~ ul .menu_item:nth-child(2){
+            transform: rotate(60deg) translateX(-110px);
+        }
+        .menu_toggler:checked ~ ul .menu_item:nth-child(3){
+            transform: rotate(120deg) translateX(-110px);
+        }
+        .menu_toggler:checked ~ ul .menu_item:nth-child(4){
+            transform: rotate(180deg) translateX(-110px);
+        }
+        .menu_toggler:checked ~ ul .menu_item:nth-child(5){
+            transform: rotate(240deg) translateX(-110px);
+        }
+        .menu_toggler:checked ~ ul .menu_item:nth-child(6){
+            transform: rotate(300deg) translateX(-110px);
+        }
+        .menu_toggler + label{
+            /* 居中 */
+            position: absolute;
+            top: 0; bottom: 0; left: 0; right: 0; margin: auto;
+            width: 40px; height: 5px;
+            display: block;
+            z-index: 1;
+            border-radius: 2.5px;
+            background: rgba(255, 255, 255, 0.7);
+            transition: transform 0.5s, top 0.5s; 
+        }
+        .menu_toggler + label::before,
+        .menu_toggler + label::after{
+            width: 40px; height: 5px;
+            display: block;
+            z-index: 1;
+            border-radius: 2.5px;
+            background: rgba(255, 255, 255, 0.7);
+            transition: transform 0.5s, top 0.5s;
+            content: "";
+            position: absolute;
+            left: 0;
+        }
+        .menu_toggler + label::before{
+            top: 10px;
+        }
+        .menu_toggler + label::after{
+            top: -10px;
+        }
+        .menu_item:nth-child(1) i{
+            transform: rotate(0deg);
+        }
+        .menu_item:nth-child(2) i{
+            transform: rotate(-60deg);
+        }
+        .menu_item:nth-child(3) i{
+            transform: rotate(-120deg);
+        }
+        .menu_item:nth-child(4) i{
+            transform: rotate(-180deg);
+        }
+        .menu_item:nth-child(5) i{
+            transform: rotate(-240deg);
+        }
+        .menu_item:nth-child(6) i{
+            transform: rotate(-300deg);
+        }
+        .menu_item{
+            position: absolute;
+            top: 0; bottom: 0; left: 0; right: 0; margin: auto;
+            display: block;
+            width: 80px; height: 80px;
+            opacity: 0;
+            transition: 0.5s;
+        }
+        .menu_item i{
+            display: block;
+            width: inherit; height: inherit;
+            line-height: 80px;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            text-align: center;
+            text-decoration: none;
+            font-size: 40px;
+            transition: 0.2s;
+        }
+        .menu_item i:hover{
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+            color: #fff;
+            background: rgba(255, 255, 255, 0.3);
+            font-size: 45px;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="menu">
+        <input type="checkbox" class="menu_toggler" id="menu_toggler" checked>
+        <label for="menu_toggler"></label>
+        <ul>
+            <li class="menu_item"><i class="iconfont icon-icon-test"></i></li>
+            <li class="menu_item"><i class="iconfont icon-icon-test1"></i></li>
+            <li class="menu_item"><i class="iconfont icon-icon-test2"></i></li>
+            <li class="menu_item"><i class="iconfont icon-icon-test3"></i></li>
+            <li class="menu_item"><i class="iconfont icon-icon-test4"></i></li>
+            <li class="menu_item"><i class="iconfont icon-icon-test5"></i></li>
+        </ul>
+    </nav>
+</body>
+</html>

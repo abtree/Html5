@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伸缩式导航栏</title>
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(200deg, #ddd6f3, #faaca8);
+        }
+
+        .navbar ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar {
+            position: relative;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 50px;
+            float: right;
+            margin: 100px;
+            display: inline-flex;
+        }
+
+        .navbar input {
+            width: 40px;
+            height: 40px;
+            /* 复选框设置为透明 */
+            opacity: 0;
+            /* 鼠标变成小手 */
+            cursor: pointer;
+        }
+
+        .navbar span {
+            position: absolute;
+            left: 25px;
+            width: 30px;
+            height: 4px;
+            border-radius: 15px;
+            background-color: #999;
+            /* 现在span覆盖在复选框上，鼠标放在span上点不中复选框，下面这个设置使鼠标可以点中下面的复选框 */
+            pointer-events: none;
+            /* 设置动画 */
+            transition: transform 0.3s ease-in-out, top 0.3s ease-in-out 0.3s;
+        }
+
+        .navbar span:nth-child(2) {
+            top: calc(50% - 10px);
+        }
+
+        .navbar span:nth-child(3) {
+            top: calc(50% + 6px);
+        }
+
+        .navbar ul {
+            width: 0;
+            overflow: hidden;
+            /* 在这里加过度 可以让展开和收起不那么生硬 */
+            transition: all 0.5s;
+            /* 不能产生换行效果 */
+            white-space: nowrap;
+
+        }
+
+        .navbar ul li {
+            list-style: none;
+            margin: 0px 15px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 700px;
+            color: #333;
+        }
+
+        .navbar ul li a:hover {
+            color: #fb7299;
+        }
+
+        .navbar input:checked~ul {
+            width: 350px;
+        }
+
+        /* 将双横线设置为X */
+        .navbar input:checked~span:nth-child(2) {
+            top: calc(50% - 2px);
+            transform: rotate(-45deg);
+            background-color: #fb7299;
+            /* 设置动画 */
+            transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+        }
+
+        .navbar input:checked~span:nth-child(3) {
+            top: calc(50% - 2px);
+            transform: rotate(45deg);
+            background-color: #fb7299;
+            transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <input type="checkbox" />
+        <span></span>
+        <span></span>
+        <ul>
+            <li><a href="javascript:void(0)">点赞</a></li>
+            <li><a href="javascript:void(0)">关注</a></li>
+            <li><a href="javascript:void(0)">收藏</a></li>
+            <li><a href="javascript:void(0)">评论</a></li>
+            <li><a href="javascript:void(0)">转发</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>
