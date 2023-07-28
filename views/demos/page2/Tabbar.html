@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabbar图标栏切换</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+}
+:root{
+    --bg-color:#2962ff60;
+    --blue:#2962ff;
+    --blue60:#2962ff60;
+    --blue30:#2962ff30;
+    --red:#ff6776;
+    --red60:#ff677660;
+    --red30:#ff677630;
+    --green:#00c853;
+    --green60:#00c85360;
+    --green30:#00c85330;
+    --purple:#bf3eff;
+    --purple60:#bf3eff60;
+    --purple30:#bf3eff30;
+    --orange:#ff6d00;
+    --orange60:#ff6d0060;
+    --orange30:#ff6d0030;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+    transition: background-color 1s;
+}
+.tabbar{
+    position: relative;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 12px 15px;
+}
+.tabbar ul{
+    list-style: none;
+    display: flex;
+}
+.tabbar ul li{
+    position: relative;
+    z-index: 1;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    cursor: pointer;
+    transition: 1s;
+}
+.tabbar ul li img{
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+.tabbar ul li .iconfont{
+    font-size: 28px;
+    transition: 0.5s;
+}
+.tabbar ul li:nth-child(2).active{
+    color: var(--red);
+}
+.tabbar ul li:nth-child(3).active{
+    color: var(--green);
+}
+.tabbar ul li:nth-child(4).active{
+    color: var(--purple);
+}
+.tabbar ul li:nth-child(5).active{
+    color: var(--orange);
+}
+.active-circle{
+    width: 48px;
+    height: 48px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 27px;
+    left: 30px;
+    z-index: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.tabbar ul li:nth-child(1).active ~ .active-circle{
+    left: 30px;
+    background-color: var(--blue30);
+}
+
+.tabbar ul li:nth-child(2).active ~ .active-circle{
+    left: 108px;
+    background-color: var(--red30);
+}
+.tabbar ul li:nth-child(3).active ~ .active-circle{
+    left: 186px;
+    background-color: var(--green30);
+}
+.tabbar ul li:nth-child(4).active ~ .active-circle{
+    left: 264px;
+    background-color: var(--purple30);
+}
+.tabbar ul li:nth-child(5).active ~ .active-circle{
+    left: 342px;
+    background-color: var(--orange30);
+}
+.jello{
+    animation: jello 0.8s linear forwards;
+}
+
+@keyframes jello {
+    0%{
+        transform: scale(1,1);
+    }
+    30%{
+        transform: scale(1.25,0.75);
+    }
+    40%{
+        transform: scale(0.75,1.25);
+    }
+    50%{
+        transform: scale(1.15,0.85);
+    }
+    65%{
+        transform: scale(0.95,1.05);
+    }
+    75%{
+        transform: scale(1.05,0.95);
+    }
+    100%{
+        transform: scale(1,1);
+    }
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const items = document.querySelectorAll(".item")
+    const activeCircle = document.querySelector(".active-circle")
+    items.forEach(item => item.addEventListener("click", ()=>{
+        //添加激活状态
+        items.forEach(x => x.classList.remove("active"))
+        item.classList.add("active") 
+        //添加过度动画
+        activeCircle.classList.add("jello")  
+        setTimeout(()=>{
+            activeCircle.classList.remove("jello") 
+        }, 800)
+        //修改页面背景
+        const bgc = item.style.getPropertyValue("--bgc")
+        document.documentElement.style.setProperty("--bg-color", bgc)
+    }))
+} 
+    </script>
+</head>
+<body>
+    <div class="tabbar">
+        <ul>
+            <li style="--bgc:var(--blue60)" class="item active"><img src="/views/imgs/eff_buff_hmm_slz.png" alt=""></li>
+            <li style="--bgc:var(--red60)" class="item"><span class="iconfont icon-icon-test1"></span></li>
+            <li style="--bgc:var(--green60)" class="item"><span class="iconfont icon-icon-test2"></span></li>
+            <li style="--bgc:var(--purple60)" class="item"><span class="iconfont icon-icon-test3"></span></li>
+            <li style="--bgc:var(--orange60)" class="item"><span class="iconfont icon-icon-test4"></span></li>
+            <div class="active-circle"></div>
+        </ul>
+    </div>    
+</body>
+</html>

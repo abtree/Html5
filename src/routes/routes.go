@@ -16,6 +16,11 @@ func logPanics(f HandleFnc) HandleFnc {
 				log.Printf("[%v] caught panic: %v", r.RemoteAddr, x)
 			}
 		}()
+		//设置跨域允许
+		w.Header().Add("Access-Control-Allow-Origin", "*")
+		w.Header().Add("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT")
+		w.Header().Add("Access-Control-Max-Age", "3600")
+		w.Header().Add("Access-Control-Allow-Headers", "Content-Type,Access-Token,Authorization,ybg")
 		f(w, r)
 	}
 }

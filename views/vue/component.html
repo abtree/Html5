@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,29 +8,136 @@
     <title>组件</title>
 
     <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .tab-button.active {
+            background: #e0e0e0;
+        }
+
+        .demo-tab {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
 </head>
+
 <body>
     <div id="app">
         <vcom v-for="item in items" v-bind:title="item"></vcom>
+        <!-- 在父控件中注册子控件事件处理函数，注意事件名称的变化 -->
+        <vevt @evt-click="evtClick"></vevt>
+        <vslot>父控件内容</vslot>
+        <!-- 动态组件(会在多个组件之间动态切换) -->
+        <div>
+            <button v-for="tab in tabs" :key="tab" :class="['tab-button', { active: currentTab === tab }]"
+                v-on:click="currentTab = tab">
+                {{ tab }}
+            </button>
+            <!-- 动态标签可以通过keep-alive来提高性能，keep-alive可以缓存已经失活的组件 -->
+            <keep-alive>
+                <!-- 这里:is等于哪个组件的名称，就渲染哪个组件(该功能也可以用router实现) -->
+                <component v-bind:is="currentTabComponent">{{currentTabComponent}}</component>
+            </keep-alive>
+        </div>
+        <!-- 通过v-model:title绑定双向属性，他会给子组件添加一个title属性和'update:title'事件 -->
+        <!-- v-model可以存在多个 -->
+        <my-component v-model:title="bookTitle"></my-component>
+        <base-layout>
+            <!-- 给代名插槽传值，需要将值放入template中，并且用v-slot:header指定插槽名称 -->
+            <template v-slot:header>
+                <h1>Here might be a page title</h1>
+            </template>
+
+            <!-- props为slot向父级控件传递的参数,采用'插槽名="参数对象"'形式 -->
+            <!-- 默认插槽可以缩写为 v-slot="props"(慎用) 不能缩写为 #="props" -->
+            <!-- v-slot:header 可以缩写为 #header -->
+            <template v-slot:default="props">
+                <p>A paragraph for the main content.</p>
+                <p>And another one.{{props.item}}</p>
+            </template>
+
+            <template v-slot:footer>
+                <p>Here's some contact info</p>
+            </template>
+        </base-layout>
     </div>
     <script>
         const app = Vue.createApp({
             data() {
                 return {
-                    items: ["aaa", "bbb", "ccc"]
+                    items: ["aaa", "bbb", "ccc"],
+                    currentTab: 'Home',
+                    tabs: ['Home', 'Posts', 'Archive']
                 }
             },
+            methods: {
+                evtClick(param) {
+                    //参数由子控件传递
+                    alert(param);
+                }
+            },
+            computed: {
+                currentTabComponent() {
+                    return 'tab-' + this.currentTab.toLowerCase()
+                }
+            }
         });
         app.component("vcom", {
             props: {
-                ["title"]:{ //获取属性 并做简单的验证
+                ["title"]: { //获取属性 并做简单的验证
                     type: String,
                     default: "Undefined"
                 }
             },
+            // inheritAttrs禁用从父级传入的attribute属性(但属性仍然可以通过$attrs拿到)
+            // 并且可以通过 v-bind="$attrs" 手动启用父级属性 
+            // inheritAttrs: false,
             template: `<li>{{"props:" + title}}</li>`
-        });
+        }).component("vevt", {
+            // $emit 为内置函数，作用是抛出事件，交由父级处理
+            template: `<button @click="$emit('evtClick', '子组件事件')">点击</button>`
+        }).component("vslot", {
+            // <slot></slot>为占位符，接收父控件内容
+            template: `<div>子控件内容---<slot></slot>---子控件内容</div>`
+        }).component('tab-home', {
+            template: `<div class="demo-tab">Home component: name:<slot></slot></div>`
+        }).component('tab-posts', {
+            template: `<div class="demo-tab">Posts component: name:<slot></slot></div>`
+        }).component('tab-archive', {
+            template: `<div class="demo-tab">Archive component: name:<slot>插槽默认值将在父控件未传值时被渲染</slot></div>`
+        }).component('my-component', {
+            props: {
+                title: String
+            },
+            emits: ['update:title'],
+            template: `
+                        <input
+                        type="text"
+                        :value="title"
+                        @input="$emit('update:title', $event.target.value)">
+                    `
+        }).component('base-layout', {
+            data(){
+                return{
+                    item:"aaa"  //需要向父级控件slot内容传递的参数
+                }
+            },
+            template: `<div class="container">
+                <header>
+                    <!-- 插槽带有名字header -->
+                    <slot name="header"></slot>
+                </header>
+                <main>
+                    <!-- 插槽默认名字为default -->
+                    <slot :item="item"></slot>
+                </main>
+                <footer>
+                    <slot name="footer"></slot>
+                </footer>
+                </div>`
+        })
         const vm = app.mount("#app");
     </script>
+
 </body>
+
 </html>

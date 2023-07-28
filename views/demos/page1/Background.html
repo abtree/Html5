@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背景渐变动画</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(125deg, #2c3e50, #27ae60, #2980b9,#e74c3c,#8e44ad);
+            /* 将背景扩大 方便动画 */
+            background-size: 500%;
+            animation: bgAnimate 15s linear infinite;
+        }
+        .text{
+            color: #fff;
+            font-size: 30px;
+            letter-spacing: 15px;
+        }
+        @keyframes bgAnimate {
+            0%{
+                background-position: 0% 50%;
+            }
+            50%{
+                background-position: 100% 50%;
+            }
+            100%{
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="text">背景渐变动画</div>
+</body>
+</html>

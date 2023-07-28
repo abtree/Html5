@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>树形灯光</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        body{
+            background-color: #333;
+        }
+        .star{
+            width: 36px;
+            height: 36px;
+            position: absolute;
+            left: calc(50% - 18px);
+            top: calc(20vh - 22px);
+            z-index: 2;
+            background-color: #ffce54;
+            /* 裁剪为五角星 */
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            transition: 0.3s;
+        }
+        .star:hover{
+            background: url(/views/imgs/space.jpg) no-repeat;
+            background-size: cover;
+            background-position: center;
+            width: 50vw;
+            height: 50vh;
+            border-radius: 20px;
+            clip-path: none;
+            left: calc(50% - 25vw);
+        }
+        .star::after{
+            content: "Merry Christmas!";
+            position: absolute;
+            top: 55vh;
+            width: 100%;
+            text-align: center;
+            color: #555;
+            font-size: 6vw;
+            font-weight: 900;
+            white-space: nowrap;
+            text-shadow: 
+            0 0 10px #fff,
+            0 0 20px #fff,
+            0 0 40px #fff,
+            0 0 80px #fff,
+            0 0 120px #fff,
+            0 0 180px #fff;
+            transition: 0.6s;
+            transition-delay: 0.3s;
+            opacity: 0;
+        }
+        .star:hover::after{
+            opacity: 1;
+        }
+        .tree li{
+            list-style: none;
+            position: absolute;
+            top: 20vh;
+            right: 50%;
+            width: 1px;
+            height: var(--h);
+            background: linear-gradient(transparent, rgba(46,204,113,0.35));
+            transform-origin: 50% 0;
+            animation: swing 4s ease-in-out infinite;
+            animation-delay: var(--d);
+        }
+        @keyframes swing {
+            0%,100%{
+                transform: rotateZ(-30deg);
+                opacity: 1;
+            }
+            5%,45%{
+                opacity: 0.25;
+            }
+            50%{
+                transform: rotateZ(30deg);
+                opacity: 1;
+            }
+        }
+        .tree li::before{
+            content: "";
+            position: absolute;
+            left: -1px;
+            bottom: -1px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: red;
+        }
+        .tree li:nth-child(4n)::before{
+            background-color: #d8334a;
+        }
+        .tree li:nth-child(4n+1)::before{
+            background-color: #ffce54;
+        }
+        .tree li:nth-child(4n+2)::before{
+            background-color: #2ecc71;
+        }
+        .tree li:nth-child(4n+3)::before{
+            background-color: #5d9cec;
+        }
+    </style>
+    <script>
+        window.onload=()=>{
+            const ul = document.querySelector("#tree")
+            function createTree(){
+                for(let i = 0;i< 128;++i){
+                    let li = document.createElement('li');
+                    li.style.cssText='--h:'+(Math.floor(Math.random()*60)+1)+'vh;--d:calc(-28s / 128 * '+i+');'
+                    ul.appendChild(li);
+                }
+            }
+            createTree();
+        }
+    </script>
+</head>
+<body>
+    <div class="star"></div>
+    <ul class="tree" id="tree"></ul>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雷达扫描特效</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #6b98bb, #000);
+        }
+        .radar{
+            width: calc(256px + 48px); height: calc(256px + 48px);
+            border: 1px solid;
+            background: 
+            /* 重复的径向渐变，圈圈 */
+            repeating-radial-gradient(
+                transparent 0,
+                transparent 30px,
+                darkcyan 30px,
+                darkcyan 32px
+            ),
+            /* 线性渐变 中间水平横线 */
+            linear-gradient(
+                transparent 49.75%,
+                darkcyan 49.75%,
+                darkcyan 50.25%,
+                transparent 50.25%
+            ),
+            /* 线性渐变 中间垂直竖线 */
+            linear-gradient(
+                90deg,
+                transparent 49.75%,
+                darkcyan 49.75%,
+                darkcyan 50.25%,
+                transparent 50.25%
+            ),
+            /* 线性渐变 背景颜色 */
+            linear-gradient(#000, #000);
+            border-radius: 50%;
+            position: relative;
+        }
+        .radar::before{
+            content: "";
+            position: absolute;
+            width: calc(256px / 2);
+            height: calc(256px / 2);
+            background: linear-gradient(
+                45deg,
+                rgba(0,0,0,0) 50%,
+                rgba(0,255,255,1) 100%);
+            border-radius: 100% 0 0 0;
+            top: calc(48px / 2);
+            left: calc(48px / 2);
+            animation: scanning 5s linear infinite;
+            /* 设置旋转的基点位置 */
+            transform-origin: 100% 100%;
+        }
+        @keyframes scanning {
+            to{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="radar"></div>
+</body>
+</html>

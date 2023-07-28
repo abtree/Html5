@@ -7,8 +7,10 @@
     <title>小样式</title>
     <style type="text/css">
         .context{
-            min-width: 15%;
+            min-width: 18%;
             float: left;
+            height: 100vh;
+            overflow-y: scroll;
         }
         ul {
             margin-left: 50px;
@@ -23,39 +25,174 @@
             text-decoration: underline;
         }
 
+        .context .menu p{
+            background-color: #eee;
+            text-indent: 2em;
+            cursor: pointer;
+        }
+
         #content {
             float: left;
             width: 80%;
             height: 750px;
         }
+
+        .hide{
+            display: none;
+        }
     </style>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            $("li").click(function () {
-                var url = $(this).attr("href");
+            $("li").click(evt => {
+                var url = evt.target.getAttribute("href");
                 $("#content").attr("src", url);
+                evt.stopPropagation();
+            });
+
+            $(".context .menu").click(evt=>{
+                el = evt.currentTarget.querySelector("ul");
+                if(el.classList.contains("hide")){
+                    el.classList.remove("hide");
+                }else{
+                    el.classList.add("hide");
+                }
             });
         });
     </script>
 </head>
 <body>
     <div class="context">
-        <ul>
-            <li href="/views/demos/login1.html">登录框</li>
-            <li href="/views/demos/cardRotate3D.html">3D卡片旋转效果</li>
-            <li href="/views/demos/flexNav.html">伸缩式导航栏</li>
-            <li href="/views/demos/LoginAndRegister.html">滑动切换的注册登录界面</li>
-            <li href="/views/demos/inputEffect.html">输入框效果</li>
-            <li href="/views/demos/glassIcon.html">玻璃图标悬浮效果</li>
-            <li href="/views/demos/jumpNav.html">富有弹性的导航栏</li>
-            <li href="/views/demos/leftNav.html">侧边导航栏</li>
-            <li href="/views/demos/Calculator.html">计算器</li>
-            <li href="/views/demos/notice.html">hover提示</li>
-            <li href="/views/demos/MenuToggle.html">弹性旋转菜单</li>
-            <li href="/views/demos/FluxayButton.html">流光按钮</li>
-            <li href="/views/demos/FullScreenMenu.html">全屏导航栏菜单</li>
-        </ul>
+        <div class="menu">
+            <p>Page1</p>
+            <ul class="hide">
+                <li href="/views/demos/page1/login1.html">登录框</li>
+                <li href="/views/demos/page1/cardRotate3D.html">3D卡片旋转效果</li>
+                <li href="/views/demos/page1/flexNav.html">伸缩式导航栏</li>
+                <li href="/views/demos/page1/LoginAndRegister.html">滑动切换的注册登录界面</li>
+                <li href="/views/demos/page1/inputEffect.html">输入框效果</li>
+                <li href="/views/demos/page1/glassIcon.html">玻璃图标悬浮效果</li>
+                <li href="/views/demos/page1/jumpNav.html">富有弹性的导航栏</li>
+                <li href="/views/demos/page1/leftNav.html">侧边导航栏</li>
+                <li href="/views/demos/page1/Calculator.html">计算器</li>
+                <li href="/views/demos/page1/notice.html">hover提示</li>
+                <li href="/views/demos/page1/MenuToggle.html">弹性旋转菜单</li>
+                <li href="/views/demos/page1/FluxayButton.html">流光按钮</li>
+                <li href="/views/demos/page1/FullScreenMenu.html">全屏导航栏菜单</li>
+                <li href="/views/demos/page1/menuGrayOthers.html">菜单悬停效果</li>
+                <li href="/views/demos/page1/heartloading.html">炫彩爱心加载特效</li>
+                <li href="/views/demos/page1/StickBallLoading.html">粘性小球加载</li>
+                <li href="/views/demos/page1/Spotlight.html">聚光灯效果</li>
+                <li href="/views/demos/page1/LoadingRing.html">好看的加载动画效果</li>
+                <li href="/views/demos/page1/LoadingDiamond.html">菱形加载动画</li>
+                <li href="/views/demos/page1/IconEffect.html">简约的社交分享按钮</li>
+                <li href="/views/demos/page1/SandHour.html">沙漏加载动画</li>
+                <li href="/views/demos/page1/GapText.html">文字裂开效果</li>
+                <li href="/views/demos/page1/LoadingWave.html">手风琴式加载动画</li>
+                <li href="/views/demos/page1/Share1.html">分享按钮切换效果</li>
+                <li href="/views/demos/page1/LoadingBall.html">水球加载效果</li>
+                <li href="/views/demos/page1/HoldBright.html">鼠标悬停发光</li>
+                <li href="/views/demos/page1/leftNav1.html">侧边展开导航栏</li>
+                <li href="/views/demos/page1/LoadingDrop.html">水滴加载效果</li>
+                <li href="/views/demos/page1/RunningPicture.html">3d旋转木马相册</li>
+                <li href="/views/demos/page1/CloudButton.html">云朵特效按钮</li>
+                <li href="/views/demos/page1/OrbitLighting.html">旋转变色</li>
+                <li href="/views/demos/page1/HoldMove.html">边框滑动效果</li>
+                <li href="/views/demos/page1/Radar.html">雷达扫描特效</li>
+                <li href="/views/demos/page1/BGBlurLight.html">毛玻璃炫光按钮</li>
+                <li href="/views/demos/page1/Battery.html">手机充电效果</li>
+                <li href="/views/demos/page1/LightLetter.html">文字发光效果</li>
+                <li href="/views/demos/page1/FlexSearch.html">伸缩搜索框</li>
+                <li href="/views/demos/page1/Moon.html">日月交替</li>
+                <li href="/views/demos/page1/HoverIcon.html">3d分层按钮悬停</li>
+                <li href="/views/demos/page1/Battery1.html">手机充电效果</li>
+                <li href="/views/demos/page1/Swiper.html">抽屉式相册</li>
+                <li href="/views/demos/page1/TextShine.html">文字悬停发光</li>
+                <li href="/views/demos/page1/Background.html">背景渐变动画</li>
+                <li href="/views/demos/page1/LoadingCircle.html">流光圆环加载效果</li>
+                <li href="/views/demos/page1/Cards.html">响应式卡片</li>
+                <li href="/views/demos/page1/LoadingWave1.html">波浪文字加载</li>
+                <li href="/views/demos/page1/NavHide.html">隐藏式导航栏</li>
+                <li href="/views/demos/page1/ImageCube.html">图片盒子</li>
+                <li href="/views/demos/page1/ImageLayer.html">3d分层图片</li>
+                <li href="/views/demos/page1/LoginOwl.html">猫头鹰蒙眼</li>
+                <li href="/views/demos/page1/LightLetter1.html">金属质感闪光文字</li>
+                <li href="/views/demos/page1/LightLetter2.html">滚轮视察效果</li>
+                <li href="/views/demos/page1/LightLetter3.html">幽灵文字效果</li>
+                <li href="/views/demos/page1/ButtonWave.html">涟漪按钮效果</li>
+                <li href="/views/demos/page1/LoadingRun.html">环形加载动画</li>
+                <li href="/views/demos/page1/ButtonRipple.html">水波纹按钮</li>
+                <li href="/views/demos/page1/BGLogin.html">动态背景登录界面</li>
+                <li href="/views/demos/page1/LoadingHeart.html">心形加载动画</li>
+                <li href="/views/demos/page1/SwiperCards.html">垂直卡片轮播</li>
+                <li href="/views/demos/page1/BGMeteor.html">流星划过</li>
+                <li href="/views/demos/page1/HeartClick.html">心形点赞</li>
+                <li href="/views/demos/page1/SwiperMini.html">带缩约图的百叶窗</li>
+                <li href="/views/demos/page1/EarthOrbit.html">地球绕着太阳转</li>
+                <li href="/views/demos/page1/Cards1.html">响应式卡片1</li>
+                <li href="/views/demos/page1/Swiper3Layer.html">3层图像滑动对比效果</li>
+            </ul>
+        </div>
+        <div class="menu">
+            <p>Page2</p>
+            <ul>
+                <li href="/views/demos/page2/LoadingBall.html">跳动小球加载动画</li>
+                <li href="/views/demos/page2/Time.html">立体时钟</li>
+                <li href="/views/demos/page2/Switch.html">开关效果</li>
+                <li href="/views/demos/page2/SwipeMusic163.html">模仿网易云音乐的轮播图</li>
+                <li href="/views/demos/page2/Loading.html">加载效果</li>
+                <li href="/views/demos/page2/TreeLight.html">树形灯光</li>
+                <li href="/views/demos/page2/Card.html">人物介绍卡片</li>
+                <li href="/views/demos/page2/LoadingSquare.html">方框加载</li>
+                <li href="/views/demos/page2/LoadingDNA.html">DNA双螺旋加载动画</li>
+                <li href="/views/demos/page2/FlyAfterPointer.html">追逐鼠标</li>
+                <li href="/views/demos/page2/LoadingBounceBasketball.html">篮球弹跳加载</li>
+                <li href="/views/demos/page2/ButtonMSK.html">马赛克按钮hover效果</li>
+                <li href="/views/demos/page2/OpenBook.html">翻书效果</li>
+                <li href="/views/demos/page2/LoadingMobius.html">莫比乌斯环加载</li>
+                <li href="/views/demos/page2/NavHeader.html">渐变的头部导航栏</li>
+                <li href="/views/demos/page2/CardGlass.html">逼真的玻璃卡片效果</li>
+                <li href="/views/demos/page2/LoadingSpot.html">广告牌效果的加载动画</li>
+                <li href="/views/demos/page2/ButtenStatue.html">聚光灯浮雕效果</li>
+                <li href="/views/demos/page2/LoginShine.html">炫光登录界面</li>
+                <li href="/views/demos/page2/LoadingHeart.html">跳动的心形光点效果</li>
+                <li href="/views/demos/page2/LoadingFour.html">四色小球加载动画</li>
+                <li href="/views/demos/page2/CardBox.html">盒子卡片翻转效果</li>
+                <li href="/views/demos/page2/LoadingBubble.html">冒泡加载效果</li>
+                <li href="/views/demos/page2/Card3DBack.html">卡片3d翻转效果</li>
+                <li href="/views/demos/page2/BoxOpen.html">开盒子效果</li>
+                <li href="/views/demos/page2/BGLine.html">创意条纹背景</li>
+                <li href="/views/demos/page2/TextBright.html">文字发光效果</li>
+                <li href="/views/demos/page2/Options.html">黑色简约下拉菜单</li>
+                <li href="/views/demos/page2/Loading1.html">彩色浮雕加载动画</li>
+                <li href="/views/demos/page2/SwipeSlice.html">切片轮播图</li>
+                <li href="/views/demos/page2/Swipe.html">百叶窗图片切换</li>
+                <li href="/views/demos/page2/Input.html">单选按钮动画</li>
+                <li href="/views/demos/page2/Text2.5d.html">2.5D立体文字效果</li>
+                <li href="/views/demos/page2/Nav3D.html">3D导航栏</li>
+                <li href="/views/demos/page2/NavDot.html">聚光灯导航栏</li>
+                <li href="/views/demos/page2/LoadingText.html">文字飘过加载效果</li>
+                <li href="/views/demos/page2/LoadingRotate.html">旋转加载动画</li>
+                <li href="/views/demos/page2/DIYShirt.html">DIY切换衣服图案</li>
+                <li href="/views/demos/page2/Spotlight2.html">文字背景扫光效果</li>
+                <li href="/views/demos/page2/Cursor.html">圆形剪切图片光标</li>
+                <li href="/views/demos/page2/Tabbar.html">Tabbar图标栏切换</li>
+                <li href="/views/demos/page2/FormPanda.html">熊猫登录界面</li>
+                <li href="/views/demos/page2/Card1.html">社交卡片悬停效果</li>
+                <li href="/views/demos/page2/LoadingLogo.html">带logo的全频加载动画</li>
+                <li href="/views/demos/page2/BGWave.html">双层波浪动画特效</li>
+                <li href="/views/demos/page2/NavAlli.html">阿里云侧边导航栏</li>
+                <li href="/views/demos/page2/LoadingFly.html">飞行的钢铁侠</li>
+                <li href="/views/demos/page2/Card2.html">高光立体壁画卡片悬停特效</li>
+                <li href="/views/demos/page2/LoadingWave.html">3D原点波浪动画特效</li>
+                <li href="/views/demos/page2/Loading2.html">简单的loading动画</li>
+                <li href="/views/demos/page2/Form1.html">简单的注册登录界面</li>
+                <li href="/views/demos/page2/Card3.html">带标题的图像悬停</li>
+                <li href="/views/demos/page2/IconWeather.html">天气图标1</li>
+                <li href="/views/demos/page2/IconWeather2.html">天气图标2</li>
+                <li href="/views/demos/page2/Loading3.html">传送带加载效果</li>
+            </ul>
+        </div>
     </div>
     <iframe id="content" scrolling="auto">
     </iframe>

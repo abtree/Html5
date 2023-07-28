@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水球加载效果</title>
+    <style>
+        body{
+            margin: 0; padding: 0;
+            height: 100vh;
+            background: linear-gradient(to bottom, #89f7fe, #66a6ff);
+            position: relative;
+        }
+        .loading{
+            width: 200px; height: 200px; background-color: #2797e7;
+            border-radius: 50%;
+            position: absolute; left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 50px rgba(255,255,255,0.2);
+            overflow: hidden;
+        }
+        .loading::before{
+            content: "";
+            width: 300px; height: 300px;
+            border-radius: 40%;
+            position: absolute;
+            left: 50%; top: 0;
+            transform: translate(-50%, -65%);
+            background-color: rgba(255,255,255,0.8);
+            animation: rolling 2s linear infinite;
+        }
+        @keyframes rolling {
+            to{
+                transform: translate(-50%, -65%) rotate(360deg);
+            }
+        }
+        .loading::after{
+            content: "加载中...";
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -200%);
+            color: #2797e7;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading"></div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云朵特效按钮</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        body{
+            height: 100vh;
+            display: flex;justify-content: center; align-items: center;
+            background: linear-gradient(200deg, #00c6fb,#66a6ff);
+        }
+        nav ul{
+            list-style: none;
+        }
+        nav ul li{
+            --c:#fff;
+            color: var(--c);
+            width: 240px; height: 60px;
+            border: 3px solid var(--c);
+            border-radius: 10px;
+            text-align: center;
+            line-height: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 30px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: 0.5s;
+        }
+        nav ul li:hover{
+            color: #222;
+        }
+        nav ul li span{
+            position: absolute;
+            width: 25%; height: 100%;
+            background-color: var(--c);
+            border-radius: 50%;
+            transform: translateY(150%);
+            left: calc(var(--n)*25%);
+            transition: 0.5s;
+            transition-delay: calc(var(--n)*0.1s);
+            z-index: -1;
+        }
+        nav ul li:hover span{
+            transform: translateY(0) scale(2);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>点赞<span style="--n:0;"></span><span style="--n:1;"></span><span style="--n:2;"></span><span style="--n:3;"></span></li>
+            <li>关注<span style="--n:0;"></span><span style="--n:1;"></span><span style="--n:2;"></span><span style="--n:3;"></span></li>
+            <li>评论<span style="--n:0;"></span><span style="--n:1;"></span><span style="--n:2;"></span><span style="--n:3;"></span></li>
+            <li>转发<span style="--n:0;"></span><span style="--n:1;"></span><span style="--n:2;"></span><span style="--n:3;"></span></li>
+        </ul>
+    </nav>
+</body>
+</html>

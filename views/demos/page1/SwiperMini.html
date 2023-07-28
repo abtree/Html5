@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>带缩约图的百叶窗</title>
+    <style>
+        *{margin: 0;padding: 0;box-sizing: border-box;}
+        body{
+            height: 100vh;
+            display: flex;justify-content: center;align-items: center;
+            background: linear-gradient(to bottom, #517fa4, #243949);
+        }
+        .container{
+            width: 1200px;
+            height: 700px;
+        }
+        .container ul{
+            list-style: none;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+        .container ul li{
+            width: 200px;
+            cursor: pointer;
+        }
+        .container ul li img{
+            width: 100%;
+            height: 110px;
+            border: 5px solid transparent;
+        }
+        .container ul .big-img{
+            position: absolute;
+            top: 0;left: 0;
+            width: 1200px;
+            height: 550px;
+            background: url("/views/imgs/eff_hx_zhfz_book_01.png") no-repeat;
+            /* 保持宽高比 缩放图片 */
+            background-size: contain;
+            /* 图片居中 */
+            background-position: center;
+            border: 5px solid transparent;
+            transition: 0.5s;
+        }
+        /* 边框 */
+        .container ul .frame{
+            position: absolute;
+            left: 0;
+            bottom: 4px;
+            width: 200px;
+            height: 110px;
+            border: 5px solid #fff;
+            /* 解决闪烁问题 */
+            pointer-events: none;
+            transition: 0.5s;
+        }
+        .container ul .frame::before{
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background-color: #fff;
+            left: calc(50% - 15px);
+            top: -18px;
+            /* 裁剪出一个三角形 */
+            clip-path: polygon(0 100%, 50% 0, 100% 100%);
+        }
+        .container ul li:nth-child(1):hover ~ .big-img{
+            background-image: url("/views/imgs/eff_hx_zhfz_book_01.png");
+        }
+        .container ul li:nth-child(2):hover ~ .big-img{
+            background-image: url("/views/imgs/eff_hx_zhfz_book_02.png");
+        }
+        .container ul li:nth-child(3):hover ~ .big-img{
+            background-image: url("/views/imgs/eff_hx_zhfz_book_03.png");
+        }
+        .container ul li:nth-child(4):hover ~ .big-img{
+            background-image: url("/views/imgs/eff_hx_zhfz_book_01.png");
+        }
+        .container ul li:nth-child(5):hover ~ .big-img{
+            background-image: url("/views/imgs/eff_hx_zhfz_book_02.png");
+        }
+        .container ul li:nth-child(6):hover ~ .big-img{
+            background-image: url("/views/imgs/eff_hx_zhfz_book_03.png");
+        }
+        .container ul li:nth-child(1):hover ~ .frame{
+            left: 0;
+        }
+        .container ul li:nth-child(2):hover ~ .frame{
+            left: 200px;
+        }
+        .container ul li:nth-child(3):hover ~ .frame{
+            left: 400px;
+        }
+        .container ul li:nth-child(4):hover ~ .frame{
+            left: 600px;
+        }
+        .container ul li:nth-child(5):hover ~ .frame{
+            left: 800px;
+        }
+        .container ul li:nth-child(6):hover ~ .frame{
+            left: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul>
+            <li><img src="/views/imgs/eff_hx_zhfz_book_01.png" alt=""></li>
+            <li><img src="/views/imgs/eff_hx_zhfz_book_02.png" alt=""></li>
+            <li><img src="/views/imgs/eff_hx_zhfz_book_03.png" alt=""></li>
+            <li><img src="/views/imgs/eff_hx_zhfz_book_01.png" alt=""></li>
+            <li><img src="/views/imgs/eff_hx_zhfz_book_02.png" alt=""></li>
+            <li><img src="/views/imgs/eff_hx_zhfz_book_03.png" alt=""></li>
+            <li class="big-img"></li>
+            <li class="frame"></li>
+        </ul>
+    </div>
+</body>
+</html>

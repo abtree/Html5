@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>带logo的全频加载动画</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    height: 100vh;
+}
+.loader-wrapper{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(45deg, rgb(90, 54, 148) 0%, rgb(19, 189, 206) 33%,rgb(0, 148, 217) 66%,rgb(111, 199, 181) 100%);
+    background-size: 400%;
+    background-position: 0% 100%;
+    animation: gradient 7.5s ease-in-out infinite;
+}
+.loader{
+    width: 150px;
+    height: 150px;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    margin-left: -75px;
+    margin-top: -75px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: spin 1.7s linear infinite;
+}
+.loader::before{
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    animation: spin 0.6s linear infinite reverse;
+}
+.loader::after{
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    bottom: 15px;
+    right: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    animation: spin 1s linear infinite;
+}
+.loader img{
+    width: 55%;
+    height: 55%;
+    border-radius: 50%;
+    animation: spin 1.7s linear infinite reverse;
+}
+.loader-text{
+    width: 50%;
+    height: 36px;
+    position: absolute;
+    top: 72%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    user-select: none;
+}
+.loader-text div{
+    width: 30px;
+    height: 36px;
+    color: #fff;
+    font-size: 32px;
+    margin: 0 20px;
+    transform: rotate(180deg);
+    position: absolute;
+    animation: move 2s linear infinite;
+    animation-delay: var(--d);
+    opacity: 0;
+}
+.loader-text div:nth-child(8)::before,
+.loader-text div:nth-child(9)::before,
+.loader-text div:nth-child(10)::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--c);
+    position: absolute;
+    left: 10px;
+    top: 18px;
+}
+.loader-text div::after{
+    content: "";
+    width: 10px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    margin-left: -5px;
+}
+.loader-text div:nth-child(8)::after,
+.loader-text div:nth-child(9)::after,
+.loader-text div:nth-child(10)::after{
+    left: 0;
+    margin-left: 0;
+}
+@keyframes gradient {
+    50%{
+        background-position: 100% 0%;
+    }
+}
+@keyframes spin {
+    to{
+        transform: rotate(360deg);
+    }
+}
+@keyframes move {
+    0%{
+        right: 0;
+        opacity: 0;
+    }
+    35%{
+        right: 41%;
+        opacity: 1;
+        transform: rotate(0);
+    }
+    65%{
+        right: 59%;
+        opacity: 1;
+        transform: rotate(0);
+    }
+    100%{
+        right: 100%;
+        transform: rotate(-180deg);
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="loader-wrapper">
+        <div class="loader">
+            <img src="/views/imgs/eff_hx_buff_02.png" alt="">
+        </div>
+        <div class="loader-text">
+            <div style="--d:0">L</div>
+            <div style="--d:0.2s">O</div>
+            <div style="--d:0.4s">A</div>
+            <div style="--d:0.6s">D</div>
+            <div style="--d:0.8s">I</div>
+            <div style="--d:1s">N</div>
+            <div style="--d:1.2s">G</div>
+            <div style="--d:1.4s;--c:#eccc68;"></div>
+            <div style="--d:1.6s;--c:#7bed9f;"></div>
+            <div style="--d:1.8s;--c:#ff6b81;"></div>
+        </div>
+    </div>
+</body>
+</html>

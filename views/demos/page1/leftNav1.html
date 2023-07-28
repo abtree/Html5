@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侧边展开导航栏</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        *{margin: 0; padding: 0;}
+        body{overflow: hidden;}
+        .navbar{
+            position: relative;
+            width: 100vw;
+        }
+        #checkbox{
+            display: none;
+        }
+        .navbar label{
+            position: absolute;
+            top: 0; left: 70px;
+            width: 100%;
+            height: 43px;
+            background-color: #ededed;
+            padding-left: 20px;
+            border: 1px solid #d9dee4;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+        .navbar label .iconfont{
+            font-size: 43px;
+            color: #5a738e;
+        }
+        .navbar ul{
+            list-style: none;
+            width: 70px; height: 100vh;
+            background-color: #2a3f54;
+            transition: all 0.5s;
+            overflow: hidden;
+        }
+        .navbar ul li{
+            height: 70px;
+            margin-bottom: 10px;
+        }
+        .navbar ul li:first-child{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10px;
+        }
+        .navbar ul li:first-child img{
+            width: 50px; height: 50px; border-radius: 50px;
+        }
+        .navbar ul li:first-child span{
+            color: #fff;
+            white-space: nowrap;
+            padding-left: 10px;
+            display: none;
+        }
+        .navbar ul li .iconfont{
+            width: 100%; height: 100%;
+            color: #d1d1d1;
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+        .navbar ul li .iconfont:hover{
+            color: #fff;
+            background-color: #35495d;
+        }
+        .navbar ul li i span{
+            font-size: 12px;
+            white-space: nowrap;   
+        }
+        .navbar input:checked + label{
+            left: 200px;
+        }
+        .navbar input:checked ~ ul{
+            width: 200px;
+        }
+        .navbar input:checked ~ ul li:first-child{
+            /* 居中对齐改为开头对齐 */
+            justify-content: flex-start;
+        }
+        .navbar input:checked ~ ul li:first-child span{
+            display: block;
+        }
+        .navbar input:checked ~ ul li .iconfont{
+            flex-direction: row;
+            justify-content: flex-start;
+            font-size: 18px;
+            margin: 0 15px 0 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <input type="checkbox" name="checkbox" id="checkbox">
+        <label for="checkbox">
+            <i class="iconfont icon-icon-test" aria-hidden="true"></i>
+        </label>
+        <ul>
+            <li>
+                <img src="/views/imgs/eff_buff_hmm_slz.png" />
+                <span>欢迎你，管理员</span>
+            </li>
+            <li>
+                <i class="iconfont icon-icon-test1" aria-hidden="true"><span>后台管理</span></i>
+            </li>
+            <li>
+                <i class="iconfont icon-icon-test2" aria-hidden="true"><span>商品列表</span></i>
+            </li>
+            <li>
+                <i class="iconfont icon-icon-test3" aria-hidden="true"><span>用户列表</span></i>
+            </li>
+            <li>
+                <i class="iconfont icon-icon-test4" aria-hidden="true"><span>订单列表</span></i>
+            </li>
+            <li>
+                <i class="iconfont icon-icon-test5" aria-hidden="true"><span>功能列表</span></i>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

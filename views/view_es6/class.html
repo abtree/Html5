@@ -63,6 +63,24 @@
         }
         let dog = new Dog("fixxx", 1, 'yellow');
         console.log(dog.Name());
+
+        //传统继承
+        function Parent(age){
+            this.age = age
+        }
+        Parent.prototype.getAge = function(){
+            return this.age;
+        }
+        function Child(age, name){
+            Parent.call(this, age)  //这里主要继承构造参数
+            this.name = name
+        }
+        Child.prototype = new Parent(); //这里主要继承方法和常量
+        Child.prototype.getName = function(){
+            return this.name;
+        }
+        let obj = new Child(18, "aaaa");
+        console.log(obj, obj.getAge(), obj.getName());
     </script>
 </body>
 

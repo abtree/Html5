@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聚光灯效果</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        body{
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh;
+        }
+        h1{
+            color: #333;
+            font-size: 112px;
+            position: relative;
+        }
+        h1::after{
+            content: "HELLO WORLD!";
+            /* color: red; */
+            position: absolute;
+            top: 0; left: 0;
+            background: linear-gradient(to right, #ff69b3, #fe0000,#ffa401,#ffff01,#008102,#40e1d2,#410098, #9400d4);
+            /* 以文字的范围来剪切背景图片,google浏览器对这个属性支持还有问题 
+            必须要加上 color: transparent; 属性才能正常运行 */
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            clip-path: circle(100px at 0% 50%);
+            animation: light 5s infinite;
+        }
+        @keyframes light {
+            0%{
+                clip-path: circle(100px at 0% 50%);
+            }
+            50%{
+                clip-path: circle(100px at 100% 50%);
+            }
+            100%{
+                clip-path: circle(100px at 0% 50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>HELLO WORLD!</h1>
+</body>
+</html>

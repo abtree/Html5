@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鼠标悬停发光</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        .container{
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column;
+            width: 100vw; height: 100vh;
+            /* 背景径向渐变 */
+            background: radial-gradient(circle at center, #555, #000);
+        }
+        .container a{
+            position: relative;
+            display: block;
+            width: 140px; height: 60px;
+            line-height: 60px;
+            text-align: center;
+            margin: 40px;
+            color: plum;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease-in-out;
+            /* 我们通过自定义参数来改变每一个a标签的字体颜色(妥妥的骚操作) 
+            hue-rotate为色相旋转，参数为旋转弧度*/
+            filter: hue-rotate(calc(var(--i)*60deg));
+        }
+        .container a::before,
+        .container a::after{
+            content: "";
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 2px solid plum;
+            /* 后面的0.3s是延迟时间 配合上面的动画使用的 */
+            transition: all 0.3s ease-in-out 0.3s;
+        }
+        .container a::before{
+            top: 0; left: 0;
+            border-right: 0; border-bottom: 0;
+        }
+        .container a::after{
+            bottom: 0; right: 0;
+            border-top: 0; border-left: 0;
+        }
+        .container a:hover{
+            background-color: plum;
+            color: #000;
+            box-shadow: 0 0 50px plum;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, rgba(0,0,0,0.3));
+            transition-delay: 0.4s;
+        }
+        .container a:hover::before,
+        .container a:hover::after{
+            width: 138px; height: 58px;
+            /* 这里取消延迟 */
+            transition-delay: 0s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 这里--i是一个自定义参数，其值分别为1，2，3，4，5
+            在css样式中会用到 -->
+        <a href="#" style="--i:1">点赞</a>
+        <a href="#" style="--i:2">关注</a>
+        <a href="#" style="--i:3">评论</a>
+        <a href="#" style="--i:4">收藏</a>
+        <a href="#" style="--i:5">转发</a>
+    </div>
+</body>
+</html>

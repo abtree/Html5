@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手风琴式加载动画</title>
+    <style>
+        *{
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background-color: #eef1f5;
+        }
+        .loading{
+            display: flex;
+            /* 水平显示 */
+            flex-direction: row;
+        }
+        .loading div{
+            position: relative;
+            width: 40px; height: 200px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.05), #eef1f5);
+            margin: 20px;
+            border-radius: 20px;
+            border: 2px solid #eef1f5;
+            box-shadow: 15px 15px 20px rgba(0,0,0,0.1),
+            -15px -15px 20px #fff,
+            inset -5px -5px 5px rgba(255,255,255,0.5),
+            inset 5px 5px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .loading div::before{
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            box-shadow: inset -5px -5px 5px rgba(0,0,0,0.1),
+                0 420px 0 400px lightskyblue;
+            animation: animate 2s ease-in-out var(--x) infinite;
+            transform: translateY(160px);
+        }
+        @keyframes animate {
+            0%{
+                transform: translateY(160px);
+                /* 设置不同的颜色滤镜来改变颜色 */
+                filter: hue-rotate(0deg);
+            }
+            50%{
+                transform: translateY(0px);
+                filter: hue-rotate(180deg);
+            }
+            100%{
+                transform: translateY(160px);
+                filter: hue-rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <div style="--x:0s"></div>
+        <div style="--x:0.1s"></div>
+        <div style="--x:0.2s"></div>
+        <div style="--x:0.3s"></div>
+        <div style="--x:0.4s"></div>
+        <div style="--x:0.5s"></div>
+    </div>
+</body>
+</html>

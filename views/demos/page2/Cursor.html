@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆形剪切图片光标</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+} 
+body{
+    background: linear-gradient(to top, #dfe9f3, #fff);
+    overflow: hidden;
+}
+.container{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    font-weight: 900;
+}
+.text{
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.35s ease;
+}
+.hover-text{
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    width: 100%;
+    pointer-events: none;
+    clip-path: circle(75px at var(--x) var(--y));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+.img-con{
+    position: absolute;
+    z-index: -2;
+    top: -75px;
+    left: -75px;
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+.hover-img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* 图片保持原有宽高比 */
+    object-fit: cover;
+    /* 图片在容器中居中 */
+    object-position: center;
+    /* 亮度变低 */
+    filter: brightness(0.9);
+}
+.text:hover{
+    color: #333;
+}
+.text:hover ~ .hover-text{
+    opacity: 1;
+}
+.text:hover ~ .img-con{
+    opacity: 1;
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const hoverText = document.querySelector(".hover-text")
+    const hoverImg = document.querySelector(".img-con")
+
+    function showHoverCon(e){
+        const x = e.clientX;
+        const y = e.clientY;
+        hoverImg.style.transform=`translate(${x}px, ${y}px)`
+        hoverText.style.setProperty('--x',x+'px')
+        hoverText.style.setProperty('--y',y+'px')
+    }
+
+    document.addEventListener("mousemove", showHoverCon)
+}   
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="text">BEIJING 2022</div>
+        <div class="hover-text">BEIJING 2022</div>
+        <div class="img-con">
+            <img src="/views/imgs/113.jpg" alt="" class="hover-img">
+        </div>
+    </div>
+</body>
+</html>

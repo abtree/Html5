@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mouse</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const {createApp, h, ref, onMounted, onUnmounted} = Vue
+
+        // 单独提出一个Mixin是为了复用这段代码
+        // 但是这种方法在同一个组件拥有多个mixin时，极容易产生命名冲突
+        // 而且我们无法确认导出变量来自哪个mixin
+        const MouseMixin = {
+            data() {
+                return {
+                    x: 0,
+                    y: 0
+                }
+            },
+            methods:{
+                update(e){
+                    this.x = e.pageX
+                    this.y = e.pageY
+                }
+            },
+            mounted(){
+                window.addEventListener('mousemove', this.update)
+            },
+            unmounted(){
+                window.removeEventListener('mousemove', this.update)
+            }
+        }
+
+        //采用高阶组件
+        // 高阶组件如果需要多个复用，会形成层级调用
+        // 如: const App = withFoo(withOther(withMouse(inner))) {...}
+        // 这种时候，依然存在命名冲突和来源不清的问题
+        // 所以高阶复用并没有解决问题
+        function withMouse(inner){
+            return {
+                data() {
+                    return {
+                        x: 0,
+                        y: 0
+                    }
+                },
+                methods:{
+                    update(e){
+                        this.x = e.pageX
+                        this.y = e.pageY
+                    }
+                },
+                mounted(){
+                    window.addEventListener('mousemove', this.update)
+                },
+                unmounted(){
+                    window.removeEventListener('mousemove', this.update)
+                },
+                render(){
+                    return h(inner, {
+                        x: this.x,
+                        y: this.y
+                    })
+                }
+            }
+        }
+
+        //采用插槽模式
+        // 插槽模式可以嵌套使用 而且可以明确指出各个变量的来源 
+        // 还可以对变量重命名(解决命名冲突问题)
+        const Mouse = {
+            data() {
+                return {
+                    x: 0,
+                    y: 0
+                }
+            },
+            methods:{
+                update(e){
+                    this.x = e.pageX
+                    this.y = e.pageY
+                }
+            },
+            mounted(){
+                window.addEventListener('mousemove', this.update)
+            },
+            unmounted(){
+                window.removeEventListener('mousemove', this.update)
+            },
+            render(){
+                // 等价于 template: <slot :x='x' :y='y' />
+                return this.$slots.default && this.$slots.default({
+                    x: this.x,
+                    y: this.y
+                })
+            }
+        }
+
+        // 采用 composition api模式（推荐）
+        function useMouse(){
+            const x = ref(0)
+            const y = ref(0)
+
+            const update = e => {
+                x.value = e.pageX
+                y.value = e.pageY
+            }
+
+            onMounted(()=>{
+                window.addEventListener('mousemove', update)
+            })
+
+            onUnmounted(()=>{
+                window.removeEventListener('mousemove', update)
+            })
+
+            return {x, y}
+        }
+        
+        //mixin 模式
+        // const App = {
+        //     template: `{{x}} {{y}}`,
+        //     mixins: [MouseMixin]
+        // }
+
+        //高阶组件模式
+        // const App = withMouse({
+        //     template: `{{x}} {{y}}`,
+        //     props: ['x', 'y']
+        // })
+
+        //插槽模式
+        // const App = {
+        //     template: `
+        //         <Mouse v-slot="{x, y}">
+        //             <Mouse v-slot="{x: nx, y: ny}">
+        //                 {{x}} {{y}} {{nx}} {{ny}}
+        //             </Mouse>
+        //         </Mouse>`,
+        //     components: {Mouse}
+        // }
+
+        //composition api模式
+        const App = {
+            template: `{{x}} {{y}}`,
+            setup(){
+                const {x, y} = useMouse()
+                return {
+                    x, y
+                }
+            }
+        }
+
+        createApp(App).mount('#app')
+    </script>
+</body>
+</html>

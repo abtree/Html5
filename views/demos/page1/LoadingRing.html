@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>好看的加载动画效果</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        body{
+            height: 100vh;
+            background: linear-gradient(to bottom, #2b5876, #09203f);
+            display: flex; justify-content: center; align-items: center;
+            /* 定义一个变量，表示动画大小 */
+            --wh:200px;
+        }
+        .loading{
+            width: var(--wh); height: var(--wh); border-radius: 50%;
+            box-sizing: border-box;
+            border-top: 10px solid #63a69f;
+            position: relative;
+            animation: a1 2s linear infinite;
+        }
+        .loading::before,
+        .loading::after{
+            content: "";
+            width: var(--wh); height: var(--wh); border-radius: 50%;
+            position: absolute;
+            left: 0; top: -10px;
+            box-sizing: border-box;
+        }
+        .loading::before{
+            border-top: 10px solid #f2e1ac;
+            transform: rotate(120deg);
+        }
+        .loading::after{
+            border-top: 10px solid #f2836b;
+            transform: rotate(240deg);
+        }
+        .loading span{
+            position: absolute;
+            width: var(--wh); height: var(--wh);
+            line-height: var(--wh);
+            text-align: center;
+            color: #fff;
+            animation: a2 2s linear infinite;
+        }
+        @keyframes a1 {
+            to{
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes a2 {
+            to{
+                transform: rotate(-360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <span>拼命加载中...</span>
+    </div>
+</body>
+</html>

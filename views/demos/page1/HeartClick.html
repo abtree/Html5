@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心形点赞</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        body{
+            height: 100vh;display: flex;justify-content: center;align-items: center;
+            --c: #ff6b81;
+        }
+        svg{
+            width: 200px;
+            position: relative;
+            z-index: 10;
+        }
+        #heart{
+            /* 填充色 */
+            fill: #eee;
+            /* defining the color (or any SVG paint servers like gradients or patterns) used to paint the outline of the shape */
+            stroke: var(--c);
+            /* defining the width of the stroke */
+            stroke-width: 40px;
+            /* 定义间歇 */
+            stroke-dasharray: 2800;
+            /* 偏移量 */
+            stroke-dashoffset: 2800;
+            /* 子路径被描边时要在其末尾使用的形状（圆形） */
+            stroke-linecap: round;
+        }
+        span{
+            display: block;
+            width: 24px;
+            height: 24px;
+            background-color: transparent;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            box-shadow: 0 -160px 0 var(--c),
+            0 160px 0 var(--c),
+            -160px 0 0 var(--c),
+            160px 0 0 var(--c),
+            -120px -120px 0 var(--c),
+            120px -120px 0 var(--c),
+            120px 120px 0 var(--c),
+            -120px 120px 0 var(--c);
+        }
+        #checkbox:checked + svg{
+            animation: beat 1s linear forwards;
+        }
+        #checkbox:checked + svg #heart{
+            animation: drawHeart 1s linear forwards;
+        }
+        #checkbox:checked ~ span{
+            animation: blink 0.5s ease-in-out forwards;
+            animation-delay: 0.85s;
+        }
+        label{
+            cursor: pointer;
+        }
+        @keyframes drawHeart {
+            0%{
+                stroke-dashoffset: 2800;
+            }
+            80%{
+                fill: #eee;
+                stroke-dashoffset: 0;
+            }
+            100%{
+                fill: var(--c);
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes blink {
+            0%{
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0.8;
+            }
+            50%{
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100%{
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0;
+            }
+        }
+        @keyframes beat {
+            0%{
+                transform: scale(1);
+            }
+            70%{
+                transform: scale(1);
+            }
+            80%{
+                transform: scale(1.2);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <label for="checkbox">
+        <input type="checkbox" id="checkbox" hidden>
+        <svg t="1659605169005" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2245"><path d="M489.993 887.107 177.906 586.021c-4.002-3.501-114.033-104.031-114.033-224.063 0-146.54 89.526-234.065 239.069-234.065 87.523 0 169.546 69.019 209.058 108.03 39.512-39.011 121.535-108.03 209.059-108.03 149.542 0 239.068 87.525 239.068 234.065 0 120.033-110.031 220.563-114.533 225.065L534.007 887.107c-6 6-14.003 9-22.007 9C503.997 896.107 495.993 893.107 489.993 887.107z" p-id="2246" id="heart"></path></svg>
+        <span></span>
+    </label>
+</body>
+</html>

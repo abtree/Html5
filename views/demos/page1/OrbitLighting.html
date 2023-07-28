@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转变色</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        body{height: 100vh;display: flex;justify-content: center;align-items: center;background-color: #000;}
+        .container{
+            width: 300px; height: 300px; 
+            /* border: 1px solid white; */
+            position: relative;
+            display: flex;justify-content: center;align-items: center;
+            /* 自定义颜色属性 */
+            --percent: 0;
+            --h: calc(var(--percent) / 100 * 360);
+            /* hsl函数使用色相，饱和度，亮度来定义颜色 */
+            color: hsl(var(--h), 100%, 75%);
+            /* 颜色改变动画 */
+            animation: changecolor 5s linear infinite;
+        }
+        .container span{
+            --diameter:calc(50px + var(--n)*30px);
+            position: absolute;
+            width: var(--diameter); height: var(--diameter);
+            border-style: solid;
+            /* currentColor代表当前元素的颜色，如果当前元素没有颜色，会继承父类颜色 */
+            border-color: currentColor transparent;
+            border-width: 10px 10px 0 0;
+            border-radius: 50%;
+            animation: rotating 5s linear infinite;
+            /* 设置并改变每个动画时长 使他们快慢不一致 */
+            animation-duration: calc(5s / (9 - var(--n)));
+        }
+        @keyframes rotating {
+            to{
+                transform: rotate(1turn);
+            }
+        }
+        @keyframes changecolor {
+            0%{
+                --percent: 0;
+            }
+            10%{
+                --percent: 10;
+            }
+            20%{
+                --percent: 20;
+            }
+            30%{
+                --percent: 30;
+            }
+            40%{
+                --percent: 40;
+            }
+            50%{
+                --percent: 50;
+            }
+            60%{
+                --percent: 60;
+            }
+            70%{
+                --percent: 70;
+            }
+            80%{
+                --percent: 80;
+            }
+            90%{
+                --percent: 90;
+            }
+            100%{
+                --percent: 100;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span style="--n:0;"></span>
+        <span style="--n:1;"></span>
+        <span style="--n:2;"></span>
+        <span style="--n:3;"></span>
+        <span style="--n:4;"></span>
+        <span style="--n:5;"></span>
+        <span style="--n:6;"></span>
+        <span style="--n:7;"></span>
+        <span style="--n:8;"></span>
+    </div>
+</body>
+</html>

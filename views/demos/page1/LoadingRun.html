@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>环形加载动画</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background-color: #000;
+        }
+        .container{
+            position: relative;
+            width: 100%;
+            display: flex;justify-content: center;align-items: center;
+        }
+        .container .circle{
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: var(--b) solid transparent;
+            margin: -30px;
+            border-top: var(--b) solid var(--c);
+            animation: var(--a) 3s linear infinite;
+            animation-delay: var(--d);
+        }
+        .container .circle::before{
+            content: "";
+            position: absolute;
+            top: 12px; right: 12px;
+            width: 15px; height: 15px;
+            background-color: var(--c);
+            border-radius: 50%;
+            box-shadow: 
+            0 0 5px var(--c),
+            0 0 10px var(--c),
+            0 0 20px var(--c),
+            0 0 40px var(--c),
+            0 0 80px var(--c);
+        }
+        .container .circle:nth-child(3){
+            position: absolute;
+            top: -66.66px;
+        }
+        .container .circle:nth-child(2)::before{
+            right: initial;
+            left: 12px;
+        }
+        @keyframes animate1 {
+            from{
+                transform: rotate(0);
+            }
+            to{
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes animate2 {
+            from{
+                transform: rotate(360deg);
+            }
+            to{
+                transform: rotate(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="--c:lightgreen; --a:animate1; --d:0s; --b:5px;" class="circle"></div>
+        <div style="--c:lightsalmon; --a:animate2; --d:2s; --b:3px;" class="circle"></div>
+        <div style="--c:lightskyblue; --a:animate1; --d:1s; --b:8px;" class="circle"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流光圆环加载效果</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-color: #000;
+        }
+        .container .circle{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(0, #2f66ff, #9940ff 30%, #ee37ff 60%, #ff004c 100%);
+            animation: circleRotate 1s linear infinite;
+        }
+        /* 发光效果 */
+        .container .circle::before{
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: inherit;
+            filter: blur(35px);
+        }
+        /* 中心圆 */
+        .container .circle::after{
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #000;
+        }
+        .container span{
+            color: #fff;
+            z-index: 2;
+        }
+        @keyframes circleRotate {
+            0%{
+                transform: rotate(0);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="circle">
+        </div>
+        <span>加载中</span>
+    </div>
+</body>
+</html>

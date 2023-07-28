@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实现vue3的reactive</title>
+</head>
+<body>
+<script>
+    let activeEffect
+    class Dep{
+        subscribers = new Set()
+
+        //将当前传入的函数保存到 subscribers 中
+        depend(){
+            if(activeEffect){ //注意：activeEffect 只在 watchEffect赋值
+                this.subscribers.add(activeEffect)
+            }
+        }
+
+        //更新啦 将保存的所有函数重新执行一次
+        notify(){
+            this.subscribers.forEach(effect => {
+                effect()    //执行一次 watchEffect 传入的函数
+            })
+        }
+    }
+    function watchEffect(effect){
+        activeEffect = effect
+        effect()
+        activeEffect = null
+    }
+
+    //WeakMap 只能以对象作为key，且该对象不能被访问时，该key会被自动垃圾回收
+    //WeakMap 不能枚举所有key(key 会变)
+    const targetMap = new WeakMap()
+
+    function getDep(target, key){
+        let depsMap = targetMap.get(target)
+        if(!depsMap){
+            depsMap = new Map()
+            targetMap.set(target, depsMap)
+        }
+        let dep = depsMap.get(key)
+        if(!dep){
+            dep = new Dep()
+            depsMap.set(key, dep)
+        }
+        return dep
+    }
+
+    const reactiveHandlers = {
+        get(target, key, receiver){
+            const dep = getDep(target, key)
+            dep.depend()
+            return Reflect.get(target, key, receiver)
+        },
+        set(target, key, value, receiver){
+            const dep = getDep(target, key)
+            const result = Reflect.set(target, key, value, receiver)
+            dep.notify()
+            return result
+        }
+    }
+
+    //给每个raw的属性 加上 get 和 set 函数
+    function reactive(raw){
+        //vue 2 (该方法不能监听调用reactive函数之后添加的属性)
+        // Object.keys(raw).forEach(key => {
+        //     const dep = new Dep()
+        //     let value = raw[key]
+
+        //     Object.defineProperty(raw, key, {
+        //         get(){
+        //             dep.depend()
+        //             return value
+        //         },
+        //         set(val){
+        //             value = val
+        //             dep.notify()
+        //         }
+        //     })
+        // })
+        // return raw
+
+        // vue 3
+        return new Proxy(raw, reactiveHandlers)
+    }
+
+    const state = reactive({
+        count: 0
+    })
+
+    watchEffect(()=>{
+        console.log(state.count, state.msg);   // 0 undefined
+    })
+
+    state.count++ // 1 undefined
+    state.msg = 'hello' // 1 hello  //即使是后来增加的属性 也能被监听
+</script>
+</body>
+</html>

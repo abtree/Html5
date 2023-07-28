@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幽灵文字效果</title>
+    <style>
+        *{
+            margin: 0; padding: 0;
+        }
+        .container{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            overflow: hidden;
+        }
+        h2{
+            display: flex;
+            font-size: 155px;
+            text-align: center;
+            color: #fff;
+        }
+        h2 span{
+            transition: 1.5s;
+            transition-delay: calc(var(--i) * 0.1s);
+        }
+        h2:hover span{
+            filter: blur(20px);
+            opacity: 0;
+            transform: scale(2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>
+            <span style="--i:0;">H</span>
+            <span style="--i:1;">E</span>
+            <span style="--i:2;">L</span>
+            <span style="--i:3;">L</span>
+            <span style="--i:4;">O</span>&nbsp;
+            <span style="--i:5;">W</span>
+            <span style="--i:6;">O</span>
+            <span style="--i:7;">R</span>
+            <span style="--i:8;">L</span>
+            <span style="--i:9;">D</span>
+        </h2>
+    </div>
+</body>
+</html>

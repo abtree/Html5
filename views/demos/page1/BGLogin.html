@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态背景登录界面</title>
+    <style>
+*{
+    margin: 0; padding: 0;
+}
+body{
+    height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+    background: linear-gradient(200deg, #e3c5eb, #a9c1ed);
+    overflow: hidden;
+}
+.container{
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 15px;
+    /* display: flex; justify-content: center; align-items: center; */
+    width: 350px; height: 500px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+.container .txt{
+    font-size: 26px;
+    margin: 65px auto 70px auto;
+    text-align: center;
+}
+.container input{
+    width: 280px;
+    height: 30px;
+    text-indent: 8px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    margin: 12px 35px;
+}
+.container button{
+    width: 280px;
+    height: 40px;
+    margin: 35px 35px 40px 35px;
+    border: none;
+    background: linear-gradient(-200deg, #fac0e7, #aac2ee);
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.container button:hover{
+    background: linear-gradient(-200deg, #aac2ee, #fac0e7);
+    background-position-x: -280px;
+}
+.container span{
+    display: block;
+    font-size: 14px;
+    width: 280px;
+    margin: 0 35px;
+    text-align: center;
+}
+.container span a{
+    color: plum;
+    text-decoration: none;
+}
+ul li{
+    position: absolute;
+    border: 1px solid #fff;
+    width: 30px;
+    height: 30px;
+    list-style: none;
+    opacity: 0;
+}
+.square li{
+    top: var(--t);
+    left: var(--l);
+    animation: square 10s linear infinite;
+    animation-delay: var(--d);
+    border-radius: var(--r);
+}
+
+@keyframes square {
+    from{
+        transform: scale(0) rotateY(0);
+        opacity: 1;
+    }
+    to{
+        transform: scale(5) rotateY(1000deg);
+        opacity: 0;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="txt">登录</div>
+        <input type="text" placeholder="帐号">
+        <input type="password" placeholder="密码">
+        <button>登录</button>
+        <span>没有帐号？<a href="">去注册</a></span>
+    </div>
+    <div class="square">
+        <ul>
+            <li style="--t:40vh; --l:60vw; --d:1s; --r:0%"></li>
+            <li style="--t:80vh; --l:10vw; --d:2s; --r:10%"></li>
+            <li style="--t:80vh; --l:85vw; --d:3s; --r:20%"></li>
+            <li style="--t:10vh; --l:70vw; --d:4s; --r:30%"></li>
+            <li style="--t:10vh; --l:10vw; --d:5s; --r:40%"></li>
+            <li style="--t:70vh; --l:20vw; --d:2s; --r:50%"></li>
+            <li style="--t:50vh; --l:10vw; --d:3s; --r:40%"></li>
+            <li style="--t:90vh; --l:65vw; --d:4s; --r:30%"></li>
+            <li style="--t:20vh; --l:40vw; --d:5s; --r:20%"></li>
+            <li style="--t:40vh; --l:30vw; --d:6s; --r:10%"></li>
+        </ul>
+    </div>
+</body>
+</html>

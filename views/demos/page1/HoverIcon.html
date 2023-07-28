@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3d分层按钮悬停</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(200deg, #29323c, #485563);
+        }
+        .icon-box{
+            display: flex;
+            flex-direction: row;
+        }
+        .icon-box a{
+            color: #fff;
+            margin: 0 30px;
+            text-decoration: none;
+            display: block;
+            position: relative;
+        }
+        .icon-box a .layer{
+            width: 70px;
+            height: 70px;
+            transition: 0.3s;
+        }
+        .icon-box a .layer i{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--c);
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+        .icon-box a .layer i.iconfont{
+            font-size: 35px;
+            text-align: center;
+            line-height: 70px;
+            color: var(--c);
+        }
+        .icon-box a .text{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+            opacity: 0;
+            color: var(--c);
+        }
+        .icon-box a:hover .text{
+            bottom: -35px;
+            opacity: 1;
+        }
+        .icon-box a:hover .layer{
+            transform: rotate(-35deg) skew(20deg);
+        }
+        .icon-box a:hover .layer i:nth-child(1){
+            opacity: 0.2;
+            transform: translate(0,0);
+        }
+        .icon-box a:hover .layer i:nth-child(2){
+            opacity: 0.4;
+            transform: translate(5px,-5px);
+        }
+        .icon-box a:hover .layer i:nth-child(3){
+            opacity: 0.6;
+            transform: translate(10px,-10px);
+        }
+        .icon-box a:hover .layer i:nth-child(4){
+            opacity: 0.8;
+            transform: translate(15px,-15px);
+        }
+        .icon-box a:hover .layer i:nth-child(5){
+            opacity: 1;
+            transform: translate(20px,-20px);
+        }
+        .icon-box a:hover .layer i{
+            box-shadow: -1px 1px 3px var(--c);
+        }
+    </style>
+</head>
+<body>
+    <div class="icon-box">
+        <a style="--c:#12b7f5" href="#">
+            <div class="layer">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i class="iconfont icon-icon-test" aria-hidden="true"></i>
+            </div>
+            <div class="text">QQ</div>
+        </a>
+        <a style="--c:#2aae67" href="#">
+            <div class="layer">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i class="iconfont icon-icon-test1" aria-hidden="true"></i>
+            </div>
+            <div class="text">微信</div>
+        </a>
+        <a style="--c:#e79115" href="#">
+            <div class="layer">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i class="iconfont icon-icon-test2" aria-hidden="true"></i>
+            </div>
+            <div class="text">抖音</div>
+        </a>
+        <a style="--c:#2075fd" href="#">
+            <div class="layer">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i class="iconfont icon-icon-test3" aria-hidden="true"></i>
+            </div>
+            <div class="text">快手</div>
+        </a>
+        <a style="--c:#2d8dc5" href="#">
+            <div class="layer">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i class="iconfont icon-icon-test4" aria-hidden="true"></i>
+            </div>
+            <div class="text">微博</div>
+        </a>
+    </div>
+</body>
+</html>

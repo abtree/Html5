@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沙漏加载动画</title>
+    <style>
+        body{
+            margin: 0; padding: 0;
+            height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(200deg, #b5aee4, #505285);
+        }
+        .loading{
+            width: 86px; height: 196px;
+            /* border: 1px solid; */
+            display: flex;
+            position: relative;
+            /* 列排列元素 */
+            flex-direction: column;
+            /* 靠边对齐 */
+            justify-content: space-between;
+            align-items: center;
+            animation: rotating 3s linear infinite;
+        }
+        .top, .bottom{
+            width: 70px; height: 70px;
+            border-style: solid;
+            border-color: #dcdcdc;
+            border-width: 4px 4px 12px 12px;
+            border-radius: 50% 100% 50% 0;
+            position: relative;
+            /* 遮挡住移除可视范围的沙 */
+            overflow: hidden;
+        }
+        .top{
+            transform: rotate(-45deg);
+        }
+        .bottom{
+            transform: rotate(135deg);
+        }
+        .top::before,.bottom::before{
+            content: "";
+            position: absolute;
+            width: inherit; height: inherit;
+            background-color: #cabbe9;
+            /* 这里不指定要执行动画的名称 */
+            animation: 3s linear infinite;
+        }
+        .top::before{
+            border-radius: 0 100% 0 0;
+            /* 指定执行动画的名称 */
+            animation-name: dropsand;
+        }
+        .bottom::before{
+            border-radius: 0 0 0 25%;
+            /* 将下面的沙移除可视范围 */
+            transform: translate(50px, -50px);
+            animation-name: fillsand;
+        }
+        .loading::after{
+            content: "";
+            width: 5px; height: 96px;
+            background-color: #cabbe9;
+            position: absolute;
+            top: 20px;
+            animation: flow 3s linear infinite;
+        }
+
+        /* 落沙动画 */
+        @keyframes dropsand {
+            to{
+                transform: translate(-50px, 50px);
+            }
+        }
+        /* 填沙动画 */
+        @keyframes fillsand {
+            to{
+                transform: translate(0,0);
+            }
+        }
+        /* 流沙动画 */
+        @keyframes flow {
+            10%,100%{
+                transform: translateY(64px);
+            }
+        }
+        @keyframes rotating {
+            0%,90%{
+                transform: rotate(0deg);
+            }
+            100%{
+                transform: rotate(180deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <span class="top"></span>
+        <span class="bottom"></span>
+    </div>
+</body>
+</html>

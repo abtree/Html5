@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简约的社交分享按钮</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        body{
+            margin: 0; padding: 0;
+            height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(200deg, #517fa4,#243949);
+        }
+        .btn-box a{
+            width: 100px; height: 100px; 
+            margin: 0 16px;
+            display: inline-block;
+            position: relative;
+            line-height: 100px; 
+            text-align: center;
+            text-decoration: none;
+        }
+        .iconfont{
+            font-size: 40px;
+            color: #88bef5;
+        }
+        .btn-box a::before,
+        .btn-box a::after{
+            content: "";
+            position: absolute;
+            box-sizing: border-box;
+            width: 100%; height: 100%;
+            left: 0; top: 0;
+            transition: all 0.5s linear;
+            border-color: gray;
+        }
+        .btn-box a:hover{
+            transform: scale(0.8);
+        }
+        .btn-box a:hover::before{
+            border-left: 4px solid gray;
+            border-right: 4px solid gray;
+            /* 沿着x轴倾斜20度 */
+            transform: skewX(20deg);
+        }
+        .btn-box a:hover::after{
+            border-top: 4px solid gray;
+            border-bottom: 4px solid gray;
+            /* 沿着y轴倾斜20度 */
+            transform: skewY(-20deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="btn-box">
+        <a href="#"><i class="iconfont icon-icon-test"></i></a>
+        <a href="#"><i class="iconfont icon-icon-test1"></i></a>
+        <a href="#"><i class="iconfont icon-icon-test2"></i></a>
+        <a href="#"><i class="iconfont icon-icon-test3"></i></a>
+        <a href="#"><i class="iconfont icon-icon-test4"></i></a>
+    </div>
+</body>
+</html>

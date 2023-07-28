@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字发光效果</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        .container{
+            height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background-color: #000;
+        }
+        span{
+            font-size: 100px;
+            font-weight: bold;
+            color: #111;
+            letter-spacing: 5px;
+            filter: blur(2px);
+            animation: animate 5s linear infinite;
+            animation-delay: calc(var(--delay)*0.5s);
+        }
+        @keyframes animate {
+            0%,100%{
+                color: #fff;
+                filter: blur(2px);
+                text-shadow:
+                0 0 10px #32ff7e,
+                0 0 20px #32ff7e,
+                0 0 30px #32ff7e,
+                0 0 40px #32ff7e,
+                0 0 100px #32ff7e,
+                0 0 200px #32ff7e,
+                0 0 300px #32ff7e,
+                0 0 400px #32ff7e
+                ;
+            }
+            5%,95%{
+                color: #111;
+                filter: blur(0px);
+                text-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span style="--delay:0;">H</span>
+        <span style="--delay:1;">E</span>
+        <span style="--delay:2;">L</span>
+        <span style="--delay:3;">L</span>
+        <span style="--delay:4;">O</span>
+        <span style="--delay:5;">W</span>
+        <span style="--delay:6;">O</span>
+        <span style="--delay:7;">R</span>
+        <span style="--delay:8;">L</span>
+        <span style="--delay:9;">D</span>
+    </div>
+</body>
+</html>

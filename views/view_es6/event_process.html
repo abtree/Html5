@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js的事件执行顺序</title>
+</head>
+<body>
+    <script>
+        /* javascript中 代码执行顺序是 
+        先顺序执行同步代码
+        然后进入事件循环（包含宏任务和微任务）
+        宏任务包括 ajax 定时器等
+        微任务包含 promise.then 用户事件等
+        事件循环中，必须微任务执行完，才会执行宏任务
+        */
+
+       //for循环是同步任务,包括i*1000也是同步的，所以这里每隔1秒执行一个定时器
+       for(var i = 0; i< 3;++i){
+            console.log("同步任务 for " + i)
+            setTimeout(function(){
+                //打印三个 宏任务3
+                console.log("宏任务" + i)
+            }, i*1000)
+       }
+
+       new Promise((r)=>{
+            //promise中内容是同步执行的
+            console.log("同步任务1")
+            r()
+       }).then(()=>{
+            //then你们的内容是事件循环中执行的微任务
+            console.log("微任务1")
+       }).then(()=>{
+            console.log("微任务2")
+       })
+
+       //顺序执行的同步任务
+       console.log("同步任务2")
+
+       /*
+        打印结果：
+            同步任务 for 0
+            同步任务 for 1
+            同步任务 for 2
+            同步任务1
+            同步任务2
+            微任务1
+            微任务2
+            宏任务3
+            宏任务3
+            宏任务3
+       */
+    </script>
+</body>
+</html>

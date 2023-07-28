@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式卡片</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(200deg, #80d0c7, #13547a);
+        }
+        .container{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 30px;
+        }
+        .container .card{
+            position: relative;
+            max-width: 300px;
+            height: 215px;
+            background-color: #fff;
+            margin: 30px 15px;
+            padding: 20px 15px;
+            border-radius: 5px;
+            box-shadow: 0 5px 200px rgba(0, 0, 0, 0.5);
+            transition: 0.3s ease-in-out;
+        }
+        .container .card:hover{
+            height: 360px;
+        }
+        .container .card .img-box{
+            position: relative;
+            width: 260px;
+            height: 260px;
+            border-radius: 5px;
+            overflow: hidden;
+            top: -60px;
+            left: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        .container .card .img-box img{
+            width: 100%;
+        }
+        .container .card .text-box{
+            position: relative;
+            margin-top: -140px;
+            padding: 10px 15px;
+            text-align: center;
+            color: #111;
+            /* CSS 属性 visibility 显示或隐藏元素而不更改文档的布局 */
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s ease-in-out;
+        }
+        .container .card .text-box p{
+            text-align: left;
+            line-height: 25px;
+            margin-top: 10px;
+            font-size: 15px;
+            color: #555;
+        }
+        .container .card:hover .text-box{
+            visibility: visible;
+            opacity: 1;
+            margin-top: -40px;
+            transition-delay: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="img-box">
+                <img src="/views/imgs/eff_hx_zhfz_book_01.png" alt="">
+            </div>
+            <div class="text-box">
+                <h2>卡片1</h2>
+                <p>卡片描述，卡片描述，卡片描述，卡片描述，卡片描述，卡片描述，卡片描述，卡片描述</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="img-box">
+                <img src="/views/imgs/eff_hx_zhfz_book_02.png" alt="">
+            </div>
+            <div class="text-box">
+                <h2>卡片2</h2>
+                <p>卡片描述，卡片描述，卡片描述，卡片描述，卡片描述，卡片描述，卡片描述，卡片描述</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="img-box">
+                <img src="/views/imgs/eff_hx_zhfz_book_03.png" alt="">
+            </div>
+            <div class="text-box">
+                <h2>卡片3</h2>
+                <p>卡片描述，卡片描述，卡片描述，卡片描述，卡片描述，卡片描述，卡片描述，卡片描述</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

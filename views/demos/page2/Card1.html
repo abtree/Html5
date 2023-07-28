@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社交卡片悬停效果</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to top, #d3e7ff, #f3f8ff);
+    overflow: hidden;
+}
+.container{
+    display: flex;
+}
+.card{
+    width: 300px;
+    height: 380px;
+    /* border: 1px solid red; */
+    background-color: #999;
+    border-radius: 10px;
+    margin: 0 15px;
+    box-shadow: 0 80px 60px -60px #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: 0.8s;
+}
+.card .border{
+    width: 290px;
+    height: 370px;
+    border-radius: 10px;
+    transition: border 1s;
+}
+.card .border:hover{
+    border: 1px solid #fff;
+}
+.card h2{
+    color: #fff;
+    font-size: 30px;
+    margin: 20px;
+    letter-spacing: 8px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+.card .icons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 50px;
+    height: 150px;
+    position: absolute;
+    bottom: 20px;
+}
+.card .iconfont{
+    color: #fff;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+.card:nth-child(1){
+    background: url("/views/imgs/116/1.jpg") no-repeat;
+    background-position: right bottom;
+    background-size: 300px;
+}
+.card:nth-child(2){
+    background: url("/views/imgs/116/2.jpg") no-repeat;
+    background-position: right bottom;
+    background-size: 300px;
+}
+.card:nth-child(3){
+    background: url("/views/imgs/116/3.jpg") no-repeat;
+    background-position: right bottom;
+    background-size: 300px;
+}
+.card:hover{
+    background-position: left center;
+    background-size: 500px;
+}
+
+.card:hover h2,
+.card:hover .iconfont{
+    opacity: 1;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="border">
+                <h2>艾斯</h2>
+                <div class="icons">
+                    <span class="iconfont icon-icon-test"></span>
+                    <span class="iconfont icon-icon-test1"></span>
+                    <span class="iconfont icon-icon-test2"></span>
+                    <span class="iconfont icon-icon-test3"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="border">
+                <h2>萨博</h2>
+                <div class="icons">
+                    <span class="iconfont icon-icon-test"></span>
+                    <span class="iconfont icon-icon-test1"></span>
+                    <span class="iconfont icon-icon-test2"></span>
+                    <span class="iconfont icon-icon-test3"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="border">
+                <h2>路飞</h2>
+                <div class="icons">
+                    <span class="iconfont icon-icon-test"></span>
+                    <span class="iconfont icon-icon-test1"></span>
+                    <span class="iconfont icon-icon-test2"></span>
+                    <span class="iconfont icon-icon-test3"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

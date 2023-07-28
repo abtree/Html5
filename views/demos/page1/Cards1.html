@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式卡片1</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(200deg, #e7f0fd, #accbee);
+        }
+        .container{
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .container .box{
+            position: relative;
+            width: 275px;
+            height: 275px;
+            overflow: hidden;
+            transition: 0.5s;
+        }
+        .container .box:hover{
+            transform: scale(1.25);
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .container .box .img-box{
+            position: absolute;
+            left: 0;top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .container .box .img-box::before{
+            content: "";
+            position: absolute;
+            left: 0;top: 0;
+            width: 100%;height: 100%;
+            background: linear-gradient(to top, #222, transparent);
+            z-index: 1;
+            opacity: 0;
+            transition: 0.5s;
+        }
+        .container .box:hover .img-box::before{
+            opacity: 1;
+        }
+        .container .box .img-box img{
+            position: absolute;
+            left: 0;top: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .container .box .text-box{
+            position: absolute;
+            left: 0;top: 0;
+            width: 100%;height: 100%;
+            padding: 20px;
+            display: flex;
+            align-items: flex-end;
+            color: #fff;
+            z-index: 2;
+        }
+        .container .box .text-box h2{
+            font-size: 20px;
+            margin-bottom: 10px;
+            transform: translateY(200px);
+            transition: 0.5s;
+        }
+        .container .box:hover .text-box h2{
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+        .container .box .text-box p{
+            font-size: 13px;
+            line-height: 20px;
+            transform: translateY(200px);
+            transition: 0.5s;
+        }
+        .container .box:hover .text-box p{
+            transform: translateY(0);
+            transition-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="img-box">
+                <img src="/views/imgs/eff_hx_zhfz_book_01.png" alt="">
+            </div>
+            <div class="text-box">
+                <div>
+                    <h2>书1</h2>
+                    <p>这是书1的介绍文字,这是书1的介绍文字,这是书1的介绍文字,这是书1的介绍文字</p>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="img-box">
+                <img src="/views/imgs/eff_hx_zhfz_book_02.png" alt="">
+            </div>
+            <div class="text-box">
+                <div>
+                    <h2>书2</h2>
+                    <p>这是书2的介绍文字,这是书2的介绍文字,这是书2的介绍文字,这是书2的介绍文字</p>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="img-box">
+                <img src="/views/imgs/eff_hx_zhfz_book_03.png" alt="">
+            </div>
+            <div class="text-box">
+                <div>
+                    <h2>书3</h2>
+                    <p>这是书3的介绍文字,这是书3的介绍文字,这是书3的介绍文字,这是书3的介绍文字</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

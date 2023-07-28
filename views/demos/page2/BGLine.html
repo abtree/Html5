@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创意条纹背景</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+}
+.container{
+    display: flex;
+}
+.container .box{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 320px;
+    height: 400px;
+    background: linear-gradient(
+        var(--d), var(--c) 25%, #444 25%, #444 50%, var(--c) 50%, var(--c) 75%, #444 75%, #444 100%
+    );
+    /* 指定背景大小，宽度 和 高度;同时背景图片会重复直到填满整个区域 */
+    background-size: 40px 40px;
+    border-radius: 20px;
+    margin: 0 20px;
+    /* grayscale() 改变图片灰度[0-100%] 100%为完全转化为灰度图像 */
+    filter: grayscale(1);
+    transition: filter 1s;
+    animation: animateBG 0.5s linear infinite;
+    /* 默认暂停动画 */
+    animation-play-state: paused;
+}
+.container .box:hover{
+    filter: grayscale(0);
+    animation-play-state: running;
+}
+.container .box img{
+    height: 90%;
+    position: absolute;
+    bottom: 0;
+    transition: 0.5s;
+}
+.container .box:hover img{
+    height: 480px;
+}
+@keyframes animateBG{
+    from{
+        background-position: 0;
+    }
+    to{
+        background-position: 40px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" style="--c:#c7cc97;--d:45deg" ><img src="/views/imgs/male.png"></div>
+        <div class="box" style="--c:#e6a28c;--d:135deg" ><img src="/views/imgs/female.png"></div>
+    </div>
+</body>
+</html>

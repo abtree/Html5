@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>变量的作用域问题</title>
+</head>
+<body>
+    <script>
+        /* js没有块级的作用域，即js的var变量会被提升
+        如果是全局的变量,相当于window.xxx,如果是对象中的,相当于object.xxx
+        优先级：声明变量 > 声明普通函数 > 参数 > 变量提升        
+        */
+        //例1：
+        function c(){
+            var b = 1;
+            function a(){   //function是一个对象，有对象作用域
+                console.log(b)  //undefined 变量提升阻止了向外层寻找变量
+                var b = 2
+                console.log(b)  //2 作用域内声明的变量
+            }
+            a()
+            console.log(b)  //1 作用域内声明的变量
+        }
+        c()
+        //例2：
+        var name = 'a'; //这里必须写分号，不然会被当做函数定义
+        (function(){
+            if (typeof name =="undefined"){
+                var name = 'b'  //js没有块作用域，所以这个变量会被提升
+                console.log("1111"+name)    //输出: 1111b
+            }else{
+                console.log("2222"+name)    //不会输出
+            }
+        })();
+
+        (function(){
+            console.log(a);  //undefined
+            if(false){
+                var a =10;   //js没有块级作用域，所以即使该段代码不会执行，变量也会提升
+            }
+            console.log(a); //undefined
+        })();
+
+        //例3：
+        (function(){
+            console.log(a)  //打印函数a (函数声明 > 变量提升)
+            var a = 10;
+            function a(){}  //函数声明不依赖顺序，所以在作用域内，可以先使用后声明，因此声明前就可以打印函数
+            console.log(a)  //打印变量a (变量声明 > 函数声明)
+        })();
+
+        //例4：
+        function fn(a){
+            console.log(a)  //100 参数 > 变量提升
+            var a=10
+            console.log(a)  //10 声明变量 > 参数
+        }
+        fn(100);
+
+        //例5：
+        (function(){
+            function fn(){
+                var a = b = 100 //这里的变量b为使用var声明，所以他是window.b
+            }
+            fn();
+            //console.log(a);   //a未被定义 打印会报错
+            console.log(b); //100 b变量被挂在window对象上,所以是全局变量
+        })();
+
+        (function(){
+            function fn(){
+                d = 10;   //直接这样写是不行的 会被默认加上 var
+                var d = 20; //这里相当于赋值
+                console.log(d); //20    按由内向外查找顺序，用内部声明变量 
+            }
+            fn();
+            console.log(d); //未定义
+        })();
+    </script>
+</body>
+</html>

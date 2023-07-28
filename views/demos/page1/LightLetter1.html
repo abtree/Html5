@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金属质感闪光文字</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background-color: #000;
+        }
+        .container{
+            /* 线性乘法器应用于输入图像，使其看起来更暗或更亮 */
+            filter: brightness(300%);
+            overflow: hidden;
+        }
+        span.text{
+            color: #fff;
+            font-size: 200px;
+            font-weight: bold;
+            background-color: #000;
+            /* border: 1px solid red; */
+        }
+        span.text::before{
+            content: "HELLO";
+            position: absolute;
+            /* mix-blend-mode CSS 属性描述了元素的内容应该与元素的直系父元素的内容和元素的背景如何混合。 */
+            /* difference 最终颜色是 两种颜色中较浅的颜色 减去 两种颜色中较深的颜色 得到的结果 */
+            mix-blend-mode: difference;
+            filter: blur(2px);
+        }
+        span.back{
+            background: linear-gradient(113deg, rgba(193,148,63,1), rgba(238,205,108,1));
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            /* 最终颜色为顶层颜色与底层颜色相乘的结果。(类似ps的正片叠加) */
+            mix-blend-mode: multiply;
+        }
+        span.shine{
+            /* 径向渐变背景 尺寸缩放25% 按默认方式平铺 */
+            background: radial-gradient(circle at center, #fff, #000 35%) center / 25% 25%;
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            bottom: 0;
+            right: 0;
+            /* 最终颜色是将底部颜色除以顶部颜色的反色的结果 */
+            mix-blend-mode: color-dodge;
+
+            animation: move 2s linear infinite;
+        }
+        @keyframes move {
+            to{
+                transform: translate(50%, 50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="text">HELLO</span>
+        <span class="back"></span>
+        <span class="shine"></span>
+    </div>
+</body>
+</html>

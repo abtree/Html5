@@ -26,6 +26,11 @@
         //再将set转换为数组
         arr = [...set1]
         console.log(arr);
+        //利用set对数组去重
+        function unique(arr){
+            return Array.from(new Set(arr))
+        }
+        console.log(unique([1,2,3,3,2,1]))
     </script>
 </body>
 </html>

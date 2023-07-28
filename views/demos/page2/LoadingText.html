@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字飘过加载效果</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444;
+}
+.loader{
+    position: relative;
+    width: 100%;
+    height: 60px;
+    /* border: 1px solid red; */
+}
+.loader span{
+    position: absolute;
+    width: 30px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 10px;
+    color: #fff;
+    text-align: center;
+    font-size: 40px;
+    animation: move 5s linear infinite;
+    animation-delay: var(--d);
+    opacity: 0;
+}
+
+/* 加个投影效果 */
+.loader span::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    width: 30px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.15);
+    filter: blur(1.5px);
+}
+
+.loader span:nth-child(8)::before,
+.loader span:nth-child(9)::before,
+.loader span:nth-child(10)::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 13px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--c);
+}
+
+@keyframes move{
+    0%{
+        right: 0;
+        opacity: 0;
+    }
+    35%{
+        right: 41%;
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    65%{
+        right: 59%;
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    100%{
+        right: 100%;
+        transform: rotate(-180deg);
+        opacity: 0;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <span style="--d:0s">L</span>
+        <span style="--d:0.4s">O</span>
+        <span style="--d:0.8s">A</span>
+        <span style="--d:1.2s">D</span>
+        <span style="--d:1.6s">I</span>
+        <span style="--d:2s">N</span>
+        <span style="--d:2.4s">G</span>
+        <span style="--d:2.8s; --c:#eccc68;"></span>
+        <span style="--d:3.2s; --c:#7bed9f;"></span>
+        <span style="--d:3.6s; --c:#ff6b81;"></span>
+    </div>
+</body>
+</html>

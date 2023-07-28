@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水波纹按钮</title>
+    <style>
+        *{
+            margin: 0; padding: 0;
+        }
+        body{
+            height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(200deg, #e7f0fd, #accbee);
+        }
+        .btn-box{
+            width: 500px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .btn-box .btn{
+            position: relative;
+            width: 200px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            color: #00adff;
+            border: 2px solid #00adff;
+            font-size: 18px;
+            margin: 20px 0;
+            letter-spacing: 4px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .btn-box .btn span{
+            position: relative;
+            z-index: 1;
+            transition: 1s;
+        }
+        .btn-box .btn .wave{
+            position: absolute;
+            top: calc(100% + 22px);
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #00adff;
+            transition: 1s;
+        }
+        .btn-box .btn .wave::before{
+            content: "";
+            position: absolute;
+            top: -22px;
+            left: 0;
+            background-image: url("/views/imgs/wave.png");
+            width: 100%;
+            height: 22px;
+            animation: animate 0.5s linear infinite;
+        }
+        .btn-box .btn:hover .wave{
+            top: 0;
+        }
+        .btn-box .btn:hover span{
+            color: #fff;
+        }
+        @keyframes animate {
+            from{
+                background-position-x: 0;
+                background-position-y: -22px;
+            }
+            to{
+                background-position-x: 118px;
+                background-position-y: -22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="btn-box">
+        <div class="btn">
+            <span>点赞</span>
+            <div class="wave"></div>
+        </div>
+        <div class="btn">
+            <span>关注</span>
+            <div class="wave"></div>
+        </div>
+        <div class="btn">
+            <span>评论</span>
+            <div class="wave"></div>
+        </div>
+        <div class="btn">
+            <span>转发</span>
+            <div class="wave"></div>
+        </div>
+    </div>
+</body>
+</html>
