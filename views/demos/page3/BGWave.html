@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>波浪效果</title>
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    background-color: #1b2735;
+    overflow: hidden;
+}
+.wave{
+    display: flex;
+    filter: drop-shadow(120px 0 0 rgba(149,191,218,0.5));
+    position: absolute;
+    bottom: 0;
+}
+.wave div{
+    position: relative;
+    width: 40px;
+    height: 200px;
+    margin: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.wave div::before{
+    content: "";
+    width: 300%;
+    height: 100%;
+    background-color: rgba(149,191,218,1);
+    position: absolute;
+    left: -100%;
+    top: 50%;
+    animation: upDown 2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate,
+    wave 2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+    animation-delay: calc(-0.5s * var(--i)), calc(-3s - var(--i)*0.5s);
+}
+
+@keyframes upDown {
+    from{
+        top: 70%;
+    }
+    to{
+        top: 30%;
+    }
+}
+@keyframes wave {
+    from{
+        transform: rotateZ(-20deg);
+    }
+    to{
+        transform: rotateZ(20deg);
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="wave">
+        <div style="--i:1;"></div>
+        <div style="--i:2;"></div>
+        <div style="--i:3;"></div>
+        <div style="--i:4;"></div>
+        <div style="--i:5;"></div>
+        <div style="--i:6;"></div>
+        <div style="--i:7;"></div>
+        <div style="--i:8;"></div>
+        <div style="--i:9;"></div>
+        <div style="--i:10;"></div>
+        <div style="--i:11;"></div>
+        <div style="--i:12;"></div>
+        <div style="--i:13;"></div>
+        <div style="--i:14;"></div>
+        <div style="--i:15;"></div>
+        <div style="--i:16;"></div>
+        <div style="--i:17;"></div>
+        <div style="--i:18;"></div>
+        <div style="--i:19;"></div>
+        <div style="--i:20;"></div>
+        <div style="--i:21;"></div>
+        <div style="--i:22;"></div>
+        <div style="--i:23;"></div>
+        <div style="--i:24;"></div>
+        <div style="--i:25;"></div>
+        <div style="--i:26;"></div>
+        <div style="--i:27;"></div>
+        <div style="--i:28;"></div>
+        <div style="--i:29;"></div>
+        <div style="--i:30;"></div>
+        <div style="--i:31;"></div>
+        <div style="--i:32;"></div>
+    </div>
+</body>
+</html>

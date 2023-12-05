@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab页签</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    border: 1px solid #38ada9;
+}
+.nav{
+    display: flex;
+}
+.nav .item{
+    width: 140px;
+    height: 108px;
+    border-right: 1px solid #38ada9;
+    border-bottom: 1px solid #38ada9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.nav .item:last-child{
+    border-right: none;
+}
+.nav .item::before{
+    content: "";
+    width: 80px;
+    height: 80px;
+    background-color: #38ada9;
+    border-radius: 50%;
+    position: absolute;
+    transition: 0.3s;
+}
+.nav .iconfont{
+    color: #fff;
+    position: relative;
+    font-size: 36px;
+}
+.nav .item.active::before{
+    width: 150%;
+    height: 150%;
+}
+.content{
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+section{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+section span{
+    font-size: 80px;
+    font-weight: bold;
+    color: #38ada940;
+}
+section.active{
+    opacity: 1;
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const items = document.querySelectorAll(".container .nav .item") 
+    const sections = document.querySelectorAll(".content section")
+    let act = 0
+    items.forEach((item, index) =>{
+        item.addEventListener("click", ()=>{
+            //items.forEach(item => item.classList.remove("active"))
+            items[act].classList.remove("active")
+            item.classList.add("active")
+            //sections.forEach(sec=>sec.classList.remove("active"))
+            sections[act].classList.remove("active")
+            sections[index].classList.add("active")
+            act = index
+        })
+    })
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <div class="item active"><span class="iconfont icon-icon-test"></span></div>
+            <div class="item"><span class="iconfont icon-icon-test1"></span></div>
+            <div class="item"><span class="iconfont icon-icon-test2"></span></div>
+            <div class="item"><span class="iconfont icon-icon-test3"></span></div>
+            <div class="item"><span class="iconfont icon-icon-test4"></span></div>
+        </div>
+        <div class="content">
+            <section class="active"><span>1</span></section>
+            <section><span>2</span></section>
+            <section><span>3</span></section>
+            <section><span>4</span></section>
+            <section><span>5</span></section>
+        </div>
+    </div>
+</body>
+</html>

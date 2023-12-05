@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上下滚动的数字时钟</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@300&display=swap');
+*{margin: 0;padding: 0;}
+body{
+    background-color: #0e141b;
+    color: #e0e6eb;
+    font-family: Jura;
+    font-weight: 300;
+    text-align: center;
+    letter-spacing: 8px;
+    overflow: hidden;
+}
+.column,
+.colon{
+    display: inline-block;
+    font-size: 86px;
+    line-height: 86px;
+    /* 水平对齐方式 顶部对齐 */
+    vertical-align: top;
+    transition: 0.3s;
+}
+.colon{
+    transform: translateY(calc(50vh - 55px));
+}
+.colon::after{
+    content: ":";
+}
+.num{
+    opacity: 0.25;
+    transition: 0.5s;
+}
+.num.visible{
+    opacity: 1;
+    text-shadow: 1px 1px 0 #2c6299;
+}
+.num.near{
+    opacity: 0.35;
+}
+.num.far{
+    opacity: 0.15;
+}
+.num.distant{
+    opacity: 0.1;
+}
+</style>
+<script>
+window.onload = ()=>{
+    const size = 86
+    const columns = document.querySelectorAll(".column")
+    const classList = ['visible','near','far','far','distant','distant']
+    const is24HourClock = true
+
+    const getClock = ()=>{
+        const d = new Date()
+        let hour = is24HourClock?d.getHours():d.getHours()%12 || 12
+        hour = hour < 10 ? '0'+hour:hour
+        let minute = d.getMinutes()
+        minute = minute < 10 ? '0'+minute:minute
+        let second = d.getSeconds()
+        second = second<10?'0'+second:second
+        return `${hour}${minute}${second}`
+    }
+    const findClass = (n,i)=>{
+        return classList.find((_c, ci)=>{
+            return i-ci === n || i+ci === n
+        }) || ''
+    }
+    setInterval(() => {
+        let c = getClock()
+        columns.forEach((ele, i)=>{
+            let n = parseInt(c[i])
+            let offset = -n*size
+            ele.style.transform = `translateY(calc(50vh + ${offset}px - ${size/2}px))`
+
+            Array.from(ele.children).forEach((el, i2)=>{
+                el.className=`num ${findClass(n, i2)}`
+            })
+        })
+    }, 1000);
+}  
+</script>
+</head>
+<body>
+    <div class="column">
+        <div class="num">0</div>
+        <div class="num">1</div>
+        <div class="num">2</div>
+    </div>
+    <div class="column">
+        <div class="num">0</div>
+        <div class="num">1</div>
+        <div class="num">2</div>
+        <div class="num">3</div>
+        <div class="num">4</div>
+        <div class="num">5</div>
+        <div class="num">6</div>
+        <div class="num">7</div>
+        <div class="num">8</div>
+        <div class="num">9</div>
+    </div>
+    <div class="colon"></div>
+    <div class="column">
+        <div class="num">0</div>
+        <div class="num">1</div>
+        <div class="num">2</div>
+        <div class="num">3</div>
+        <div class="num">4</div>
+        <div class="num">5</div>
+    </div>
+    <div class="column">
+        <div class="num">0</div>
+        <div class="num">1</div>
+        <div class="num">2</div>
+        <div class="num">3</div>
+        <div class="num">4</div>
+        <div class="num">5</div>
+        <div class="num">6</div>
+        <div class="num">7</div>
+        <div class="num">8</div>
+        <div class="num">9</div>
+    </div>
+    <div class="colon"></div>
+    <div class="column">
+        <div class="num">0</div>
+        <div class="num">1</div>
+        <div class="num">2</div>
+        <div class="num">3</div>
+        <div class="num">4</div>
+        <div class="num">5</div>
+    </div>
+    <div class="column">
+        <div class="num">0</div>
+        <div class="num">1</div>
+        <div class="num">2</div>
+        <div class="num">3</div>
+        <div class="num">4</div>
+        <div class="num">5</div>
+        <div class="num">6</div>
+        <div class="num">7</div>
+        <div class="num">8</div>
+        <div class="num">9</div>
+    </div>
+</body>
+</html>

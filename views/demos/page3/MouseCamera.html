@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霜雾玻璃效果</title>
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+.container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.image{
+    width: 100%;
+    height: 100%;
+    background-image: url("/views/imgs/camera.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(6px);
+    overflow: hidden;
+}
+.image::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.cursor{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 8px solid rgba(255, 255, 255, 0.25);
+    position: absolute;
+    background-image: url("/views/imgs/camera.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const container = document.querySelector(".container")
+    const cursor = document.querySelector(".cursor")
+    const contRect = container.getBoundingClientRect()
+    const cursRect = cursor.getBoundingClientRect()
+    const dX = contRect.left + cursRect.width/2
+    const dY = contRect.top + cursRect.height/2
+
+    container.addEventListener("mousemove", e=>{
+        cursor.style.left = `${e.clientX - dX}px`
+        cursor.style.top = `${e.clientY - dY}px`
+    })
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="image"></div>
+        <div class="cursor"></div>
+    </div>
+</body>
+</html>

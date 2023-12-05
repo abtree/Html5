@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鼠标跟随（小飞机）</title>
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    background: url("/views/imgs/164/sky.jpg");
+}
+#fly{
+    width: 60px;
+    height: 60px;
+    background: url("/views/imgs/164/fly.png") no-repeat;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const fly = document.getElementById("fly")
+    //坐标
+    let skyX =0,skyY=0;
+    //旋转角
+    let c = 0;
+    //定时器
+    let timer;
+
+    // 飞行运动
+    const to = ()=>{
+        clearInterval(timer)
+        fly.style.transform=`rotate(${c}deg)`
+        // 判断飞行方向
+        if(c>-15 && c<=15){
+            // 向下
+            skyY-=5
+            
+            document.body.style.backgroundPositionY=`${skyY}px`
+        }
+        else if(c>15 && c<=75){
+            // 向左下
+            skyX+=4
+            skyY-=4
+            document.body.style.backgroundPositionX=`${skyX}px`
+            document.body.style.backgroundPositionY=`${skyY}px`
+        }
+        else if(c>75 && c<=105){
+            // 向左
+            skyX+=5
+            document.body.style.backgroundPositionX=`${skyX}px`
+        }
+        else if(c>105 && c<=165){
+            // 向左上
+            skyX+=4
+            skyY+=4
+            document.body.style.backgroundPositionX=`${skyX}px`
+            document.body.style.backgroundPositionY=`${skyY}px`
+        }else if(c>165 || c <= -165){
+            // 向上
+            skyY+=5
+            document.body.style.backgroundPositionY=`${skyY}px`
+        }else if(c > -165 && c <= -105){
+            // 向右上
+            skyX-=4
+            skyY+=4
+            document.body.style.backgroundPositionX=`${skyX}px`
+            document.body.style.backgroundPositionY=`${skyY}px`
+        }else if(c > -105 && c <= -75){
+            // 向右
+            skyX-=5
+            document.body.style.backgroundPositionX=`${skyX}px`
+        }else if(c > -75 && c <= -15){
+            // 向左下
+            skyX-=4
+            skyY-=4
+            document.body.style.backgroundPositionX=`${skyX}px`
+            document.body.style.backgroundPositionY=`${skyY}px`
+        }
+        timer=setTimeout(to, 10)
+    }
+
+    document.addEventListener("mousemove", e => {
+        let contentX = fly.offsetLeft+fly.offsetWidth/2
+        let contentY = fly.offsetTop+fly.offsetHeight/2
+        let dX = e.clientX-contentX
+        let dY = e.clientY-contentY
+        c = Math.atan2(dX,dY)
+        c=180*c/Math.PI
+        c=c*-1
+        to()
+    })
+}
+    </script>
+</head>
+<body>
+    <div id="fly"></div>
+</body>
+</html>

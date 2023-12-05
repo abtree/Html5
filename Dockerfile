@@ -1,4 +1,4 @@
-FROM golang:1.17.4
+FROM golang:1.17.7
 WORKDIR /go/src/app
 RUN mkdir HtmlBase
 COPY . ./HtmlBase

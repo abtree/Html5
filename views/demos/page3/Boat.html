@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路飞划船</title>
+    <style>
+*{margin: 0;padding: 0;box-sizing: border-box;}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    perspective: 500px;
+}
+div{
+    transform-style: preserve-3d;
+}
+/* 大海 */
+.sea{
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+/* 海面 */
+.sea .surface{
+    width: 100%;
+    height: 100%;
+    background-color: #2be3fa;
+    position: absolute;
+    overflow: hidden;
+    animation: surface 13s ease-in-out infinite alternate, rotateZ 20s linear infinite;
+}
+
+@keyframes surface {
+    0%{
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    25%{
+        border-radius: 65% 35% 51% 49% / 49% 52% 48% 51%;
+    }
+    50%{
+        border-radius: 42% 58% 28% 72% / 65% 34% 66% 35%;
+    }
+    75%{
+        border-radius: 34% 66% 63% 37% / 77% 38% 62% 23%;
+    }
+    100%{
+        border-radius: 24% 76% 72% 28% / 53% 68% 32% 47%;
+    }
+}
+@keyframes rotateZ {
+    to{
+        transform: rotateZ(360deg);
+    }
+}
+/* 船 */
+.ship{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(-30px, 40px, 0, rgba(0,0,0,0.1));
+}
+.ship .rotate{
+    transform: rotateZ(10deg);
+    animation: ship 30s linear infinite alternate;
+}
+@keyframes ship {
+    from{
+        transform: rotateZ(20deg);
+    }
+    to{
+        transform: rotateZ(-20deg);
+    }
+}
+/* 路飞 */
+.ship .human{
+    position: absolute;
+    left: 40px;
+    top: 0;
+}
+/* 帽子 */
+.ship .human .hat{
+    width: 30px;
+    height: 30px;
+    background-color: #f0f09e;
+    border-radius: 100%;
+    animation: hat 1s ease-in-out infinite alternate;
+}
+@keyframes hat {
+    form{
+        transform: translateZ(30px) translateX(-5px) rotateY(-20deg);
+    }
+    to{
+        transform: translateZ(30px) translateX(0) rotateY(20deg);
+    }
+}
+.ship .human .hat::before{
+    content: "";
+    width: 16px;
+    height: 16px;
+    border: 1px solid #d9845d;
+    border-radius: 100%;
+    position: absolute;
+    left: 7px;
+    top: 7px;
+    transform-style: preserve-3d;
+    transform: translateZ(5px);
+}
+/* 腿 */
+.ship .human .leg{
+    width: 20px;
+    height: 8px;
+    background-color: #0849a3;
+    border-radius: 40%;
+    position: absolute;
+}
+.ship .human .leg::before{
+    content: "";
+    width: 5px;
+    height: 7px;
+    background-color: #fff;
+    border-radius: 40%;
+    position: absolute;
+}
+.ship .human .leg.left{
+    left: -10px;
+    top: 16px;
+    transform: rotateZ(-5deg);
+}
+.ship .human .leg.right{
+    left: -10px;
+    top: 6px;
+    transform: rotateZ(5deg);
+}
+/* 船体 */
+.ship .body{
+    position: relative;
+}
+.ship .body .base{
+    width: 100px;
+    height: 30px;
+    background-color: #d9845d;
+    border-radius: 45%;
+}
+.ship .body .base::before{
+    content: "";
+    width: 96px;
+    height: 26px;
+    background-color: #dead5e;
+    position: absolute;
+    border-radius: 45%;
+    left: 2px;
+    top: 2px;
+}
+/* 前后两块木板 */
+.ship .body .board{
+    width: 10px;
+    height: 20px;
+    background-color: #d9845d;
+    border-radius: 2px;
+    position: absolute;
+    top: 5px;
+}
+.ship .body .board.front{
+    right: 20px;
+}
+.ship .body .board.back{
+    left: 20px;
+}
+/* 波浪 */
+.ship .body .waves{
+    position: absolute;
+}
+.ship .body .waves .wave{
+    position: absolute;
+    animation: wave 2s linear infinite;
+    left: var(--left);
+    top: var(--top);
+    animation-delay: calc(var(--delay) * -1);
+}
+@keyframes wave {
+    0%{
+        transform: translateX(0) scale(0);
+    }
+    10%{
+        transform: translateX(-10px) scale(1);
+    }
+    100%{
+        transform: translateX(-130px) scale(0);
+    }
+}
+/* 白色浪花 */
+.ship .body .waves .wave .graphic{
+    background-color: #fff;
+    width: var(--width);
+    height: var(--height);
+    animation: surface 2s ease-in-out infinite alternate, rotateZ 6s linear infinite;
+}
+/* 船桨 */
+.ship .oars{
+    position: absolute;
+    left: 50px;
+    top: -30px;
+    transform: translateZ(10px);
+}
+.ship .oars .graphic{
+    width: 3px;
+    height: 40px;
+    background-color: #d9845d;
+    position: relative;
+    animation: oarGraphic 1s ease-in-out infinite alternate;
+}
+.ship .oars .graphic::before{
+    content: "";
+    width: 9px;
+    height: 15px;
+    background-color: #d9845d;
+    position: absolute;
+    left: -3px;
+    top: 0;
+    border-radius: 5px 5px 100% 100%;
+}
+.ship .oars .oar{
+    position: absolute;
+    left: 50%;
+    top: 0;
+}
+.ship .oars .oar.right{
+    transform-origin: 50% 45px;
+    transform: scaleY(-1);
+}
+.ship .oars .row{
+    transform-origin: 50% 35px;
+    animation: row 1s ease-in-out infinite alternate;
+}
+.ship .oars .depth{
+    transform-origin: 50% 35px;
+    animation: depth 1s ease-in-out infinite alternate;
+    animation-delay: -500ms;
+}
+@keyframes oarGraphic {
+    from{
+        transform: rotateY(-60deg);
+    }
+    to{
+        transform: rotateY(-110deg);
+    }
+}
+@keyframes row {
+    form{
+        transform: rotateZ(20deg);
+    }
+    to{
+        transform: rotateZ(-50deg);
+    }
+}
+@keyframes depth {
+    form{
+        transform: rotateX(-20deg);
+    }
+    form{
+        transform: rotateX(30deg);
+    }
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const bodywaves = document.querySelector(".bodywaves")
+    const oarwavesleft = document.querySelector(".oarwaves.left")
+    const oarwavesright = document.querySelector(".oarwaves.right")
+
+    const randomNum = (min, max) => {
+        return (Math.random() * (max - min + 1) + min).toFixed(2)
+    }
+
+    const freqb = document.createDocumentFragment()
+    const freql = document.createDocumentFragment()
+    const freqr = document.createDocumentFragment()
+    for(let i = 0;i<50;i++){
+        const d1 = document.createElement('div')
+        d1.className='wave'
+        d1.style.setProperty('--left', `${randomNum(12,60)}px`)
+        d1.style.setProperty('--top', `${randomNum(-2,16)}px`)
+        d1.style.setProperty('--delay', `${randomNum(30,4000)}ms`)
+        const d2 = document.createElement('div')
+        d2.className='graphic'
+        d2.style.setProperty('--width', `${randomNum(9,18)}px`)
+        d2.style.setProperty('--height', `${randomNum(9,18)}px`)
+        d1.appendChild(d2)
+        freqb.appendChild(d1)
+    }
+    for(let i = 0;i<20;i++){
+        const d1 = document.createElement('div')
+        d1.className='wave'
+        d1.style.setProperty('--left', `${randomNum(40,50)}px`)
+        d1.style.setProperty('--top', `${randomNum(-30, -15)}px`)
+        d1.style.setProperty('--delay', `${randomNum(1000,1800)}ms`)
+        const d2 = document.createElement('div')
+        d2.style.setProperty('--width', `${randomNum(6,10)}px`)
+        d2.style.setProperty('--height', `${randomNum(6,10)}px`)
+        d2.className='graphic'
+        d1.appendChild(d2)
+        freql.appendChild(d1)
+    }
+    for(let i = 0;i<20;i++){
+        const d1 = document.createElement('div')
+        d1.className='wave'
+        d1.style.setProperty('--left', `${randomNum(40,50)}px`)
+        d1.style.setProperty('--top', `${randomNum(40,55)}px`)
+        d1.style.setProperty('--delay', `${randomNum(1000,1800)}ms`)
+        const d2 = document.createElement('div')
+        d2.className='graphic'
+        d2.style.setProperty('--width', `${randomNum(6,10)}px`)
+        d2.style.setProperty('--height', `${randomNum(6,10)}px`)
+        d1.appendChild(d2)
+        freqr.appendChild(d1)
+    }
+    bodywaves.appendChild(freqb)
+    oarwavesleft.appendChild(freql)
+    oarwavesright.appendChild(freqr)
+}
+    </script>
+</head>
+<body>
+    <!-- 海 -->
+    <div class="sea">
+        <div class="surface"></div>
+    </div>
+    <!-- 船 -->
+    <div class="ship">
+        <div class="rotate">
+            <div class="move">
+                <div class="body">
+                    <div class="waves">
+                        <!-- 船体波浪 -->
+                        <div class="bodywaves"></div>
+                        <!-- 左船桨波浪 -->
+                        <div class="oarwaves left"></div>
+                        <!-- 右船桨波浪 -->
+                        <div class="oarwaves right"></div>
+                    </div>
+                    <!-- 船体 -->
+                    <div class="base"></div>
+                    <!-- 前木板 -->
+                    <div class="board front"></div>
+                    <!-- 后木板 -->
+                    <div class="board back"></div>
+                </div>
+                <!-- 船桨 -->
+                <div class="oars">
+                    <!-- 左船桨 -->
+                    <div class="oar left">
+                        <div class="row left">
+                            <div class="depth left">
+                                <div class="graphic left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右船桨 -->
+                    <div class="oar right">
+                        <div class="row right">
+                            <div class="depth right">
+                                <div class="graphic right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 路飞 -->
+                <div class="human">
+                    <div class="legs">
+                        <div class="leg left"></div>
+                        <div class="leg right"></div>
+                    </div>
+                    <div class="hat"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

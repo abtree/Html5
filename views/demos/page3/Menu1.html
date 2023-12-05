@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航栏</title>
+    <style>
+*{
+    margin: 0;padding: 0;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav{
+    display: flex;
+    list-style: none;
+    background-color: #222;
+    width: 900px;
+    max-width: 90vw;
+}
+.nav li{
+    min-width: 130px;
+    padding: 12px 0;
+    transition: 0.3s;
+}
+.nav li:hover{
+    background-color: #000;
+}
+.nav li a{
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 3px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+.nav li a span{
+    position: relative;
+    transition: 0.3s;
+}
+.nav li a span::before{
+    /* dtat-text为自定义属性，会在js中赋值；attr函数可以读取属性值 */
+    content: attr(data-text);
+    position: absolute;
+    transform: translateY(130%);
+}
+.nav li a:hover span{
+    transform: translateY(-130%);
+}
+    </style>
+    <script>
+window.onload = ()=>{
+    const links = document.querySelectorAll(".nav li a")
+    links.forEach(link=>{
+        const letters = link.textContent.split('')
+        link.textContent=""
+        letters.forEach((letter, index)=>{
+            const span = document.createElement('span')
+            span.textContent = letter
+            // 设置data-text属性值，css的attr函数读取
+            span.dataset.text = letter
+            span.style.transitionDelay=index/15+'s'
+            link.append(span)
+        })
+    })
+}
+    </script>
+</head>
+<body>
+    <ul class="nav">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">公司介绍</a></li>
+        <li><a href="#">产品案例</a></li>
+        <li><a href="#">案例展示</a></li>
+        <li><a href="#">联系我们</a></li>
+    </ul>
+</body>
+</html>

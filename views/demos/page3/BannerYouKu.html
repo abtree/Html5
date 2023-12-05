@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿优酷Banner</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+.container{
+    width: 100%;
+    height: 592px;
+    position: relative;
+}
+.shades{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* 不对指针事件做反映 */
+    pointer-events: none;
+}
+.shades .left{
+    width: 160px;
+    height: 100%;
+    background: linear-gradient(to left, transparent, #16161a);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.shades .right{
+    width: 160px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #16161a);
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.shades .top{
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(to top, transparent, #16161a);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.shades .bottom{
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(to bottom, transparent, #16161a);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.imgs{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.imgs img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+}
+.imgs a{
+    opacity: 0;
+    transition: 0.2s;
+}
+.imgs a.active{
+    opacity: 1;
+}
+.titles{
+    width: 297px;
+    height: 416px;
+    position: absolute;
+    top: 19%;
+    right: 5%;
+    background: linear-gradient(to bottom, transparent, #16161a 22%, #16161a 81%, transparent);
+}
+.titles a{
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    width: 100%;
+    padding: 12px 20px;
+}
+.titles .title2{
+    font-size: 12px;
+    margin-top: 8px;
+    font-weight: normal;
+    display: none;
+}
+.titles a.active{
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    background: linear-gradient(to right,rgba(255, 255, 255, 0.25) 20%, transparent 90%);
+}
+.titles a.active .title2{
+    display: block;
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const data = [
+        {img:"/views/imgs/168/1.jpg",title:"传家",desc:"开撕！豪门弃女翻身逆袭"},
+        {img:"/views/imgs/168/2.jpg",title:"奔跑吧 第六季",desc:"沙溢周深穿越宋朝玩谐音梗"},
+        {img:"/views/imgs/168/3.jpg",title:"月球陨落",desc:"月球撞地球灾难科幻爽片！"},
+        {img:"/views/imgs/168/4.jpg",title:"了不起！舞社",desc:"李斯丹妮王霏霏回忆浪姐经历"},
+        {img:"/views/imgs/168/5.jpg",title:"一起探恋爱",desc:"收官！两场告白女霸总怎么选？"},
+        {img:"/views/imgs/168/6.jpg",title:"白色强人2",desc:"郭晋安马国明演绎医者仁心"},
+        {img:"/views/imgs/168/7.jpg",title:"怦然心动20岁",desc:"双胞胎争新人 萌妹摆烂"},
+        {img:"/views/imgs/168/8.jpg",title:"开播！情景喜剧",desc:"秦霄贤花式“哄”杨超越"}
+    ]
+
+    const imgs = document.querySelector(".container .imgs")
+    const titles = document.querySelector(".container .titles")
+    const imglist = []
+    const titlelist = []
+
+    const freqImgs = document.createDocumentFragment()
+    const freqTitles = document.createDocumentFragment()
+    data.forEach(item=>{
+        const ai = document.createElement("a")
+        const aii = document.createElement("img")
+        aii.setAttribute("src", item.img)
+        ai.appendChild(aii)
+        freqImgs.appendChild(ai)
+        imglist.push(ai)
+
+        const at = document.createElement('a')
+        const ad1 = document.createElement('div')
+        ad1.classList.add("title")
+        ad1.textContent = item.title
+        at.appendChild(ad1)
+        const ad2 = document.createElement('div')
+        ad2.classList.add("title2")
+        ad2.textContent = item.desc
+        at.appendChild(ad2)
+        freqTitles.appendChild(at)
+        titlelist.push(at)
+    })
+    imglist[0].classList.add("active")
+    titlelist[0].classList.add("active")
+    imgs.appendChild(freqImgs)
+    titles.appendChild(freqTitles)
+
+    let curIndex = 0
+    let timer
+
+    const removeActive = () => {
+        titlelist[curIndex].classList.remove('active')
+        imglist[curIndex].classList.remove('active')
+    }
+    const addActive = () => {
+        titlelist[curIndex].classList.add('active')
+        imglist[curIndex].classList.add('active')
+    }
+    const changeActive = ind => {
+        removeActive()
+        curIndex = ind
+        addActive()
+    }
+
+    const autoBanner = () =>{
+        timer = setInterval(() => {
+            let c = curIndex+1
+            if (c > titlelist.length -1){
+                c = 0
+            }
+            changeActive(c)
+        }, 3000);
+    }
+
+    
+    titlelist.forEach((item, index)=>{
+        item.addEventListener("mouseenter", ()=>{
+            changeActive(index)
+            clearInterval(timer)
+        })
+        item.addEventListener("mouseleave", ()=>{
+            autoBanner()
+        })
+    })
+
+    autoBanner()
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="imgs">
+        </div>
+        <div class="shades">
+            <div class="left"></div>
+            <div class="top"></div>
+            <div class="right"></div>
+            <div class="bottom"></div>
+        </div>
+        <div class="titles"></div>
+    </div>
+</body>
+</html>

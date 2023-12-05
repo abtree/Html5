@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>左侧分类菜单，右侧轮播图</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+*{
+    margin: 0;padding: 0;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to top, #e6e9f0, #eef1f5);
+}
+a{
+    text-decoration: none;
+}
+a:link,
+a:visited{
+    color: #5e5e5e;
+}
+.container{
+    width: 95vw;
+    max-width: 1200px;
+    height: 460px;
+    /* border: 1px solid red; */
+    position: relative;
+    overflow: hidden;
+}
+/* 大图片 */
+.banner{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: none;
+}
+.banner .banner-slide{
+    width: 100%;
+    height: 100%;
+}
+.banner:nth-child(1) .banner-slide{
+    background: url("/views/imgs/space.jpg") no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.banner:nth-child(2) .banner-slide{
+    background: url("/views/imgs/space1.jpg") no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.banner:nth-child(3) .banner-slide{
+    background: url("/views/imgs/car1.jpg") no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.banner:nth-child(4) .banner-slide{
+    background: url("/views/imgs/car2.jpg") no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.banner.banner-active {
+    display: block;
+}
+/* 切换图片 按钮 */
+.button{
+    width: 40px;
+    height: 80px;
+    position: absolute;
+    top: 50%;
+    left: 244px;
+    margin-top: -40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.button.next{
+    left: auto;
+    right: 0;
+}
+.button .iconfont{
+    font-size: 35px;
+    color: #fff;
+}
+.button:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+/* 点指示器 */
+.dots{
+    position: absolute;
+    right: 0;
+    bottom: 24px;
+    padding-right: 24px;
+    /* border: 1px solid red; */
+}
+.dots span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(7, 17, 27, 0.4);
+    margin-left: 8px;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.8);
+}
+.dots span.dot-active{
+    background-color: #fff;
+    box-shadow: inset 0 0 0 2px rgba(7, 17, 27, 0.4);
+}
+/* 分类菜单 */
+.menu-content{
+   width: 244px;
+   height: 460px;
+   background-color: rgba(7, 17, 27, 0.25);
+   position: absolute;
+   top: 0;
+   left: 0; 
+   /* padding-left: 6px; */
+}
+.menu-content .menu-item{
+    height: 64px;
+    line-height: 66px;
+    padding: 0 24px;
+    cursor: pointer;
+}
+.menu-content .menu-item a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 0 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    height: 64px;
+    font-size: 16px;
+}
+.menu-content .menu-item:last-child a{
+    border-bottom: none;
+}
+.menu-content .menu-item a span:nth-child(1){
+    flex: 1;
+}
+.menu-content .menu-item a .iconfont{
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 22px;
+}
+/* 二级菜单 */
+.sub-menu{
+    border: 1px solid #d9dde1;
+    background-color: #fff;
+    width: calc(80vw - 244px);
+    max-width: 730px;
+    height: 458px;
+    position: absolute;
+    left: 244px;
+    top: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.sub-menu .inner-box{
+    width: 100%;
+    height: 100%;
+    background: url("/views/imgs/fe.png") no-repeat;
+    overflow: auto;
+}
+.sub-menu .inner-box .sub-inner-box{
+    width: 100%;
+    margin-left: 40px;
+    width: calc(100% - 40px);
+}
+.sub-menu .inner-box .sub-inner-box .title{
+    color: #f01414;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: bold;
+    margin-top: 28px;
+    margin-bottom: 30px;
+}
+.sub-menu .inner-box .sub-inner-box .sub-row{
+    margin-bottom: 25px;
+    line-height: 25px;
+}
+.sub-menu .inner-box .sub-inner-box .sub-row .bold{
+    font-weight: 700;
+    margin-right: 15px;
+}
+.sub-menu .inner-box .sub-inner-box .sub-row a{
+    margin-right: 15px;
+}
+.hide{
+    display: none;
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const menuList =[{
+            title:"手机，配件",
+            list:[{
+                    menuTitle: '手机通讯',
+                    menus:['手机','手机维修','以旧换新']
+                },{
+                    menuTitle: '手机配件',
+                    menus:['手机壳','手机存储卡','数据线','充电器','电池']
+                },{
+                    menuTitle: '运营商',
+                    menus:['中国联通','中国移动','中国电信']
+                },{
+                    menuTitle: '智能设备',
+                    menus:['智能手环','智能家居','智能手表','其它配件']
+                },{
+                    menuTitle: '娱乐',
+                    menus:['耳机','音响','收音机','麦克风']
+                }]
+        },{
+            title:'电脑',
+            list:[{
+                menuTitle:'电脑',
+                menus:['笔记本','平板','一体机']
+            },{
+                menuTitle:'电脑配件',
+                menus:['显示器','CPU','主板','硬盘','电源','显卡','其他配件']
+            },{
+                menuTitle:'游戏设备',
+                menus:['游戏机','耳机','游戏软件']
+            },{
+                menuTitle:'网络产品',
+                menus:['路由器','网络机顶盒','交换机','存储卡','网卡']
+            },{
+                menuTitle:'外部产品',
+                menus:['鼠标','键盘','U盘','移动硬盘','鼠标垫','电脑清洁']
+            }]
+        },{
+            title:'家用电器',
+            list:[{
+                menuTitle:'电视',
+                menus:['国产品牌','日韩品牌','欧美品牌']
+            },{
+                menuTitle:'空调',
+                menus:['显示器','柜式','中央','壁挂式']
+            },{
+                menuTitle:'冰箱',
+                menus:['多门','对开门','三门','双门']
+            },{
+                menuTitle:'洗衣机',
+                menus:['滚筒式洗衣机','迷你洗衣机','洗烘一体机']
+            },{
+                menuTitle:'厨房电器',
+                menus:['油烟机','洗碗机','燃气灶']
+            }]
+        },{
+            title:'家具',
+            list:[{
+                menuTitle:'家纺',
+                menus:['被子','枕头','四件套','床垫']
+            },{
+                menuTitle:'灯具',
+                menus:['台灯','顶灯','节能灯','应急灯']
+            },{
+                menuTitle:'厨具',
+                menus:['烹饪锅具','餐具','菜板刀具']
+            },{
+                menuTitle:'家装',
+                menus:['地毯','沙发垫套','装饰字画','照片墙','窗帘']
+            },{
+                menuTitle:'生活日用',
+                menus:['收纳用品','浴室用品','雨伞雨衣']
+            }]
+        }
+    ]
+    const menuContent = document.querySelector(".menu-content")
+    const menuItem = document.querySelector(".menu-item")
+    const subMenu = document.querySelector(".sub-menu")
+    const innerBox = document.querySelector(".inner-box")
+    const innerBoxs = []
+    const showSubMenu = index=>{
+        subMenu.classList.remove("hide")
+        // console.log(index);
+        if (index > -1){
+            innerBoxs.forEach(ib => ib.classList.add("hide"))
+            innerBoxs[index].classList.remove("hide")
+        }
+    }
+    const hideSubMenu = ()=>{
+        subMenu.classList.add("hide")
+    }
+    menuList.forEach((menu, index) => {
+        const clone = menuItem.cloneNode(true)
+        const x = clone.querySelector("span:nth-child(1)")
+        x.textContent = menu.title
+        clone.addEventListener("mouseover", ()=> {
+            return showSubMenu(index)
+        })
+        menuContent.appendChild(clone)
+
+        const subclone = innerBox.cloneNode(true);
+        const title = subclone.querySelector(".title")
+        title.textContent = menu.title
+        const subInnerBox = subclone.querySelector(".sub-inner-box")
+        menu.list.forEach(item => {
+            const subRow = document.createElement("div")
+            subRow.classList.add("sub-row")
+            const bold = document.createElement("span")
+            bold.classList.add("bold")
+            bold.textContent = item.menuTitle + ':'
+            subRow.appendChild(bold)
+            item.menus.forEach(cell=>{
+                const sm = document.createElement("a")
+                sm.setAttribute("href", "#")
+                sm.classList.add("menu")
+                sm.textContent = cell
+                subRow.appendChild(sm)
+            })
+            subInnerBox.appendChild(subRow)
+        })
+        innerBoxs.push(subclone)
+        subMenu.appendChild(subclone)
+    })
+    menuItem.style.display='none'
+    innerBox.style.display='none'
+
+    //定义swiper
+    const banners = document.querySelectorAll(".banner")
+    const dots = document.querySelectorAll(".dots span")
+    let currentBanner = 0;
+    const setBanner = x=>{
+        banners[currentBanner].classList.remove("banner-active")
+        dots[currentBanner].classList.remove("dot-active")
+        currentBanner = x
+        banners[currentBanner].classList.add("banner-active")
+        dots[currentBanner].classList.add("dot-active")
+    }
+    const startTimer = ()=>{
+        return setInterval(()=>{
+            let i = currentBanner+1
+            if(i === 4){
+                i = 0
+            }
+            setBanner(i)
+        }, 10000)
+    }
+    let timer = startTimer()
+    dots.forEach((d, i)=>d.addEventListener("click", () => {
+        setBanner(i)
+        clearInterval(timer)
+        timer = startTimer()
+    }))
+    const prev = document.querySelector(".prev")
+    const next = document.querySelector(".next")
+    prev.addEventListener("click", ()=>{
+        let i = currentBanner -1
+        if (i < 0){
+            i = 3
+        }
+        setBanner(i)
+        clearInterval(timer)
+        timer = startTimer()
+    })
+    next.addEventListener("click", ()=>{
+        let i = currentBanner + 1
+        if (i > 3){
+            i = 0
+        }
+        setBanner(i)
+        clearInterval(timer)
+        timer = startTimer()
+    })
+
+    menuContent.addEventListener("mouseout", hideSubMenu)
+    subMenu.addEventListener("mouseover", showSubMenu)
+    subMenu.addEventListener("mouseout", hideSubMenu)
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- banner -->
+        <div class="banner banner-active">
+            <a href="">
+                <div class="banner-slide"></div>
+            </a>
+        </div>
+        <div class="banner">
+            <a href="">
+                <div class="banner-slide"></div>
+            </a>
+        </div>
+        <div class="banner">
+            <a href="">
+                <div class="banner-slide"></div>
+            </a>
+        </div>
+        <div class="banner">
+            <a href="">
+                <div class="banner-slide"></div>
+            </a>
+        </div>
+        <!-- 上一张 下一张 按钮 -->
+        <div class="button prev">
+            <span class="iconfont icon-icon-test"></span>
+        </div>
+        <div class="button next">
+            <span class="iconfont icon-icon-test3"></span>
+        </div>
+        <!-- 指示器 -->
+        <div class="dots">
+            <span class="dot-active"></span><span></span><span></span><span></span>
+        </div>
+        <!-- 分类菜单 -->
+        <div class="menu-content">
+            <div class="menu-item">
+                <a href="">
+                    <span></span>
+                    <span class="iconfont icon-icon-test2"></span>
+                </a>
+            </div>
+        </div>
+        <!-- 二级菜单 -->
+        <div class="sub-menu hide">
+            <div class="inner-box">
+                <div class="sub-inner-box">
+                    <div class="title"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

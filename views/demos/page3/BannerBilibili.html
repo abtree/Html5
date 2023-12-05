@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿Bilibili的banner</title>
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.container{
+    width: 100%;
+    height: 160px;
+    position: relative;
+    overflow: hidden;
+}
+.container div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.container div img{
+    width: 110%;
+    height: 100%;
+    object-fit: cover;
+    --offset: 0px;
+    --blur: 2px;
+    transform: translateX(var(--offset));
+    filter: blur(var(--blur));
+}
+h3{
+    margin-top: 25px;
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const container = document.querySelector(".container")
+    const imgs = document.querySelectorAll(".container img")
+
+    container.addEventListener("mousemove", e=>{
+        let percent = e.clientX/window.outerWidth;
+        let offset = 10 * percent
+        let blur = 20
+
+        imgs.forEach((img, index) => {
+            offset *= 1.3
+            let blurValue = Math.pow(index/imgs.length - percent, 2) * blur
+            img.style.setProperty("--offset", `${offset}px`)
+            img.style.setProperty("--blur", `${blurValue}px`)
+        })
+    })
+}
+    </script>
+</head>
+<body>
+    <h3>左右移动鼠标</h3>
+    <div class="container">
+        <div><img src="/views/imgs/173/1.png" alt=""></div>
+        <div><img src="/views/imgs/173/2.png" alt=""></div>
+        <div><img src="/views/imgs/173/3.png" alt=""></div>
+        <div><img src="/views/imgs/173/4.png" alt=""></div>
+        <div><img src="/views/imgs/173/5.png" alt=""></div>
+        <div><img src="/views/imgs/173/6.png" alt=""></div>
+    </div>
+</body>
+</html>

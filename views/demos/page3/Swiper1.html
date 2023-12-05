@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿B站banner</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+*{margin: 0;padding: 0;}
+:root{
+    --m-left: 0;
+    --b-color: #000;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(200deg, #e6e9f0, #eef1f5);
+}
+li{
+    list-style: none;
+}
+.container{
+    width: 488px;
+    height: 360px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.img-box{
+    height: 275px;
+    display: flex;
+    margin-left: calc(-488px * var(--m-left));
+    transition: 0.35s;
+}
+.img-box img{
+    width: 488px;
+    flex-shrink: 0;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+.bottom-box{
+    height: calc(360px - 275px);
+    display: flex;
+    background-color: var(--b-color);
+    color: #fff;
+    position: relative;
+}
+.bottom-box::before{
+    content: "";
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--b-color));
+    position: absolute;
+    top: -50px;
+}
+.bottom-box .l-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 12px;
+    width: calc(488px - 92px - 12px);
+}
+.bottom-box .title{
+    width: 100%;
+    font-size: 18px;
+    line-height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.bottom-box .dots{
+    display: flex;
+    margin-top: 10px;
+}
+.bottom-box .dots li{
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.bottom-box .dots li.pacman{
+    position: relative;
+    width: 14px;
+    height: 14px;
+    background-color: transparent;
+    margin-top: 1px;
+}
+
+.bottom-box .dots li.pacman div{
+    width: 0;
+    height: 0;
+    border: 7px solid #fff;
+    border-radius: 50%;
+    border-right-width: 7px;
+    border-right-color: transparent;
+    position: absolute;
+}
+.bottom-box .dots li.pacman.l{
+    transform: rotate(180deg);
+}
+.bottom-box .dots li.pacman div:nth-child(1){
+    animation: pacman1 0.75s linear forwards;
+}
+.bottom-box .dots li.pacman div:nth-child(2){
+    animation: pacman2 0.75s linear forwards;
+}
+.bottom-box .r-box{
+    display: flex;
+    padding-top: 12px;
+    padding-left: 12px;
+}
+.bottom-box .r-box .iconfont{
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-right: 12px;
+}
+.bottom-box .r-box .iconfont:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+@keyframes pacman1 {
+    0%{
+        transform: rotate(360deg);
+    }
+    40%{
+        transform: rotate(270deg);
+    }
+    60%{
+        transform: rotate(360deg);
+    }
+    100%{
+        transform: rotate(270deg);
+    }
+}
+@keyframes pacman2 {
+    0%{
+        transform: rotate(0deg);
+    }
+    40%{
+        transform: rotate(90deg);
+    }
+    60%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(90deg);
+    }
+}
+    </style>
+    <script>
+window.onload = () => {
+    const list = [{
+            title:'标题一',
+            image:'/views/imgs/op/1.jpg',
+            bottom_color:'#AB2E3E'
+        },
+        {
+            title:'标题二',
+            image:'/views/imgs/op/2.jpg',
+            bottom_color:'#2c84cd'
+        },
+        {
+            title:'标题三',
+            image:'/views/imgs/op/3.jpg',
+            bottom_color:'#49a4d8'
+        },
+        {
+            title:'标题四',
+            image:'/views/imgs/op/4.jpg',
+            bottom_color:'#4e4e4e'
+        },
+        {
+            title:'标题五',
+            image:'/views/imgs/op/5.jpg',
+            bottom_color:'#623E26'
+        },
+        {
+            title:'标题六',
+            image:'/views/imgs/op/6.jpg',
+            bottom_color:'#93504D'
+        },
+        {
+            title:'标题七',
+            image:'/views/imgs/op/7.jpg',
+            bottom_color:'#212121'
+        },
+        {
+            title:'标题八',
+            image:'/views/imgs/op/8.jpg',
+            bottom_color:'#000000'
+        },
+        {
+            title:'标题九',
+            image:'/views/imgs/op/11.jpg',
+            bottom_color:'#972924'
+        }]
+    let activeIndex = 0
+    let isPrev = false
+
+    const imgBox = document.querySelector(".img-box")
+    const title = document.querySelector(".bottom-box .title")
+    const dots = document.querySelector(".bottom-box .dots")
+    const bottomBox = document.querySelector(".bottom-box")
+    const btnprev = document.querySelector(".bottom-box .r-box span:nth-child(1)")
+    const btnnext = document.querySelector(".bottom-box .r-box span:nth-child(2)")
+    const container = document.querySelector(".container")
+    const lis = []
+
+    const clearOldli = () => {
+        lis[activeIndex].className="dot"
+    }
+
+    const changeBanner = (index, isprev)=>{
+        clearOldli()
+        if(index >= 0){
+            isPrev=false
+            if(index < activeIndex){
+                isPrev = true
+            }
+            activeIndex=index
+        }else{
+            if(isprev){
+                activeIndex--
+                if(activeIndex < 0){
+                    activeIndex = list.length - 1
+                }
+            }else{
+                activeIndex++
+                if(activeIndex >= list.length){
+                    activeIndex = 0
+                }
+            }
+            isPrev = isprev
+        }
+        imgBox.style.setProperty('--m-left', activeIndex)
+        title.textContent = list[activeIndex].title
+        bottomBox.style.setProperty('--b-color', list[activeIndex].bottom_color)
+        if (isPrev){
+            lis[activeIndex].className = "pacman l"
+        }else{
+            lis[activeIndex].className = "pacman"
+        }
+    }
+
+    const cvs = document.createDocumentFragment() 
+    const cvs1 = document.createDocumentFragment() 
+    list.forEach((item, index)=>{
+        const img = document.createElement("img")
+        img.setAttribute("src", item.image)
+        cvs.appendChild(img)
+
+        const li = document.createElement("li")
+        li.classList.add("dot")
+        li.appendChild(document.createElement("div"))
+        li.appendChild(document.createElement("div"))
+        li.addEventListener("click", ()=>changeBanner(index))
+        cvs1.appendChild(li)
+        lis.push(li)
+    })
+    imgBox.appendChild(cvs)
+    dots.appendChild(cvs1)
+
+    btnprev.addEventListener("click", ()=>changeBanner(-1, true))
+    btnnext.addEventListener("click", ()=>changeBanner(-1, false))
+
+    let timer
+    let isrun = false
+
+    const startAutoPlay = ()=>{
+        if (isrun){
+            return
+        }
+        isrun = true
+        timer = setInterval(() => {
+            let index = activeIndex
+            index++
+            if(index >= list.length){
+                index = 0
+            }
+            changeBanner(index)
+        }, 3000);
+    }
+
+    container.addEventListener("mouseover", ()=>{
+        if (isrun){
+            clearInterval(timer)
+            isrun = false
+        }        
+    })
+    container.addEventListener("mouseout", ()=>{
+        startAutoPlay()
+    })
+    startAutoPlay()
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="img-box"></div>
+        <div class="bottom-box">
+            <div class="l-box">
+                <div class="title"></div>
+                <ul class="dots"></ul>
+            </div>
+            <div class="r-box">
+                <span class="iconfont icon-icon-test" ></span>
+                <span class="iconfont icon-icon-test1"></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科技碎片风背景</title>
+    <style>
+*{margin: 0;padding: 0;overflow: hidden;}
+canvas{
+    background-color: #000;
+}
+    </style>
+    <script>
+window.onload = ()=>{
+    const canvas = document.getElementById("canvas")
+    const ctx = canvas.getContext("2d")
+    const w = canvas.width = window.innerWidth
+    const h = canvas.height = window.innerHeight
+    const increment = 20
+    // 设置图像重叠效果
+    ctx.globalCompositeOperation = 'lighter'
+    function init(t){
+        const speed = t/4000 
+        ctx.clearRect(0,0,w,h)
+        for(let n = 0;n<3;n++){
+            if (n==0){
+                ctx.fillStyle='#f00'
+            }else if(n==1){
+                ctx.fillStyle='#0f0'
+            }else{
+                ctx.fillStyle='#00f'
+            }
+            for (let i =0;i<h;i+=increment){
+                for(let j =0;j<w/2;j+=increment){
+                    let index = i*w+j
+                    ctx.globalAlpha = Math.tan(index*index-speed)
+                    ctx.fillRect(
+                        Math.tan(i*j-Math.sin(index+n/100)+speed)*j+w/2-increment/2,
+                        i,
+                        Math.tan(index+i/j+speed+n/100)/2*increment/2,
+                        Math.tan(index*index-speed)*increment/2
+                    )
+                }
+            }
+        }
+
+        requestAnimationFrame(init)
+    }
+    init(0)
+}
+    </script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+</html>

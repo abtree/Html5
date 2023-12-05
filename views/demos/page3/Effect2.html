@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用L2Dwidget实现二次元卡通看板娘</title>
+    <style>
+body{
+    background: linear-gradient(to top, #ff9a9e, #fecfef);
+}
+    </style>
+    <script src="/views/js/live2dw/lib/L2Dwidget.min.js"></script>
+    <script>
+const readFile = (file, callback) => {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json")
+    rawFile.open("GET", file, true)
+    rawFile.onreadystatechange = () => {
+        if(rawFile.readyState === 4 && rawFile.status == "200"){
+            callback(rawFile.responseText)
+        }
+    }
+    rawFile.send(null)
+}
+let jsonData = null
+readFile("/views/js/live2dw/live2d-widget-model-shizuku/assets/shizuku.model.json", (text) => {
+    jsonData = JSON.parse(text)
+})
+L2Dwidget.init({
+    model:{
+        jsonPath: jsonData,
+        scale: 1
+    },
+    display: {
+        position: "left",
+        width: 300,
+        height: 600,
+        hOffset: 0,
+        vOffset: -20
+    },
+    mobile: {
+        show: true,
+        scale: 1
+    },
+    react: {
+        opacity: 1
+    }
+})
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿腾讯视频轮播图</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    width: 100vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.banner{
+    width: 90vw;
+    max-width: 1680px;
+    height: 432px;
+}
+.title-box{
+    width: 348px;
+    height: 432px;
+    background-color: rgba(0, 0, 0, 0.45);
+    position: absolute;
+    right: 0;
+    color: #fff;
+    padding-top: 20px;
+    backdrop-filter: blur(3px);
+}
+.title-box .title{
+    height: 43px;
+    line-height: 43px;
+    text-indent: 40px;
+    font-size: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: font-size 0.1s;
+}
+.title-box .title span{
+    font-size: 13px;
+    opacity: 0;
+}
+.title-box .title.active{
+    color: #ff5c38;
+    font-size: 22px;
+    font-weight: bold;
+}
+.title-box .title.active span{
+    opacity: 1;
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const list = [{
+            title:'正在直播NBA',
+            sub_title:'快船vs森林狼',
+            image:'/views/imgs/car1.jpg',
+            bg_color:'#53839a'
+        },{
+            title:'特战荣耀·热播',
+            sub_title:'杨洋展特种军魂',
+            image:'/views/imgs/car2.jpg',
+            bg_color:'#bbbbaf'
+        },{
+            title:'王牌对王牌7',
+            sub_title:'沈腾贾玲cos喜羊羊',
+            image:'/views/imgs/mountain.jpg',
+            bg_color:'#120f16'
+        },{
+            title:'军火大劫案',
+            sub_title:'国版“史密斯夫妇”燃炸',
+            image:'/views/imgs/space.jpg',
+            bg_color:'#600004'
+        },{
+            title:'毛雪汪',
+            sub_title:'李雪琴花式夸毛不易新歌',
+            image:'/views/imgs/space1.jpg',
+            bg_color:'#eeec88'
+        },{
+            title:'狙击手的战争',
+            sub_title:'乌克兰战争狙击手传奇',
+            image:'/views/imgs/car1.jpg',
+            bg_color:'#89a1a3'
+        },{
+            title:'致命谋杀',
+            sub_title:'揭秘连环杀手作案动机',
+            image:'/views/imgs/car2.jpg',
+            bg_color:'#1d221c'
+        },{
+            title:'现在就告白',
+            sub_title:'健身教练告白女客户',
+            image:'/views/imgs/mountain.jpg',
+            bg_color:'#bd60d5'
+        },{
+            title:'【海量福利】',
+            sub_title:'诺亚之心上线领豪礼',
+            image:'/views/imgs/space.jpg',
+            bg_color:'#0d283d'
+        }]
+    const titleBox = document.querySelector(".title-box")
+    const titles = []
+    list.forEach(item=>{
+        const title = document.createElement("div")
+        title.textContent = item.title
+        title.classList.add("title")
+        const subtitle = document.createElement("span")
+        subtitle.textContent = item.sub_title
+        title.appendChild(subtitle)
+        titles.push(title)
+        titleBox.appendChild(title)
+    })
+    const banner = document.querySelector(".banner")
+    const container = document.querySelector(".container")
+    let activeIndex = 0;
+    const setActive = ()=>{
+        banner.style.background = `url("${list[activeIndex].image}") no-repeat`
+        banner.style.backgroundSize = 'cover'
+        banner.style.backgroundPosition = 'center'
+        container.style.backgroundColor = list[activeIndex].bg_color
+        titles[activeIndex].classList.add("active")
+    }
+    setActive()
+    const setRun = ()=>{
+        return setInterval(()=>{
+            titles[activeIndex].classList.remove("active")
+            activeIndex++
+            if(activeIndex >= list.length){
+                activeIndex = 0
+            }
+            setActive()
+        }, 5000)
+    }
+    let timer = setRun()
+    titles.forEach((item, index) => {
+        item.addEventListener("click", ()=>{
+            clearInterval(timer)
+            titles[activeIndex].classList.remove("active")
+            activeIndex = index
+            setActive()
+            timer = setRun()
+        })
+    })
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="banner"></div>
+        <div class="title-box"></div>
+    </div>
+</body>
+</html>

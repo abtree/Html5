@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐播放器</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    width: 430px;
+    height: 100px;
+}
+/* 大背景 */
+.bg{
+    position: fixed;
+    top: -40px;
+    right: -40px;
+    bottom: -40px;
+    left: -40px;
+    background: url("/views/mp3/cover/红模仿.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: blur(40px);
+    z-index: 1;
+}
+/* 大背景遮罩 */
+.bg-mask{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 2;
+}
+.player{
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+}
+/* 歌曲信息轨道区域 */
+.player .player-track{
+    position: absolute;
+    top: 0;
+    right: 15px;
+    bottom: 0;
+    left: 15px;
+    padding: 13px 22px 10px 184px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px 15px 0 0;
+    transition: top 0.3s ease;
+}
+.player .player-track.active{
+    top: -95px
+}
+.player .player-track .album-name{
+    color: #333;
+    font-size: 17px;
+    font-weight: bold;
+}
+.player .player-track .track-name{
+    color: #888;
+    font-size: 13px;
+    margin: 3px 0 12px 0;
+}
+.player .player-track .track-time{
+    height: 12px;
+    line-height: 12px;
+    margin-bottom: 4px;
+    overflow: hidden;
+}
+.player .player-track .track-time .current-time,
+.player .player-track .track-time .total-time{
+    color: #ff668f;
+    font-size: 11px;
+    transition: 0.3s ease;
+}
+.player .player-track .track-time .current-time{
+    float: left;
+}
+.player .player-track .track-time .total-time{
+    float: right;
+}
+/* 进度条 */
+.player .player-track .progress-box{
+    position: relative;
+    height: 4px;
+    background-color: #ead2d7;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* 进度条悬停显示 */
+.player .player-track .progress-box .hover-time{
+    position: absolute;
+    top: -30px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 6px;
+    border-radius: 4px;
+    display: none;
+}
+/* 悬停进度条颜色 */
+.player .player-track .progress-box .hover-bar{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 2;
+}
+/* 已播放进度条颜色 */
+.player .player-track .progress-box .progress-bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #fd6d94;
+    border-radius: 4px;
+    z-index: 1;
+    width: 0;
+    transition: width 0.2s ease;
+}
+.player .player-content{
+    position: relative;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 15px;
+    z-index: 2;
+    box-shadow: 0 30px 80px #656565;
+}
+/* 唱片 */
+.player .player-content .album-cover{
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    position: absolute;
+    top: -40px;
+    left: 40px;
+    box-shadow: 0 0 0 10px #fff;
+    overflow: hidden;
+    transition: 0.3s ease;
+}
+/* 唱片中间的圆点 */
+.player .player-content .album-cover::before{
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-color: #d6dee6;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    margin: -10px auto auto auto;
+    box-shadow: inset 0 0 0 2px #fff;
+    z-index: 1;
+}
+.player .player-content .album-cover.active{
+    top: -60px;
+    box-shadow: 0 0 0 4px #fff7f7,
+    0 30px 50px -15px #afb7c1;
+}
+.player .player-content .album-cover img{
+    display: block;
+    width: 100%;
+    height: 0;
+    object-fit: cover;
+    opacity: 0;
+}
+.player .player-content .album-cover img.active{
+    opacity: 1;
+    height: 100%;
+}
+/* 播放时 旋转 */
+.player .player-content .album-cover.active img.active{
+    animation: rotateAlbumCover 3s linear infinite;
+}
+@keyframes rotateAlbumCover {
+    to{
+        transform: rotateZ(360deg);
+    }
+}
+/* 控制区 */
+.player .player-controls{
+    width: 255px;
+    height: 100%;
+    float: right;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-right: 3px;
+}
+.player .player-controls .control{
+    flex: 1;
+}
+.player .player-controls .control .button{
+    width: 75px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+.player .player-controls .control .button .iconfont{
+    color: #d6dee6;
+    font-size: 30px;
+    transition: 0.2s ease;
+}
+.player .player-controls .control .button:hover{
+    background-color: #d6d6de;
+}
+.player .player-controls .control .button:hover .iconfont{
+    color: #fff;
+}
+    </style>
+    <script>
+window.onload = ()=>{
+    const playPause = document.querySelector(".play-pause")
+    const playPrev = document.querySelector(".play-prev")
+    const playNext = document.querySelector(".play-next")
+    const playerTrack = document.querySelector(".player-track")
+    const albumCover = document.querySelector(".album-cover")
+    const imgs = []
+    const bg = document.querySelector(".bg")
+    const albumName = document.querySelector(".album-name")
+    const trackName = document.querySelector(".track-name")
+    const currTime = document.querySelector(".track-time .current-time")
+    const totalTime = document.querySelector(".track-time .total-time")
+    const progressBox = document.querySelector(".progress-box")
+    const hoverTime = document.querySelector(".progress-box .hover-time")
+    const hoverBar = document.querySelector(".progress-box .hover-bar")
+    const progressBar = document.querySelector(".progress-box .progress-bar")
+
+    // 专辑名
+    const data = [{
+        album: '红模仿',
+        track: '周杰伦 - 红模仿',
+        icon: '/views/mp3/cover/红模仿.jpg',
+        mp3: '/views/mp3/红模仿.mp3'
+    },{
+        album: '感官先生',
+        track: '刘凤瑶 - 感官先生',
+        icon: '/views/mp3/cover/感官先生.jpg',
+        mp3: '/views/mp3/感官先生.mp3'
+    },{
+        album: '夜曲',
+        track: '周杰伦 - 夜曲',
+        icon: '/views/mp3/cover/夜曲.jpg',
+        mp3: '/views/mp3/夜曲.mp3'
+    },{
+        album: '我的名字',
+        track: '焦迈奇 - 我的名字',
+        icon: '/views/mp3/cover/我的名字.jpg',
+        mp3: '/views/mp3/我的名字.mp3'
+    },{
+        album: '本草纲目',
+        track: '周杰伦 - 本草纲目',
+        icon: '/views/mp3/cover/本草纲目.jpg',
+        mp3: '/views/mp3/本草纲目.mp3'
+    }]
+
+    data.forEach((item, index) => {
+        const img = document.createElement("img")
+        img.setAttribute("src", item.icon)
+        if(index === 0){
+            img.classList.add('active')
+        }
+        imgs.push(img)
+        albumCover.appendChild(img)
+    })
+
+    const audio = new Audio()
+    audio.loop = true
+
+    const play = ()=>{
+        playerTrack.classList.add('active')
+        playPause.querySelector(".iconfont").classList='iconfont icon-icon-test'
+        albumCover.classList.add('active')
+        audio.play()
+    }
+    const pause = () => {
+        playerTrack.classList.remove('active')
+        playPause.querySelector(".iconfont").classList='iconfont icon-icon-test15'
+        albumCover.classList.remove('active')
+        audio.pause()
+    }
+    playPause.addEventListener('click',() => {
+        if(audio.loop){
+            audio.loop = false  //关闭循环播放
+            selectTrack(0)
+            return
+        }
+        if(audio.paused){
+            play()
+        }else{
+            pause()
+        }
+    })
+
+    //当前播放位置
+    let play_loc = 0
+    //当前播放时间
+    let play_t = 0
+    const formatTime = (tm, ts) => {
+        tm = tm || 0
+        ts = ts || 0
+        let sctm = tm < 10?`0${tm}`:`${tm}`
+        let scts = ts < 10?`0${ts}`:`${ts}`
+        return `${sctm}:${scts}`
+    }
+    //显示进度条hover位置
+    const showHover = e => {
+        // 鼠标在进度条悬停的位置(当前鼠标的x坐标 - 进度条left的x坐标)
+        play_t=e.clientX - progressBox.getBoundingClientRect().left
+        //当前时间 (总时间 * 占总时间的百分比)
+        play_loc = audio.duration * (play_t / progressBox.getBoundingClientRect().width)
+        hoverBar.style.width=`${play_t}px`
+        // 计算鼠标悬停的时间
+        let tm = Math.floor(play_loc/60)
+        let ts = Math.floor(play_loc - tm*60)
+        hoverTime.textContent = formatTime(tm, ts)
+        hoverTime.style.left = `${play_t}px`
+        hoverTime.style.marginLeft = "-20px"
+        hoverTime.style.display='block'
+    }
+    //隐藏进度条hover位置
+    const hideHover = ()=>{
+        hoverTime.style.display='none'
+    }
+    //从点击位置开始播放
+    const playFromClickPos = () => {
+        audio.currentTime = play_loc
+        progressBar.style.width = `${play_t}px`
+        hideHover()
+    }
+    // 更新当前播放时间
+    const updateCurrTime = () => {
+        let tm = Math.floor(audio.currentTime / 60)
+        let ts = Math.floor(audio.currentTime - tm * 60)
+        let pl = Math.floor(audio.currentTime / audio.duration * 100)
+        currTime.textContent = formatTime(tm, ts)
+        progressBar.style.width = `${pl}%`
+        tm = Math.floor(audio.duration / 60)
+        ts = Math.floor(audio.duration - tm * 60)
+        totalTime.textContent = formatTime(tm, ts)
+        if(pl >= 100){
+            pause()
+            setTimeout(()=>{
+                //下一曲(或第一曲)
+                selectTrack(curIndex+1)
+            }, 300)
+        }
+    }
+
+    audio.addEventListener('timeupdate', updateCurrTime)
+
+    //当前在播第几首歌
+    let curIndex = 0
+    //切歌(index 第几首歌)
+    const selectTrack = index => {
+        if(index >= data.length){
+            index = 0
+        }else if(index < 0){
+            index = data.length-1
+        }
+        //图片变换
+        imgs[curIndex].classList.remove('active')
+        curIndex = index
+        imgs[curIndex].classList.add('active')
+        // 设置音频
+        audio.src = data[index].mp3
+        //进度条为0
+        progressBar.style.width = '0px'
+        //播放进度变为0
+        currTime.innerText = '00:00'
+        // 如果没有开始播放 开始播放
+        if(audio.paused){
+            play()
+        }
+        // 设置总时长
+        let tm = Math.floor(audio.duration / 60)
+        let ts = Math.floor(audio.duration - tm * 60)
+        totalTime.textContent = formatTime(tm, ts)
+        // 设置当前歌曲信息
+        albumName.textContent = data[index].album
+        trackName.textContent = data[index].track
+        bg.style.backgroundImage = `url(${data[index].icon})`
+    }
+
+    progressBox.addEventListener("mouseover", e=>showHover(e))
+    progressBox.addEventListener("mouseout", hideHover)
+    progressBox.addEventListener("click", playFromClickPos)
+    playPrev.addEventListener('click', () => selectTrack(curIndex-1))
+    playNext.addEventListener('click', () => selectTrack(curIndex+1))
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="bg"></div>
+        <div class="bg-mask"></div>
+        <div class="player">
+            <div class="player-track">
+                <div class="album-name">红模仿</div>
+                <div class="track-name">周杰伦-红模仿</div>
+                <div class="track-time">
+                    <div class="current-time">00:00</div>
+                    <div class="total-time">03:50</div>
+                </div>
+                <div class="progress-box">
+                    <div class="hover-time">00:36</div>
+                    <div class="hover-bar"></div>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="player-content">
+                <div class="album-cover">
+                </div>
+                <div class="player-controls">
+                    <div class="control">
+                        <div class="button play-prev">
+                            <span class="iconfont icon-icon-test16"></span>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button play-pause">
+                            <span class="iconfont icon-icon-test15"></span>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button play-next">
+                            <span class="iconfont icon-icon-test19"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

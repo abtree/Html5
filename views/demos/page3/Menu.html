@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表布局</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to top, #e6e9f0, #eef1f5);
+}
+li{
+    list-style: none;
+}
+.container{
+    width: 900px;
+    max-width: 100vw;
+    height: 400px;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+}
+.left-box{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left-box li{
+    padding: 10px 0;
+    line-height: 34px;
+    color: #aaa;
+    cursor: pointer;
+    display: flex;
+    transition: 0.2s ease-out;
+}
+.left-box .iconfont{
+    font-size: 30px;
+    margin-right: 15px;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+}
+.left-box li.active{
+    color: #333;
+}
+.left-box li.active .iconfont{
+    color: #e74c3c;
+}
+.border{
+    height: 288px;
+    width: 1px;
+    background-color: #ddd;
+}
+.border .line{
+    width: 6px;
+    height: 54px;
+    background-color: #e74c3c;
+    margin-left: -2px;
+    margin-top: 35px;
+    transition: 0.4s ease-in-out;
+}
+.right-box{
+    flex: 1;
+    height: 100%;
+    position: relative;
+}
+.right-box .rb{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #333;
+    position: absolute;
+    top: -350px;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+}
+.right-box .iconfont{
+    font-size: 64px;
+}
+.right-box h1{
+    margin: 30px 0 40px 0;
+}
+.right-box p{
+    padding: 0 30px;
+}
+.right-box .rb.active{
+    top: 0;
+    opacity: 1;
+}
+    </style>
+    <script>
+window.onload=()=>{
+    const lis =document.querySelectorAll(".left-box li")
+    const rbs = document.querySelectorAll(".right-box .rb")
+    const line = document.querySelector(".line")
+
+    lis.forEach((li, index) =>{
+        li.addEventListener("click", ()=>{
+            lis.forEach(li1=>{
+                li1.classList.remove("active")
+            })
+            rbs.forEach(rb=>{
+                rb.classList.remove("active")
+            })
+            lis[index].classList.add("active")
+            rbs[index].classList.add("active")
+            line.style.marginTop = `${35+54*index}px`
+        })
+    })
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="left-box">
+            <ul>
+                <li class="active">
+                    <span class="iconfont icon-icon-test"></span>
+                    点赞
+                </li>
+                <li>
+                    <span class="iconfont icon-icon-test"></span>
+                    关注
+                </li>
+                <li>
+                    <span class="iconfont icon-icon-test"></span>
+                    投币
+                </li>
+                <li>
+                    <span class="iconfont icon-icon-test"></span>
+                    转发
+                </li>
+            </ul>
+        </div>
+        <div class="border">
+            <div class="line"></div>
+        </div>
+        <div class="right-box">
+            <div class="rb active">
+                <span class="iconfont icon-icon-test"></span>
+                <h1>我是标题1</h1>
+                <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
+            </div>
+            <div class="rb">
+                <span class="iconfont icon-icon-test"></span>
+                <h1>我是标题2</h1>
+                <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
+            </div>
+            <div class="rb">
+                <span class="iconfont icon-icon-test"></span>
+                <h1>我是标题3</h1>
+                <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
+            </div>
+            <div class="rb">
+                <span class="iconfont icon-icon-test"></span>
+                <h1>我是标题4</h1>
+                <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

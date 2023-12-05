@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分页</title>
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
+}
+#pagination a,
+#pagination i{
+    display: inline-block;
+    min-width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 4px;
+    margin: 0 3px;
+}
+#pagination a{
+    border: 1px solid #333;
+    background-color: #333;
+    color: #eee;
+    font-size: 13px;
+}
+#pagination a:hover{
+    background-color: #000;
+    cursor: pointer;
+}
+#pagination a.current{
+    background-color: transparent;
+    color: #333;
+    font-weight: bold;
+}
+#pagination i{
+    font-size: 18px;
+}
+    </style>
+    <script>
+class Pagination{
+    constructor(dom, size, page, step){
+        this.size = size || 30
+        this.page = page || 1
+        this.step = step || 3
+        this.code = ""
+
+        let html = ["<a>&#9668;</a>","<span></span>","<a>&#9658;</a>"]
+        dom.innerHTML = html.join('')
+        this.dom = dom.getElementsByTagName('span')[0]
+
+        this.Btttons(dom)
+
+        this.Start()
+    }
+    Btttons(dom){
+        let nav = dom.getElementsByTagName('a')
+        // console.log(nav);
+        nav[0].addEventListener('click', ()=>{this.Prev()})
+        nav[1].addEventListener('click', ()=>{this.Next()})
+    }
+    Start(){
+        // console.log('start', this.size, this.step);
+        // console.log('start', this.code);
+        if(this.size < this.step*2+6){
+        //    console.log("start switch 1");
+            this.Add(1, this.size+1)
+        }else if(this.page < this.step*2+1){
+            // console.log("start switch 2");
+            this.Add(1, this.step*2+4)
+            this.Last()
+        }else if(this.page > this.size-this.step*2){
+            // console.log("start switch 3");
+            this.First()
+            this.Add(this.size - this.step*2 - 2, this.size+1)
+        }else{
+            // console.log("start switch 4");
+            this.First()
+            this.Add(this.page - this.step, Number(this.page)+Number(this.step)+1)
+            this.Last()
+        }
+        this.Finish()
+    }
+    Add(s, f){
+        // console.log('add', s, f);
+        for(let i =s;i<f;i++){
+            this.code += `<a>${i}</a>`
+        }
+    }
+    First(){
+        this.code += '<a>1</a><i>...</i>'
+        // console.log(this.code);
+    }
+    Last(){
+        this.code += `<i>...</i><a>${this.size}</a>`
+    }
+    Prev(){
+        this.page--
+        if(this.page<1){
+            this.page = 1
+        }
+        this.Start()
+    }
+    Next(){
+        this.page++
+        if (this.page > this.size){
+            this.page = this.size
+        }
+        this.Start()
+    }
+    Finish(){
+        // console.log(this.code);
+        this.dom.innerHTML = this.code
+        this.code = ""
+        this.Bind()
+    }
+    Bind(){
+        let a = this.dom.getElementsByTagName('a')
+        for(let i =0;i<a.length;i++){
+            if(a[i].innerHTML == this.page){
+                a[i].className = 'current'
+            }
+            a[i].addEventListener('click', ()=>{this.Click(a[i].innerHTML)})
+        }
+    }
+    Click(i){
+        this.page = Number(i)
+        this.Start()
+    }
+}
+window.onload = ()=>{
+    new Pagination(document.getElementById("pagination"))
+}
+    </script>
+</head>
+<body>
+    <div id="pagination">
+    </div>
+</body>
+</html>

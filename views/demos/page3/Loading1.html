@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转加载效果</title>
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f7e8;
+    overflow: hidden;
+    user-select: none;
+}
+.circle{
+    width: 50vh;
+    height: 50vh;
+    border-radius: 50%;
+    color: #62bfad;
+    font-size: 6vh;
+    font-weight: bold;
+    text-align: center;
+    animation: circle 20s linear infinite;
+}
+.circle span{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+@keyframes circle {
+    to{
+        transform: rotate(360deg);
+    }
+}
+    </style>
+    <script>
+window.onload = ()=>{
+    container = document.querySelector(".circle")
+    const text = container.innerText
+    container.innerText = ""
+
+    const freg = document.createDocumentFragment()
+    text.split('').forEach((t, i) => {
+        const sp = document.createElement('span')
+        sp.innerText = t
+        let r =(360/text.length)*i
+        sp.style.transform=`rotate(${r}deg)`
+        freg.appendChild(sp)
+    })
+    container.appendChild(freg)
+}
+    </script>
+</head>
+<body>
+    <div class="circle">
+        HELLOWORLDHELLOWORLD
+    </div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>故障风格效果</title>
+    <style>
+*{
+    margin: 0;padding: 0;
+}
+:root{
+    --t:132px;
+    --b:101px;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    overflow: hidden;
+}
+.container{
+    position: relative;
+}
+/* 音符中间的一竖 */
+.logo{
+    width: 40px;
+    height: 218px;
+    background-color: #fff;
+    /* 两种投影方式，效果差不多 */
+    box-shadow: 10.6px 10px 0 #ff0050;
+    filter: drop-shadow(-10px -10px 0 #00ffff);
+    /* 执行动画 由慢到快 停留在最后一帧 */
+    animation: logo 3.5s ease-in forwards;
+    position: absolute;
+    left: 52%;
+}
+/* 音符下面的圆 */
+.logo::before{
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 40px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    transform: rotate(45deg);
+    top: 125px;
+    left: -140px;
+    filter: drop-shadow(15px 0 0 #ff0050);
+}
+/* 音符上面的尾巴 */
+.logo::after{
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border: 40px solid transparent;
+    border-radius: 50%;
+    border-bottom-color: #fff;
+    transform: rotate(45deg);
+    top: -110px;
+    right: -180px;
+    filter: drop-shadow(15px 0 0 #ff0050);
+}
+@keyframes logo {
+    5%{
+        transform: skew(7deg) translate(-30px);
+    }
+    7%{
+        transform: skew(-6deg) translate(18px);
+    }
+    9%{
+        transform: skew(5deg) translate(-8px);
+    }
+    10%{
+        transform: skew(-4deg) translate(6px);
+    }
+    11%{
+        transform: skew(7deg) translate(-30px);
+    }
+    12%{
+        transform: skew(-2deg) translate(2px);
+    }
+    13%{
+        transform: skew(0deg) translate(0px);
+        /* 加模糊 */
+        filter: drop-shadow(-10px -10px 0 #00ffff) blur(1px);
+    }
+    20%{
+        /* 取消模糊 */
+        filter: drop-shadow(-10px -10px 0 #00ffff) blur(0px);
+    }
+}
+.text{
+    color: #fff;
+    margin-top: 380px;
+    font-size: 90px;
+    font-weight: 900;
+    letter-spacing: 5px;
+    width: 100vw;
+    text-align: center;
+    position: relative;
+}
+.text::before,
+.text::after{
+    content: "HELLO WORLD";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.text::before{
+    left: -3px;
+    text-shadow: -2px 0 #00ffff;
+    animation: fault1 1.5s linear infinite reverse;
+}
+.text::after{
+    left: -3px;
+    text-shadow: -2px 0 #ff0050;
+    animation: fault2 1.5s linear infinite reverse;
+}
+@keyframes fault1 {
+    0%{
+        /* 裁剪一个矩形（top right， bottom，left）和 margin是一样的 */
+        clip: rect(132px, 100vw, 101px, 0px);
+    }
+    10%{
+        clip: rect(40px, 100vw, 66px, 0px);
+    }
+    20%{
+        clip: rect(137px, 100vw, 61px, 0px);
+    }
+    30%{
+        clip: rect(133px, 100vw, 74px, 0px);
+    }
+    40%{
+        clip: rect(59px, 100vw, 130px, 0px);
+    }
+    50%{
+        clip: rect(22px, 100vw, 67px, 0px);
+    }
+    60%{
+        clip: rect(10px, 100vw, 105px, 0px);
+    }
+    70%{
+        clip: rect(105px, 100vw, 13px, 0px);
+    }
+    80%{
+        clip: rect(66px, 100vw, 39px, 0px);
+    }
+    90%{
+        clip: rect(36px, 100vw, 128px, 0px);
+    }
+    100%{
+        clip: rect(14px, 100vw, 100px, 0px);
+    }
+}
+@keyframes fault2 {
+    0%{
+        clip: rect(129px, 100vw, 36px, 0px);
+    }
+    10%{
+        clip: rect(85px, 100vw, 66px, 0px);
+    }
+    20%{
+        clip: rect(148px, 100vw, 138px, 0px);
+    }
+    30%{
+        clip: rect(69px, 100vw, 54px, 0px);
+    }
+    40%{
+        clip: rect(146px, 100vw, 34px, 0px);
+    }
+    50%{
+        clip: rect(102px, 100vw, 80px, 0px);
+    }
+    60%{
+        clip: rect(106px, 100vw, 99px, 0px);
+    }
+    70%{
+        clip: rect(20px, 100vw, 78px, 0px);
+    }
+    80%{
+        clip: rect(78px, 100vw, 52px, 0px);
+    }
+    90%{
+        clip: rect(67px, 100vw, 70px, 0px);
+    }
+    100%{
+        clip: rect(83px, 100vw, 40px, 0px);
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo"></div>
+        <div class="text">HELLO WORLD</div>
+    </div>
+</body>
+</html>

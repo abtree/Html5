@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可拖拽排序的表格</title>
+    <style>
+*{margin: 0;padding: 0;}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+} 
+.table-box{
+    width: 800px;
+    max-width: 90vw;
+    position: relative;
+}
+table{
+    width: 100%;
+    background-color: #fff;
+    border-spacing: 0;
+    /* 属性是用来决定表格的边框是分开的还是合并的。在分隔模式下，相邻的单元格都拥有独立的边框。在合并模式下，相邻单元格共享边框。 */
+    border-collapse: collapse;
+    /* 定义了用于布局表格的单元格、行和列的算法(是否自动匹配) */
+    table-layout: fixed;
+}
+th{
+    background-color: #e7f3ff;
+    height: 25px;
+    cursor: pointer;
+}
+th,td{
+    color: #333;
+    font-size: 15px;
+    text-align: center;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+}
+/* 悬浮框 */
+.box{
+    background-color: rgba(0,0,0,0.8);
+    color: #fff;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: move;
+}
+.box p{
+    line-height: 37.5px;
+    font-size: 15px;
+}
+    </style>
+    <script>
+window.onload = ()=>{
+    const data = [{id:1,name:'张珊',sex:'女',age:17,weight:80},
+    {id:2,name:'李斯',sex:'男',age:18,weight:86},
+    {id:3,name:'王武',sex:'男',age:18,weight:77},
+    {id:4,name:'赵琉',sex:'女',age:17,weight:93},
+    {id:5,name:'孙琪',sex:'女',age:18,weight:96},
+    {id:6,name:'肖明',sex:'男',age:17,weight:90},
+    {id:7,name:'吴小红',sex:'女',age:18,weight:97},
+    {id:8,name:'刘小华',sex:'女',age:17,weight:79},
+    {id:9,name:'陆小军',sex:'男',age:19,weight:63},
+    {id:10,name:'汤小敏',sex:'女',age:17,weight:88}]
+
+    const tbbox = document.querySelector(".table-box")
+    const table = document.querySelector("table")
+    const tbody = table.tBodies[0]
+    const tarr = [] //除表头的行
+
+    const ths = document.querySelectorAll("th")
+    const tds = []
+    const box = document.querySelector(".box")
+    
+    const freg = document.createDocumentFragment()
+    data.forEach(dat=>{
+        const tr = document.createElement('tr')
+        for (const key in dat){
+            const td = document.createElement('td')
+            td.textContent = dat[key]
+            tds.push(td)
+            tr.appendChild(td)
+        }
+        tarr.push(tr)
+        freg.appendChild(tr)
+    })
+    tbody.appendChild(freg)
+
+    const sortTable = idx =>{
+        // sortCol 为额外属性 用于标识顺序排序或反向排序
+        if(tbody.sortCol === idx){
+            tarr.reverse()
+        }else{
+            tarr.sort((tr1, tr2)=>{
+                let val1 = tr1.cells[idx].innerHTML
+                let val2 = tr2.cells[idx].innerHTML
+                if(!isNaN(val1) && !isNaN(val2)){
+                    return val1 - val2
+                }else{
+                    //字符串排序
+                    return val1.localeCompare(val2)
+                }
+            })
+        }
+        const fregs = document.createDocumentFragment()
+        // fregs.appendChild(...tarr)
+        for(const arr of tarr){
+            // 把排序号的数组追加到节点对象
+            fregs.appendChild(arr);
+        }
+        tbody.appendChild(fregs)
+        tbody.sortCol = idx
+    }
+
+    ths.forEach((th, index)=>th.addEventListener("click", ()=>sortTable(index)))
+
+    let arrn=[]   //用来记录每一个th的向左偏移量
+    for(const td of tds){
+        td.onmousedown = e=>{
+            e = e || window.event   //事件对象
+            let thW = e.target.offsetWidth //目标的偏移宽度
+            let maxL = tbbox.offsetWidth - thW  //最大向左偏移量
+            const rows = tbody.rows //表格的行
+            let tboxL = tbbox.offsetLeft    //表格容器的向左偏移量
+            let disX = e.target.offsetLeft    //目标的向左偏移量
+            cdisX = e.clientX - tboxL - disX    //计算鼠标光标在悬浮层中的向左偏移量
+
+            // 把当前单元格的同一列数据填充到悬浮层
+            for(var i=0;i<rows.length;i++){
+                var op=document.createElement('p');
+                op.innerHTML=rows[i].cells[td.cellIndex].innerHTML;
+                box.appendChild(op);
+            }
+            // 记录每一个th的向左偏移量
+            for(var i=0;i<ths.length;i++){
+                arrn.push(ths[i].offsetLeft);
+            }
+            // 显示悬浮层，并设置宽度、位置
+            box.style.display='block';
+            box.style.width=thW+'px';
+            box.style.left=disX+'px';
+
+            // 鼠标移动事件
+            document.onmousemove=e => {
+                // 根据鼠标移动，实时设置悬浮层的位置
+                box.style.top=0;
+                box.style.left=e.clientX-tboxL-cdisX+'px';
+                if(box.offsetLeft>maxL){
+                    box.style.left=maxL+'px';
+                }else if(box.offsetLeft<0){
+                    box.style.left=0;
+                }
+                // 禁止文本被选中
+                document.onselectstart=function(){return false;}
+            }
+            // 鼠标松开事件
+            document.onmouseup=e => {
+                let ops=box.getElementsByTagName('p'),
+                    oboxL=box.offsetLeft+cdisX;
+                for(var i=0;i<arrn.length;i++){
+                    if(arrn[i]<oboxL){
+                        // 松开鼠标时的arrn下标（即拖拽结束时的位置）
+                        var index=i;
+                    }
+                }
+                for(var i=0;i<rows.length;i++){
+                    // 交换数据
+                    rows[i].cells[td.cellIndex].innerHTML='';
+                    rows[i].cells[td.cellIndex].innerHTML=rows[i].cells[index].innerHTML;
+                    rows[i].cells[index].innerHTML='';
+                    rows[i].cells[index].innerHTML=ops[i].innerHTML;
+                }
+                // 重置
+                box.innerHTML='';
+                arrn=[];
+                box.style.display='none';
+                document.onmousemove=null;
+                document.onmouseup=null;
+                document.onselectstart=function(){return false;}
+            }
+        }
+    }
+}
+    </script>
+</head>
+<body>
+    <div class="table-box">
+        <table>
+            <tbody>
+                <tr>
+                    <th title="点击排序">座号</th>
+                    <th title="点击排序">姓名</th>
+                    <th title="点击排序">性别</th>
+                    <th title="点击排序">年龄</th>
+                    <th title="点击排序">分数</th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="box"></div>
+    </div>
+</body>
+</html>
