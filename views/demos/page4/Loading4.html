@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            border: 1px solid #20fbb2;
+            opacity: 0;
+            animation: animate 4.5s linear infinite;
+            animation-delay: calc(0.25s * var(--i));
+        }
+
+        @property --angle {
+            syntax: "<angle>";
+            initial-value: 180deg;
+            inherits: true;
+        }
+
+        @keyframes animate {
+            0% {
+                --angle: 180deg;
+                --radius: 200px;
+                translate: calc(cos(var(--angle)) * var(--radius)) calc(sin(var(--angle)) * var(--radius) * -1);
+                opacity: 1;
+            }
+
+            50% {
+                --angle: 0deg;
+                --radius: 200px;
+                translate: calc(cos(var(--angle)) * var(--radius)) calc(sin(var(--angle)) * var(--radius) * 1);
+                opacity: 1;
+            }
+
+            100% {
+                --angle: -180deg;
+                --radius: 200px;
+                translate: calc(cos(var(--angle)) * var(--radius)) calc(sin(var(--angle)) * var(--radius) * -1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particle" style="--i:1;"></div>
+    <div class="particle" style="--i:2;"></div>
+    <div class="particle" style="--i:3;"></div>
+    <div class="particle" style="--i:4;"></div>
+    <div class="particle" style="--i:5;"></div>
+    <div class="particle" style="--i:6;"></div>
+    <div class="particle" style="--i:7;"></div>
+    <div class="particle" style="--i:8;"></div>
+    <div class="particle" style="--i:9;"></div>
+    <div class="particle" style="--i:10;"></div>
+</body>
+
+</html>

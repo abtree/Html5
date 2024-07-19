@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圣诞树彩灯</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #233343;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1200px;
+        }
+
+        .tree {
+            width: 200px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        .tree-light {
+            transform-style: preserve-3d;
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            left: 50%;
+            bottom: calc(var(--y) * 1%);
+            transform: translate(-50%, -50%) rotateY(calc(var(--rotate, 0) * 1deg)) translate3d(0, 0, calc(var(--radius, 0) * 8px));
+            animation: flash calc(var(--speed)*1s) calc(var(--delay)*1s) infinite,
+                appear 0.5s calc(var(--appear)*0.05s);
+        }
+
+        @keyframes flash {
+
+            0%,
+            100% {
+                background-color: #4f606f;
+            }
+
+            20% {
+                background-color: #f64f4f;
+            }
+
+            40% {
+                background-color: #4fecf6;
+            }
+
+            60% {
+                background-color: #f6db4f;
+            }
+
+            80% {
+                background-color: #f64fe5;
+            }
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+            }
+        }
+
+        .tree-star {
+            /* 定义线条 */
+            stroke: #f5e0a3;
+            /* 设置虚线：虚线长度 间距 */
+            stroke-dasharray: 1000 1000;
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 0 10px #fcf1cf);
+            position: absolute;
+            left: 50%;
+            bottom: 100%;
+            transform: translate(-50%, 0);
+            animation: stroke 1s calc((var(--delay) * 0.95) * 0.05s) backwards;
+        }
+
+        @keyframes stroke {
+            from {
+                stroke-dashoffset: -1000;
+            }
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const tree = document.querySelector(".tree")
+            const svg = document.querySelector(".tree .tree-star")
+            const freq = document.createDocumentFragment();
+            for (let i = 0; i < 50; i++) {
+                const div = document.createElement('div')
+                div.className = "tree-light"
+                div.style = `--appear:${i};--y:${2 * i};--rotate:${1440 - 28.8 * i};--radius:${12.5 - 0.25 * i};--speed:${0.1 * i};--delay:${0.05 * i};`
+                freq.appendChild(div)
+            }
+            tree.insertBefore(freq, svg)
+        }
+    </script>
+</head>
+
+<body>
+    <div class="tree">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113.32 108.44" class="tree-star" style="--delay:50;">
+            <path
+                d="M90.19 104.33L57.12 87.38 24.4 105l5.91-36.69L3.44 42.65l36.72-5.72 16.1-33.5L73.06 36.6l36.83 4.97-26.35 26.21z"
+                fill="none" stroke-width="6.88" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+    </div>
+</body>
+
+</html>

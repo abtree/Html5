@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义的超链接下划线</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f7f7ff;
+        }
+
+        a {
+            margin: 10px;
+            text-decoration: none;
+            color: #3e7ac5;
+            position: relative;
+        }
+
+        a::after {
+            content: "";
+            width: 100%;
+            height: 1px;
+            /* 与父元素一样 */
+            background-color: currentColor;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-out;
+        }
+
+        a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="">点赞</a>
+    <a href="">关注</a>
+    <a href="">收藏</a>
+    <a href="">转发</a>
+    <a href="">要不，一键三连</a>
+</body>
+
+</html>

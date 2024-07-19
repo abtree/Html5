@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过山车文字特效</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #222;
+        }
+
+        h1 {
+            width: 1100px;
+            height: 365px;
+            color: #0ff;
+            text-transform: uppercase;
+        }
+
+        /* 使用splitting插件后会自动生成.char元素 */
+        .char {
+            position: absolute;
+            /* 设置路径 */
+            offset-path: path('M.2 219.6c247-107 233.3 91.4 406.4 138.4C659.2 426.6 750.2 6.6 552.2.6 337.7-5.9 426.9 415 696.1 359.4c256.1-52.9 182.1-217.9 413.1-163.9');
+            /* 设置偏移的距离 */
+            /* --char-index是CSS的自定义属性，可通过var函数对其调用，这里是使用splitting插件后自动生成的 */
+            offset-distance: calc(var(--char-index) * 24px);
+            animation: loop 3.5s cubic-bezier(0.62, 0.01, 0.42, 1.01) infinite alternate;
+            animation-delay: calc(var(--char-index) * 0.01s);
+        }
+
+        @keyframes loop {
+            50% {
+                color: #faf;
+                offset-distance: calc(var(--char-index) * 40px + 700px);
+            }
+
+            100% {
+                offset-distance: calc(var(--char-index) * 24px + 1700px);
+            }
+        }
+    </style>
+    <script src="/views/js/splitting.min.js"></script>
+    <script>
+        window.onload = () => {
+            Splitting({
+                whitespace: true //插件将在索引字符时计算空格
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <h1 data-splitting="">Hello hello world!</h1>
+</body>
+
+</html>

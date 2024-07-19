@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab边框动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #2c3e50;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .button {
+            --offset: 10px;
+            --border-size: 2px;
+            position: relative;
+            width: 200px;
+            height: 65px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #6c98de;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: inset 0 0 0 var(--border-size) currentColor;
+            transition: background 0.8s ease;
+        }
+
+        .button:hover {
+            background: rgb(100, 0, 0, 0.065);
+        }
+
+        .button-h,
+        .button-v {
+            position: absolute;
+            top: var(--h-offset, 0);
+            right: var(--v-offset, 0);
+            bottom: var(--h-offset, 0);
+            left: var(--v-offset, 0);
+            transition: transform 0.8s ease;
+        }
+
+        .button-h {
+            --v-offset: calc(var(--offset) * -1);
+            border-top: var(--border-size) solid currentColor;
+            border-bottom: var(--border-size) solid currentColor;
+        }
+
+        .button-v {
+            --h-offset: calc(var(--offset) * -1);
+            border-left: var(--border-size) solid currentColor;
+            border-right: var(--border-size) solid currentColor;
+        }
+
+        .button-h::before,
+        .button-v::before {
+            content: "";
+            position: absolute;
+            border: inherit;
+        }
+
+        .button-h::before {
+            top: calc(var(--v-offset) - var(--border-size));
+            bottom: calc(var(--v-offset) - var(--border-size));
+            left: calc(var(--v-offset) * -1);
+            right: calc(var(--v-offset) * -1);
+        }
+
+        .button-v::before {
+            left: calc(var(--h-offset) - var(--border-size));
+            right: calc(var(--h-offset) - var(--border-size));
+            top: calc(var(--h-offset) * -1);
+            bottom: calc(var(--h-offset) * -1);
+        }
+
+        .button:hover .button-h {
+            transform: scaleX(0);
+        }
+
+        .button:hover .button-v {
+            transform: scaleY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="button">
+            点赞
+            <div class="button-h"></div>
+            <div class="button-v"></div>
+        </div>
+        <div class="button">
+            关注
+            <div class="button-h"></div>
+            <div class="button-v"></div>
+        </div>
+        <div class="button">
+            收藏
+            <div class="button-h"></div>
+            <div class="button-v"></div>
+        </div>
+    </div>
+</body>
+
+</html>

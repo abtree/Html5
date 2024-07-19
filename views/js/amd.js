@@ -3,16 +3,16 @@
 */
 
 require.config({
-    paths:{
-        father:"../js/amd_father",
-        child:"../js/amd_child",
-        domReady:"../pkgs/domReady"
+    paths: {
+        father: "../js/amd_father",
+        chilF: "../js/amd_child",
+        domReady: "../pkgs/domReady"
     }
 })
 
-require(["domReady!", "father", "child"], function(doc, father, child){
+require(["domReady!", "father", "child"], function (doc, father, child) {
     var ret = father.Add(10, 1);
     console.log(ret);
     father.Show();
-    console.log(child.Double(2,3,4));
+    console.log(child.Double(2, 3, 4));
 })

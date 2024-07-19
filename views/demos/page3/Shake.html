@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>左右摇晃的输入框</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #64b6ff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+            color: #fff;
+        }
+
+        .container h1 {
+            width: 260px;
+        }
+
+        .container input {
+            width: 260px;
+            height: 50px;
+            color: #000;
+            border: 2px solid #fff;
+            background-color: #fff;
+            border-radius: 25px;
+            outline: none;
+            text-indent: 15px;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        .container input::placeholder {
+            color: #aaa;
+        }
+
+        .container button {
+            width: 260px;
+            height: 50px;
+            border: 2px solid #fff;
+            background: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .container button:hover {
+            background-color: #fff;
+            color: #6eb6ff;
+            cursor: pointer;
+        }
+
+        .container input:invalid {
+            color: #ff5f5f;
+            border-color: #ff5f5f;
+            background-color: #ffdfdf;
+            animation: shake 0.2s ease-in-out 2;
+        }
+
+        @keyframes shake {
+            0% {
+                margin-left: 0;
+            }
+
+            25% {
+                margin-left: 8px;
+            }
+
+            50% {
+                margin-left: 0;
+            }
+
+            75% {
+                margin-left: -8px;
+            }
+
+            100% {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>请验证</h1>
+        <input type="text" name="" id="" placeholder="请输入验证码" pattern="[0-9]*">
+        <button>下一步</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时给中文添加拼音</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eaf0f3;
+        }
+
+        .container {
+            background-color: #1ecaab;
+            color: #fff;
+            padding: 25px 30px;
+            border-radius: 30px;
+        }
+
+        .ipt {
+            width: 300px;
+            height: 40px;
+            line-height: 40px;
+            text-indent: 15px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            background-color: #fff;
+            outline: none;
+            font-size: 16px;
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .ipt:focus {
+            border-color: #1ecaab;
+        }
+
+        ruby {
+            padding: 10px;
+            font-size: 32px;
+        }
+
+        rt {
+            font-size: 20px;
+        }
+    </style>
+    <script src="/views/js/pinyin-pro.min.js"></script>
+    <script>
+        window.onload = () => {
+            const { pinyin } = pinyinPro
+            const ipt = document.querySelector(".ipt")
+            const val = document.querySelector(".val")
+
+            function setPinYin() {
+                val.innerHTML = ""
+                let value = ipt.value
+                let arr = value.split("")
+                arr.forEach(item => {
+                    val.innerHTML += `<ruby>${item}<rt>${pinyin(item)}</rt></ruby>`
+                })
+            }
+
+            setPinYin()
+
+            let flag = false;
+            ipt.addEventListener('input', () => {
+                if (!flag) {
+                    setPinYin()
+                }
+            })
+
+            // 组件开始（比如中文输入框弹出时）
+            ipt.addEventListener('compositionstart', () => {
+                flag = true;
+            })
+            // 组件结束（比如中文输入框消失时）
+            ipt.addEventListener("compositionend", () => {
+                flag = false;
+                setPinYin()
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <input type="text" class="ipt" placeholder="Please input..." value="测试文字" name="" id="">
+        <div class="val"></div>
+    </div>
+</body>
+
+</html>

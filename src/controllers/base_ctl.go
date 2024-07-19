@@ -5,7 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
+	"log"
 	"net/http"
+	"time"
 )
 
 type SellItem struct {
@@ -14,12 +17,66 @@ type SellItem struct {
 	Img  string `json:"img"`
 }
 
+type Article struct {
+	ID        int    `json:"id"`
+	Title     string `json:"title"`
+	Cover     string `json:"cover"`
+	Content   string `json:"content"`
+	Kind      int    `json:"kind"`
+	Author    string `json:"author"`
+	Flag      int    `json:"flag"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	IsDeleted bool   `json:"isDeleted"`
+	UserId    int    `json:"userId"`
+	Name      string `json:"name"`
+	Avatar    string `json:"avatar"`
+	IP        string `json:"ip"`
+}
+
 type BaseController struct {
 	sellItems []*SellItem //销售的商品
+	articles  []*Article  //文章
 }
 
 func init() {
 	BaseCtr.prepare()
+	BaseCtr.init_articles()
+}
+
+func (ctr *BaseController) init_articles() {
+	now := time.Now().Unix()
+	ctr.articles = append(ctr.articles, &Article{
+		ID:        1,
+		Title:     "Title1",
+		Cover:     "assets/images/dog.png",
+		Content:   "content",
+		Kind:      1,
+		Author:    "author",
+		Flag:      1,
+		CreatedAt: now,
+		UpdatedAt: now,
+		IsDeleted: false,
+		UserId:    1,
+		Name:      "name",
+		Avatar:    "assets/images/dog.png",
+		IP:        "127.0.0.1",
+	}, &Article{
+		ID:        2,
+		Title:     "Title2",
+		Cover:     "assets/images/dog.png",
+		Content:   "content",
+		Kind:      1,
+		Author:    "author",
+		Flag:      1,
+		CreatedAt: now,
+		UpdatedAt: now,
+		IsDeleted: false,
+		UserId:    1,
+		Name:      "name",
+		Avatar:    "assets/images/dog.png",
+		IP:        "127.0.0.1",
+	})
 }
 
 func (ctr *BaseController) prepare() {
@@ -97,4 +154,75 @@ func (ctr *BaseController) AjAxSellItem(w http.ResponseWriter, r *http.Request) 
 
 var BaseCtr = &BaseController{
 	sellItems: make([]*SellItem, 0, 12),
+}
+
+func (ctr *BaseController) ArticleListRandom(w http.ResponseWriter, r *http.Request) {
+	if byts, err := json.Marshal(ctr.articles); err == nil {
+		w.Write(byts)
+	} else {
+		w.Write([]byte(err.Error()))
+	}
+}
+
+func (ctr *BaseController) UserCaptcha(w http.ResponseWriter, r *http.Request) {
+	byts, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
+	pars := &struct {
+		Identify string `json:"identify"`
+		Kind     int    `json:"kind"`
+	}{}
+	err = json.Unmarshal(byts, pars)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
+
+	log.Println(string(byts))
+}
+
+func (ctr *BaseController) UserSignin(w http.ResponseWriter, r *http.Request) {
+	byts, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
+	pars := &struct {
+		Identify string `json:"identify"`
+		Captcha  string `json:"captcha"`
+	}{}
+	err = json.Unmarshal(byts, pars)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
+	log.Println(string(byts))
+
+	back := &struct {
+		UserId    int    `json:"userId"`
+		Name      string `json:"name"`
+		Avatar    string `json:"avatar"`
+		IP        string `json:"ip"`
+		Bio       string `json:"bio"`
+		Sex       int    `json:"sex"`
+		Token     string `json:"token"`
+		ExpiredAt int64  `json:"expiredAt"`
+	}{
+		UserId:    1,
+		Name:      "Name1",
+		Avatar:    "assets/images/dog.png",
+		IP:        "127.0.0.1",
+		Bio:       "个性签名",
+		Sex:       1,
+		Token:     "tokenxxxxxtoken",
+		ExpiredAt: time.Now().Add(365 * 24 * time.Hour).Unix(),
+	}
+
+	if byts, err := json.Marshal(back); err == nil {
+		w.Write(byts)
+	} else {
+		w.Write([]byte(err.Error()))
+	}
 }

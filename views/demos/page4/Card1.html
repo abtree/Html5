@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转中的视差效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .container {
+            width: 400px;
+            height: 400px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-template:
+                'A A B'
+                'C D B'
+                'C E E';
+            gap: 10px;
+            animation: rotate 10s linear infinite;
+        }
+
+        .item {
+            overflow: hidden;
+            border: 1px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .item:nth-child(1) {
+            grid-area: A;0
+        }
+
+        .item:nth-child(2) {
+            grid-area: B;
+        }
+
+        .item:nth-child(3) {
+            grid-area: C;
+        }
+
+        .item:nth-child(4) {
+            grid-area: D;
+        }
+
+        .item:nth-child(5) {
+            grid-area: E;
+        }
+
+        .item img {
+            width: 250%;
+            height: 250%;
+            object-fit: cover;
+            /* 图片反向旋转 抵消背景的旋转 */
+            animation: rotate 10s linear infinite reverse;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="item"><img src="/views/imgs/184/1.jpg" alt=""></div>
+        <div class="item"><img src="/views/imgs/184/2.jpg" alt=""></div>
+        <div class="item"><img src="/views/imgs/184/3.jpg" alt=""></div>
+        <div class="item"><img src="/views/imgs/184/4.jpg" alt=""></div>
+        <div class="item"><img src="/views/imgs/184/5.jpg" alt=""></div>
+    </div>
+</body>
+
+</html>

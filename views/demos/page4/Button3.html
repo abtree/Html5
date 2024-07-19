@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圣诞按钮</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #121225;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .snow-button {
+            padding: 12px;
+            min-width: fit-content;
+            display: flex;
+            gap: 30px;
+        }
+
+        .button {
+            position: relative;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            padding: 10px 16px;
+            min-width: 130px;
+            color: #fff;
+            background-image: linear-gradient(to bottom, #f12828, #a00332, #9f0f31), linear-gradient(to bottom, #ae0034, #6f094c);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            box-shadow: inset 0 1px rgb(25 255 255 / 0.25),
+                inset 0 -1px rgb(0 0 0 / 0.1),
+                0 2px 4px rgb(0 0 0 / 0.25);
+            transition-property: transform, filter;
+            transition-duration: 0.2s;
+            will-change: transform;
+        }
+
+        .button:active {
+            transform: scale(0.93);
+            filter: brightness(0.9);
+        }
+
+        .button::after {
+            content: "";
+            --overflow-x: 4px;
+            position: absolute;
+            top: -6px;
+            left: calc(var(--overflow-x) * -1);
+            border-image-source: url("/views/imgs/snow-cap.png");
+            border-image-slice: calc(6 * 56 / 20) fill;
+            border-image-width: calc(28px / 3);
+            border-image-repeat: round;
+            width: calc(100% + var(--overflow-x) * 2);
+            height: 28px;
+            filter: drop-shadow(0 2px 1px rgb(0 0 0 / 0.25));
+            opacity: 1;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+
+            0%,
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const canvas = document.querySelector(".canvas")
+            const ctx = canvas.getContext("2d")
+            const pixelRatio = window.devicePixelRatio || 1;
+            // 雪花
+            const snowflakes = []
+
+            class Snowflake {
+                constructor() {
+                    // 雪花坐标
+                    this.x = Math.random() * canvas.width
+                    this.y = Math.random() * canvas.height
+                    // 雪花最大尺寸
+                    const maxSize = 3
+                    // 雪花实际尺寸
+                    this.size = Math.random() * (maxSize - 1) + 1
+                    // 雪花速度
+                    this.velocity = this.size * 0.35
+                    // 雪花透明度
+                    const opacity = this.size / maxSize
+                    // 雪花填充颜色 、透明度
+                    this.fill = `rgb(255 255 255 / ${opacity})`
+                    // 风速
+                    this.windSpeed = (Math.random() - 0.5) * 0.1
+                    // 风的角度
+                    this.windAngle = Math.random() * Math.PI * 2
+                }
+                // 是否超出画布
+                isOutSideCanvas() {
+                    return this.y > canvas.height + this.size
+                }
+                // 重置雪花坐标
+                reset() {
+                    this.x = Math.random() * canvas.width
+                    this.y = -this.size;
+                }
+                // 更新雪花坐标
+                update() {
+                    this.windAngle += this.windSpeed
+                    this.wind = Math.cos(this.windAngle) * 0.5
+                    this.x += this.wind
+                    this.y += this.velocity
+                    if (this.isOutSideCanvas()) {
+                        this.reset()
+                    }
+                }
+                // 绘制雪花
+                draw() {
+                    ctx.beginPath()
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+                    ctx.fillStyle = this.fill
+                    ctx.fill()
+                    ctx.closePath()
+                }
+            }
+            // 创建雪花
+            const createSnowflakes = () => {
+                snowflakeCnt = Math.floor(window.innerWidth * window.innerHeight / 1400)
+                for (let i = 0; i < snowflakeCnt; i++) {
+                    snowflakes.push(new Snowflake())
+                }
+            }
+            // 重置画布
+            const resetCanvas = () => {
+                const width = window.innerWidth
+                const height = window.innerHeight
+                canvas.width = width * pixelRatio
+                canvas.height = height * pixelRatio
+                canvas.style.width = width + "px"
+                canvas.style.height = height + "px"
+                ctx.scale(pixelRatio, pixelRatio)
+                snowflakes.length = 0
+                createSnowflakes()
+            }
+
+            window.addEventListener("resize", resetCanvas)
+            resetCanvas()
+
+            const render = () => {
+                requestAnimationFrame(render)
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                snowflakes.forEach(snowflake => {
+                    snowflake.update()
+                    snowflake.draw()
+                })
+            }
+            render()
+        }
+    </script>
+</head>
+
+<body>
+    <div class="snow-button">
+        <button class="button">点赞</button>
+        <button class="button">关注</button>
+        <button class="button">收藏</button>
+    </div>
+    <canvas class="canvas"></canvas>
+</body>
+
+</html>

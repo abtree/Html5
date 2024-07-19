@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小蜜蜂飞舞</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            cursor: none;
+        }
+
+        body {
+            background: url("/views/imgs/183/bg.png");
+            overflow: hidden;
+        }
+
+        /* 蜜蜂身体 */
+        .bee {
+            width: 50px;
+            height: 50px;
+            border-radius: 50% 75% 0% 75%;
+            background: linear-gradient(-50deg, #000 15px, #daa520 15px, #daa520 25px, #000 25px, #000 40px, #daa520 40px, #daa520 50px, #000 50px);
+            box-shadow: inset 0 0 0 2px #000,
+                inset 5px -5px 5px 5px rgba(139, 69, 19, 0.5),
+                -10px 20px 35px saddlebrown;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: rotate(-20deg);
+        }
+
+        /* 蜜蜂头部 */
+        .bee::before {
+            content: "";
+            width: 35px;
+            height: 35px;
+            border-radius: 75% 50% 75% 25%;
+            position: absolute;
+            left: -22px;
+            top: -15px;
+            background: radial-gradient(circle at 10px 15px, #000 3px, #daa520 3px, #daa520 20px, #000);
+            box-shadow: 0 0 0 2px #000;
+            transform: rotate(30deg);
+        }
+
+        /* 蜜蜂触角 */
+        .bee::after {
+            content: "";
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: absolute;
+            left: -33px;
+            top: -28px;
+            box-shadow: inset -2px 1px 0 #000,
+                1px -2px 0 #fb1,
+                3px -3px 0 #000;
+            z-index: -1;
+            animation: feeler 0.35s linear infinite;
+        }
+
+        @keyframes feeler {
+            50% {
+                transform: translateY(2px);
+            }
+        }
+
+        /* 朝向右 */
+        .bee.flip {
+            transform: rotate(20deg) scaleX(-1);
+        }
+
+        /* 翅膀 */
+        .bee .wings {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(to bottom left, rgba(0, 0, 0, 0.5), transparent 50px);
+            border-radius: 50% 50% 50% 25%;
+            position: absolute;
+            left: 25px;
+            top: -25px;
+            transform-origin: left bottom;
+            animation: buzz 0.35s linear infinite;
+        }
+
+        @keyframes buzz {
+            50% {
+                transform: scale(0.9) rotateX(90deg) rotateY(90deg);
+            }
+        }
+
+        /* 腿 */
+        .bee .limbs {
+            width: 10px;
+            height: 10px;
+            border-left: 2px solid #000;
+            border-right: 2px solid #000;
+            position: absolute;
+            left: 25px;
+            top: 100%;
+        }
+
+        /* 前腿 */
+        .bee .limbs::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            border-left: 2px solid #000;
+            border-right: 2px solid #000;
+            position: absolute;
+            left: -33px;
+            top: -20px;
+            transform: rotate(60deg);
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const bee = document.querySelector(".bee")
+            let last_x = 0;
+            window.addEventListener("mousemove", e => {
+                let x = e.clientX - 15
+                let y = e.clientY - 15
+                bee.style.left = `${x}px`
+                bee.style.top = `${y}px`
+                if (last_x < x) {
+                    bee.classList.add('flip')
+                } else {
+                    bee.classList.remove('flip')
+                }
+                last_x = x
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="bee">
+        <div class="wings"></div>
+        <div class="limbs"></div>
+    </div>
+</body>
+
+</html>

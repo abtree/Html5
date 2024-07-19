@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>波浪切换banner</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to top, #c1dfc4, #deecdd);
+        }
+
+        .container {
+            width: 681px;
+            height: 384px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider {
+            position: absolute;
+            width: 400%;
+            height: 100%;
+            display: inline-flex;
+            overflow: hidden;
+        }
+
+        svg {
+            width: 681px;
+            height: 384px;
+            position: absolute;
+            z-index: 3;
+        }
+
+        .btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 1px solid #949494;
+            color: #949494;
+            font-size: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 50%;
+            z-index: 4;
+            transform: translateY(-50%);
+            cursor: pointer;
+            transition: 0.5s;
+        }
+
+        .btn:hover {
+            background-color: #c1dfc4;
+        }
+
+        .btn.btn-left {
+            left: 13px;
+        }
+
+        .btn.btn-right {
+            left: 628px;
+        }
+
+        circle {
+            /* 取消填充 */
+            fill: none;
+            /* 定义一条浅绿色的线 */
+            stroke: #c1dfc4;
+            /* 线的厚度 */
+            stroke-width: 0;
+            transition: 0.3s;
+            transition-timing-function: linear;
+        }
+
+        .svg1 .circle1,
+        .svg2 .circle1 {
+            transition-delay: 0.05s;
+        }
+
+        .svg1 .circle2,
+        .svg2 .circle2 {
+            transition-delay: 0.1s;
+        }
+
+        .svg1 .circle3,
+        .svg2 .circle3 {
+            transition-delay: 0.15s;
+        }
+
+        .svg1 .circle4,
+        .svg2 .circle4 {
+            transition-delay: 0.2s;
+        }
+
+        .svg1 .circle5,
+        .svg2 .circle5 {
+            transition-delay: 0.25s;
+        }
+
+        .svg1 .circle6,
+        .svg2 .circle6 {
+            transition-delay: 0.3s;
+        }
+
+        .svg1 .circle7,
+        .svg2 .circle7 {
+            transition-delay: 0.35s;
+        }
+
+        .svg1 .circle8,
+        .svg2 .circle8 {
+            transition-delay: 0.4s;
+        }
+
+        .svg1 .circle9,
+        .svg2 .circle9 {
+            transition-delay: 0.45s;
+        }
+
+        .slide {
+            position: absolute;
+            background-position: center;
+            background-size: cover;
+            width: 25%;
+            height: 100%;
+            z-index: 1;
+            transition: 1.4s;
+        }
+
+        .slide1 {
+            background-image: url("/views/imgs/184/1.jpg");
+        }
+
+        .slide2 {
+            background-image: url("/views/imgs/184/2.jpg");
+        }
+
+        .slide3 {
+            background-image: url("/views/imgs/184/3.jpg");
+        }
+
+        .slide4 {
+            background-image: url("/views/imgs/184/4.jpg");
+        }
+
+        .scale {
+            transform: scale(1.3);
+        }
+
+        .active {
+            z-index: 2;
+        }
+
+        .streak {
+            stroke-width: 82px;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const left = document.querySelector(".btn-left")
+            const right = document.querySelector(".btn-right")
+            const slides = document.querySelectorAll(".slide")
+            const circle1 = document.querySelectorAll(".svg1 circle");
+            const circle2 = document.querySelectorAll(".svg2 circle");
+
+            let curpage = 1     //当前图下标
+            let sliding = false //防止多次切换
+            let click = true    //防止多次点击
+            let svg = true  //区分svg1和svg2
+
+            function prev() {
+                if (click) {
+                    if (curpage == 1)
+                        curpage = 5
+                    sliding = true
+                    curpage--
+                    svg = true
+                    click = false
+                    slides.forEach(a => {
+                        a.classList.add('scale')
+                    })
+                    setTimeout(() => {
+                        change()
+                    }, 200)
+                    setTimeout(() => {
+                        slides.forEach(a => {
+                            a.classList.remove("scale")
+                        })
+                    }, 1400)
+                }
+            }
+
+            function next() {
+                if (click) {
+                    if (curpage == 4)
+                        curpage = 0
+                    sliding = true
+                    curpage++
+                    svg = false
+                    click = false
+                    slides.forEach(a => {
+                        a.classList.add('scale')
+                    })
+                    setTimeout(() => {
+                        change()
+                    }, 200);
+                    setTimeout(() => {
+                        slides.forEach(a => {
+                            a.classList.remove("scale")
+                        })
+                    }, 1400);
+                }
+            }
+
+            function change() {
+                if (sliding) {
+                    sliding = false
+                    if (svg) {
+                        circle1.forEach(a => {
+                            a.classList.add("streak")
+                        })
+                    } else {
+                        circle2.forEach(a => {
+                            a.classList.add("streak")
+                        })
+                    }
+                    setTimeout(() => {
+                        slides.forEach((a, i) => {
+                            if (i == curpage - 1) {
+                                a.classList.add('active')
+                            } else {
+                                a.classList.remove('active')
+                            }
+                        })
+                        sliding = true
+                    }, 600);
+                    setTimeout(() => {
+                        click = true
+                    }, 1700);
+                    setTimeout(() => {
+                        if (svg) {
+                            circle1.forEach(a => {
+                                a.classList.remove("streak")
+                            })
+                        } else {
+                            circle2.forEach(a => {
+                                a.classList.remove("streak")
+                            })
+                            sliding = true
+                        }
+                    }, 850);
+                }
+            }
+            left.addEventListener('click', prev)
+            right.addEventListener('click', next)
+            document.addEventListener("keydown", e => {
+                if (e.keyCode == 37) {
+                    prev()
+                } else if (e.keyCode == 39) {
+                    next()
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="slider">
+            <div class="btn btn-left">
+                <span class="iconfont icon-icon-test"></span>
+            </div>
+            <div class="btn btn-right">
+                <span class="iconfont icon-icon-test1"></span>
+            </div>
+            <svg class="svg1">
+                <!-- cx：圆点的x坐标  cy：圆点的y坐标  r：圆的半径 -->
+                <circle class="circle1" cx="34px" cy="50%" r="20" />
+                <circle class="circle2" cx="34px" cy="50%" r="100" />
+                <circle class="circle3" cx="34px" cy="50%" r="180" />
+                <circle class="circle4" cx="34px" cy="50%" r="260" />
+                <circle class="circle5" cx="34px" cy="50%" r="340" />
+                <circle class="circle6" cx="34px" cy="50%" r="420" />
+                <circle class="circle7" cx="34px" cy="50%" r="500" />
+                <circle class="circle8" cx="34px" cy="50%" r="580" />
+                <circle class="circle9" cx="34px" cy="50%" r="660" />
+            </svg>
+            <svg class="svg2">
+                <!-- cx：圆点的x坐标  cy：圆点的y坐标  r：圆的半径 -->
+                <circle class="circle1" cx="648px" cy="50%" r="20" />
+                <circle class="circle2" cx="648px" cy="50%" r="100" />
+                <circle class="circle3" cx="648px" cy="50%" r="180" />
+                <circle class="circle4" cx="648px" cy="50%" r="260" />
+                <circle class="circle5" cx="648px" cy="50%" r="340" />
+                <circle class="circle6" cx="648px" cy="50%" r="420" />
+                <circle class="circle7" cx="648px" cy="50%" r="500" />
+                <circle class="circle8" cx="648px" cy="50%" r="580" />
+                <circle class="circle9" cx="648px" cy="50%" r="660" />
+            </svg>
+            <div class="slide slide1 active"></div>
+            <div class="slide slide2"></div>
+            <div class="slide slide3"></div>
+            <div class="slide slide4"></div>
+        </div>
+    </div>
+</body>
+
+</html>

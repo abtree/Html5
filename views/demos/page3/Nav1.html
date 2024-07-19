@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tabbar效果</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e5f9fe;
+        }
+
+        nav {
+            position: relative;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            background-color: #2193b0;
+            display: flex;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 2px 10px 20px #2193b080;
+        }
+
+        li {
+            width: 160px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 15px;
+        }
+
+        li:first-child {
+            margin-left: 30px;
+        }
+
+        li:last-child {
+            margin-right: 30px;
+        }
+
+        li a {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        li .iconfont {
+            font-size: 44px;
+            width: 44px;
+            height: 44px;
+            color: #6dd5ed;
+            transform: translateX(30px);
+            transition: 0.4s ease;
+        }
+
+        li .link-text {
+            color: #fff;
+            margin-left: 16px;
+            position: relative;
+            z-index: 1;
+            user-select: none;
+            opacity: 0;
+            transition: 0.3s ease;
+        }
+
+        li a.active {
+            color: #fff;
+        }
+
+        li a.active .iconfont {
+            color: #fff;
+            transform: translateX(0);
+        }
+
+        li a.active .link-text {
+            opacity: 1;
+            transition-delay: 0.1s;
+        }
+
+        .link-bg {
+            width: 160px;
+            height: 70px;
+            background-color: #45acc6;
+            border-radius: 18px;
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 0;
+            transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const links = document.querySelectorAll("a")
+            const bg = document.querySelector(".link-bg")
+
+            let curIndex = 0;
+
+            links.forEach((link, index) => {
+                link.addEventListener("click", e => {
+                    e.preventDefault();
+                    bg.style.transform = `translate(${190 * index}px, -50%)`
+                    links[curIndex].classList.remove("active")
+                    link.classList.add("active")
+                    curIndex = index
+                })
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <nav>
+        <div class="link-bg"></div>
+        <ul>
+            <li>
+                <a href="#" class="active">
+                    <i class="iconfont icon-icon-test"></i>
+                    <span class="link-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="iconfont icon-icon-test1"></i>
+                    <span class="link-text">Inbox</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="iconfont icon-icon-test2"></i>
+                    <span class="link-text">User</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</body>
+
+</html>

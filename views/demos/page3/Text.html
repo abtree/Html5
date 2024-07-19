@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字上色效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #111;
+        }
+
+        .container {
+            color: #fff;
+            font-size: 80px;
+            font-weight: bolder;
+            position: relative;
+        }
+
+        .container::before {
+            content: "HELLO WORLD";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #eeea06;
+            width: 60px;
+            /* 文字不换行 */
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 5px solid #eeea06;
+            animation: move 5s linear infinite;
+            filter: drop-shadow(0 0 50px #eeea06);
+        }
+
+        @keyframes move {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        HELLO WORLD
+    </div>
+</body>
+
+</html>

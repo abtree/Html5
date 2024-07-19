@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全屏背景切换</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        img {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            width: 100vw;
+            height: 100%;
+            filter: blur(0px);
+        }
+
+        .active+img {
+            transform: translateX(100%);
+        }
+
+        img.transition-start.right {
+            animation: transition-right-start 0.5s linear forwards;
+        }
+
+        @keyframes transition-right-start {
+            0% {
+                width: 100vw;
+                height: 100%;
+                filter: blur(0px);
+                transform: translateX(-50%);
+            }
+
+            3% {
+                width: 300vw;
+                height: 100%;
+                filter: blur(3px);
+                transform: translateX(-50%);
+            }
+
+            5% {
+                width: 600vw;
+                height: 100%;
+                filter: blur(3px);
+                transform: translateX(-50%);
+            }
+
+            95% {
+                width: 6000vw;
+                height: 100%;
+                filter: blur(3px);
+                transform: translateX(-100%);
+            }
+
+            100% {
+                width: 100vw;
+                height: 100%;
+                filter: blur(0px);
+                transform: translateX(-150%);
+            }
+        }
+
+        img.transition-end.right {
+            animation: transition-right-end 0.5s linear forwards;
+        }
+
+        @keyframes transition-right-end {
+            0% {
+                width: 100vw;
+                height: 100%;
+                filter: blur(0px);
+                transform: translateX(100%);
+            }
+
+            3% {
+                width: 300vw;
+                height: 100%;
+                filter: blur(3px);
+                transform: translateX(100%);
+            }
+
+            5% {
+                width: 600vw;
+                height: 100%;
+                filter: blur(3px);
+                transform: translateX(100%);
+            }
+
+            95% {
+                width: 6000vw;
+                height: 100%;
+                filter: blur(0px);
+                transform: translateX(-50%);
+            }
+
+            100% {
+                width: 100vw;
+                height: 100%;
+                filter: blur(0px);
+                transform: translateX(-50%);
+            }
+        }
+
+        .btn-next {
+            --color: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--color);
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            position: absolute;
+            z-index: 999;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 30px;
+            color: var(--color);
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+
+        .btn-next:hover {
+            --color: rgba(255, 255, 255, 0.75);
+            background: rgba(0, 0, 0, 0.25);
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const btn = document.querySelector(".btn-next")
+            // 图片数量
+            const totalElements = 2;
+            // 当前图片
+            let index = 0;
+
+            btn.addEventListener("click", () => {
+                var curImg = document.getElementById(`img-${index}`)
+                index++
+                if (index >= totalElements) {
+                    index = 0
+                }
+                var nextImg = document.getElementById(`img-${index}`)
+                curImg.classList.add("transition-start")
+                curImg.classList.add("right")
+                nextImg.classList.add("transition-end")
+                nextImg.classList.add("right")
+
+                curImg.addEventListener("animationend", () => {
+                    curImg.classList.remove("active")
+                    curImg.classList.remove("transition-start")
+                    curImg.classList.remove("right")
+                })
+                nextImg.addEventListener("animationend", () => {
+                    nextImg.classList.add("active")
+                    nextImg.classList.remove("transition-end")
+                    nextImg.classList.remove("right")
+                })
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <img src="https://picsum.photos/1920/1080?random=1" alt="" id="img-0" class="active">
+            <img src="https://picsum.photos/1920/1080?random=2" alt="" id="img-1">
+        </div>
+        <div class="btn-next">NEXT</div>
+    </div>
+</body>
+
+</html>

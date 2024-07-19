@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖动列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+        }
+
+        .list-item {
+            width: 400px;
+            height: 70px;
+            background-color: var(--color);
+            border-radius: 8px;
+            margin: 15px 0;
+            padding-left: 20px;
+            display: flex;
+            align-items: center;
+            cursor: move;
+        }
+
+        .list-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            object-position: top;
+            margin-right: 20px;
+        }
+
+        .list-item span {
+            color: #fff;
+            font-size: 22px;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 拖动时样子 */
+        .list-item.moving {
+            background-color: transparent;
+            border: 2px dashed #ccc;
+        }
+
+        .list-item.moving img,
+        .list-item.moving span {
+            display: none;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const list = document.querySelector(".list")
+            const items = document.querySelectorAll(".list-item")
+
+            // 当前拖拽元素
+            let dragnode;
+
+            list.ondragstart = e => {
+                dragnode = e.target
+                record()
+                setTimeout(() => {
+                    dragnode.classList.add("moving")
+                }, 0);
+                e.dataTransfer.effectAllowed = "move"
+            }
+            list.ondragover = e => {
+                e.preventDefault();
+            }
+            list.ondragenter = e => {
+                e.preventDefault();
+                if (e.target === list || e.target === dragnode) {
+                    return false;
+                }
+                const children = Array.from(list.children)
+                const sourceIndex = children.indexOf(dragnode)
+                const targetIndex = children.indexOf(e.target)
+                if (sourceIndex < targetIndex) {
+                    list.insertBefore(dragnode, e.target.nextElementSibling)
+                } else {
+                    list.insertBefore(dragnode, e.target)
+                }
+                last([e.target, dragnode])
+            }
+
+            list.ondragend = e => {
+                e.target.classList.remove("moving")
+            }
+
+            function record() {
+                items.forEach(item => {
+                    const { top, left } = item.getBoundingClientRect();
+                    item._top = top
+                    item._left = left
+                })
+            }
+
+            function last(eleAll) {
+                eleAll.forEach(e => {
+                    const { top, left } = e.getBoundingClientRect();
+                    if (e._left) {
+                        e.style.transform = `translate3d(${e._left - left}px, ${e._top - top}px, 0)`
+                        let rafid = requestAnimationFrame(() => {
+                            e.style.transition = "transform 0.3s ease-out"
+                            e.style.transform = 'none'
+                        })
+                        e.addEventListener("transitionend", () => {
+                            e.style.transition = 'none'
+                            cancelAnimationFrame(rafid)
+                        })
+                    }
+                })
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="list">
+        <div class="list-item" draggable="true" style="--color:#b01a01;">
+            <img src="/views/imgs/op/1.jpg" alt="">
+            <span>路飞</span>
+        </div>
+        <div class="list-item" draggable="true" style="--color:#70d265;">
+            <img src="/views/imgs/op/2.jpg" alt="">
+            <span>索罗</span>
+        </div>
+        <div class="list-item" draggable="true" style="--color:#f0e941;">
+            <img src="/views/imgs/op/3.jpg" alt="">
+            <span>山治</span>
+        </div>
+        <div class="list-item" draggable="true" style="--color:#da8218;">
+            <img src="/views/imgs/op/4.jpg" alt="">
+            <span>娜美</span>
+        </div>
+        <div class="list-item" draggable="true" style="--color:#f1e867;">
+            <img src="/views/imgs/op/5.jpg" alt="">
+            <span>乌索普</span>
+        </div>
+    </div>
+</body>
+
+</html>

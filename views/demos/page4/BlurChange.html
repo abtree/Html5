@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>图片模糊变换</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layer {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .layer .content {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .layer .body {
+            position: absolute;
+            width: 25%;
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .layer img {
+            position: absolute;
+            height: 90vh;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .layer.bottom {
+            background-color: #222;
+        }
+
+        .layer.bottom .body {
+            color: orange;
+            right: 5%;
+        }
+
+        .layer.top {
+            background-color: #eee;
+            width: 50vw;
+            z-index: 2;
+        }
+
+        .layer.top .body {
+            color: #222;
+            left: 5%;
+        }
+
+        .layer.top img {
+            filter: blur(10px) grayscale(0.5);
+        }
+
+        .handle {
+            position: absolute;
+            width: 8px;
+            height: 100%;
+            background-color: orange;
+            top: 0;
+            left: 50%;
+            z-index: 3;
+        }
+
+        .skewed .handle {
+            height: 200%;
+            top: 50%;
+            transform: rotate(30deg) translateY(-50%);
+            transform-origin: top;
+        }
+
+        .skewed .top {
+            transform: skew(-30deg);
+            width: calc(50vw + 1000px);
+            margin-left: -1000px;
+        }
+
+        .skewed .top .content {
+            transform: skew(30deg);
+            margin-left: 1000px;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const container = document.querySelector(".container")
+            const topLayer = document.querySelector(".top")
+            const handle = document.querySelector(".handle")
+
+            let skew = 0, delta = 0;
+
+            if (container.classList.contains("skewed")) {
+                skew = 1000
+            }
+
+            container.addEventListener("mousemove", e => {
+                delta = (e.clientX - window.innerWidth / 2) * 0.5
+                handle.style.left = e.clientX + delta + 'px';
+                topLayer.style.width = e.clientX + skew + delta + 'px'
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container skewed">
+        <div class="layer bottom">
+            <div class="content">
+                <div class="body">
+                    <h1>索隆 or 山治</h1>
+                </div>
+                <img src="/views/imgs/235/1.jpg" alt="">
+            </div>
+        </div>
+        <div class="layer top">
+            <div class="content">
+                <div class="body">
+                    <h1>谁是副船长？</h1>
+                </div>
+                <img src="/views/imgs/235/1.jpg" alt="">
+            </div>
+        </div>
+        <div class="handle"></div>
+    </div>
+</body>
+
+</html>

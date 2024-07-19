@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页置灰</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            filter: grayscale(1);
+            /* 兼容多种浏览器 */
+            -webkit-filter: grayscale(1);
+            -moz-filter: grayscale(1);
+            -ms-filter: grayscale(1);
+            -o-filter: grayscale(1);
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            background: url("/views/imgs/op/11.jpg") no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            line-height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>有时候，为了缅怀一些人和事，我们需要把网站变成灰色。</h1>
+</body>
+
+</html>

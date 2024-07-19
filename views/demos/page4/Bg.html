@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转渐变背景</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* 自定义属性 旋转角度 */
+        @property --turn {
+            /* 角度值 */
+            syntax: "<angle>";
+            /* 不允许继承 */
+            inherits: false;
+            /* 初始值 转1圈 */
+            initial-value: 1turn;
+        }
+
+        .gradient {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            --turn: 0turn;
+            --color-1: #ffafcc;
+            --color-2: #a2d2ff;
+            --color-3: #cdb4db;
+            --color-4: #98dbc3;
+            background: conic-gradient(from var(--turn, 0turn), var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%);
+            --offset-x: calc(var(--x) * 1px);
+            --offset-y: calc(var(--y) * 1px);
+            background-position: calc(100% + var(--offset-x, -50%)) calc(100% + var(--offset-y, -50%));
+            background-size: 200% 200%;
+            animation: rotate 20s linear infinite;
+        }
+
+        h1 {
+            font-size: 15vw;
+            font-weight: bold;
+            /* 混合模式 : 叠加 */
+            mix-blend-mode: overlay;
+            line-height: 1.1;
+            background: linear-gradient(white 15%, black, black, white 95%);
+            /* 背景裁剪：文字裁剪 */
+            background-clip: text;
+            -webkit-background-clip: text;
+            /* 文字填充色 透明 */
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes rotate {
+            to {
+                --turn: 1turn;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener("mousemove", e => {
+            // 动态设置CSS变量--x、--y以表示当前鼠标位置
+            document.documentElement.style.setProperty('--x', e.clientX);
+            document.documentElement.style.setProperty('--y', e.clientY);
+        })
+    </script>
+</head>
+
+<body>
+    <div class="gradient"></div>
+    <h1>渐变背景</h1>
+</body>
+
+</html>

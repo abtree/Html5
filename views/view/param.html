@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>参数接收</title>
+    <script>
+function getQueryString(){
+    const args = {}
+    // 去掉 '?'
+    let query = location.search.substring(1)
+    // console.log(query);
+    let pars = query.split('&')
+    // console.log(pars);
+    for(let i = 0;i<pars.length;i++){
+        let kv = pars[i].split('=')
+        if(kv.length != 2){
+            continue
+        }
+        args[kv[0]] = kv[1]
+    }
+    return args
+} 
+const args = getQueryString()
+console.log(args.id);
+console.log(args.count);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

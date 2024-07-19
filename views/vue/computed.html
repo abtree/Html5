@@ -19,7 +19,7 @@
                     msg:"message"
                 }
             },
-            computed:{  //计算属性，只有函数中用到的属性发生改变时，才重新计算函数结果
+            computeF:{  //计算属性，只有函数中用到的属性发生改变时，才重新计算函数结果
                 date: function(){
                     this.msg;           //这个变量是为了触发这个函数的刷新
                     return Date.now();  //只有this.msg发生变化时 才会重新计算该函数的结果

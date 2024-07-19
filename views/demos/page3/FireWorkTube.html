@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>礼花筒</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000;
+            user-select: none;
+        }
+
+        .lihuatong {
+            width: 60px;
+            position: absolute;
+            left: 50%;
+            top: 64%;
+            transform: translateX(-50%);
+            cursor: pointer;
+        }
+    </style>
+    <script type="module">
+        import { confetti } from 'https://cdn.jsdelivr.net/npm/tsparticles-confetti/+esm';
+        window.onload = () => {
+            const lihuatong = document.querySelector(".lihuatong")
+
+            lihuatong.addEventListener('click', () => {
+                confetti({
+                    particleCount: 100, //粒子数量
+                    spread: 70, //扩散范围
+                    origin: { //喷出的位置
+                        x: 0.5,
+                        y: 0.65
+                    }
+                })
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <img class="lihuatong" src="/views/imgs/lihuatong.png" alt="">
+</body>
+
+</html>

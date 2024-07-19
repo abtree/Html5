@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百度页主题切换</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            width: 270px;
+        }
+
+        .ipt-box {
+            width: 650px;
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 200px;
+        }
+
+        .ipt-box input {
+            flex: 1;
+            border: 2px solid #c4c7ce;
+            border-radius: 10px 0 0 10px;
+            border-right: none;
+        }
+
+        .ipt-box button {
+            width: 108px;
+            height: 44px;
+            background-color: #4e6ef2;
+            color: #fff;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            font-size: 17px;
+        }
+
+        .switch {
+            border: 1px solid #c4c7ce;
+            width: 60px;
+            height: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 6px;
+            border-radius: 15px;
+            cursor: pointer;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+        }
+
+        .switch::before {
+            content: '';
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #4e6ef2;
+            position: absolute;
+            left: 3px;
+            transition: 0.2s ease-out;
+        }
+
+        .switch.dark::before {
+            left: 31px;
+        }
+
+        .switch .iconfont {
+            font-size: 18px;
+            color: #aaa;
+            z-index: 2;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const btn = document.querySelector(".switch")
+
+            btn.addEventListener("click", () => {
+                let isDark = document.querySelector(".switch.dark")
+                if (isDark) {
+                    btn.classList.remove('dark')
+                    document.head.querySelector("#aa").remove();
+
+                } else {
+                    btn.classList.add("dark")
+                    let a = document.createElement('style')
+                    a.id = "aa"
+                    a.innerHTML = 'html{background-color:#fff;filter:invert(1);}img{filter:invert(1);}'
+                    document.head.appendChild(a)
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <img src="/views/imgs/bd_logo.png" alt="">
+    <div class="ipt-box">
+        <input type="text" name="" id="" />
+        <button>百度一下</button>
+    </div>
+    <div class="switch">
+        <span class="iconfont icon-icon-test"></span>
+        <span class="iconfont icon-icon-test1"></span>
+    </div>
+</body>
+
+</html>

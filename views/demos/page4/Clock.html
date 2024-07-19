@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创意罗盘时钟</title>
+    <style>
+        @font-face {
+            font-family: UnidreamLED;
+            src: url("/views/font_face/UnidreamLED.ttf");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .clock {
+            width: 100%;
+            height: 100%;
+            background-color: #141929;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #cad6dd;
+            overflow: hidden;
+            font-family: UnidreamLED;
+        }
+
+        /* 当前时间样式 */
+        .now-date {
+            background-image: -webkit-linear-gradient(bottom, yellow, red);
+            background-size: 100% 20px;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .year-box {
+            width: 10vh;
+            height: 10vh;
+            position: absolute;
+            display: flex;
+            font-size: 20px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: 1s;
+            background-image: -webkit-linear-gradient(bottom, yellow, red);
+            background-size: 100% 20px;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .month-box {
+            width: 25vh;
+            height: 25vh;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            border-radius: 50%;
+            transition: 1s;
+        }
+
+        .day-box {
+            width: 40vh;
+            height: 40vh;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            border-radius: 50%;
+            transition: 1s;
+        }
+
+        .hour-box {
+            width: 55vh;
+            height: 55vh;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            border-radius: 50%;
+            transition: 1s;
+        }
+
+        .minute-box {
+            width: 70vh;
+            height: 70vh;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            border-radius: 50%;
+            transition: 1s;
+        }
+
+        .second-box {
+            width: 85vh;
+            height: 85vh;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            border-radius: 50%;
+            transition: 1s;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const secondbox = document.querySelector(".second-box")
+            const minutebox = document.querySelector(".minute-box")
+            const hourbox = document.querySelector(".hour-box")
+            const daybox = document.querySelector(".day-box")
+            const monthbox = document.querySelector(".month-box")
+            const yearbox = document.querySelector(".year-box")
+
+            let _deg = 0
+            function init() {
+                let second = ""
+                for (let i = 0; i < 60; i++) {
+                    let div = `<div id="second${i + 1}" style="font-size: 20px;width: 100%;text-align: right;position: absolute;display: inline-block;transform: rotate(${(i - 1) * -6}deg);">${i + 1}秒</div>`
+                    second = second + div
+                }
+                secondbox.innerHTML = second
+
+                let minute = ""
+                for (let i = 0; i < 60; i++) {
+                    let div = `<div id="minute${i + 1}" style="font-size: 20px;width: 100%;text-align: right;position: absolute;display: inline-block;transform: rotate(${i * -6}deg);">${i + 1}分</div>`
+                    minute = minute + div
+                }
+                minutebox.innerHTML = minute
+
+                let hour = ""
+                for (let i = 0; i < 24; i++) {
+                    let div = `<div id="hour${i + 1}" style="font-size: 20px;width: 100%;text-align: right;position: absolute;display: inline-block;transform: rotate(${i * -15}deg);">${i + 1}时</div>`
+                    hour = hour + div
+                }
+                hourbox.innerHTML = hour
+
+                let day = ""
+                // 每个月最大天数(闰年单独处理)
+                let _days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+                let _now = new Date()
+                let _year = _now.getFullYear()
+                let _month = _now.getMonth()
+                // 处理闰年
+                if (_year % 4 === 0 && (_year % 100 !== 0 || _year % 400 == 0)) {
+                    _days[1] = 29
+                }
+                // 计算平均角度
+                _deg = 360 / _days[_month]
+                for (let i = 0; i < _days[_month]; i++) {
+                    let div = `<div id="day${i + 1}" style="font-size: 20px;width: 100%;text-align: right;position: absolute;display: inline-block;transform: rotate(${i * -1 * _deg}deg);">${i + 1}日</div>`
+                    day = day + div
+                }
+                daybox.innerHTML = day
+
+                let month = ""
+                for (let i = 0; i < 12; i++) {
+                    let div = `<div id="month${i + 1}" style="font-size: 20px;width: 100%;text-align: right;position: absolute;display: inline-block;transform: rotate(${i * -30}deg);">${i + 1}月</div>`
+                    month = month + div
+                }
+                monthbox.innerHTML = month
+            }
+            init()
+
+            let second360 = 0;
+            let minute360 = 0;
+            let hour360 = 0;
+            let day360 = 0;
+            let month360 = 0;
+
+            let oldsecond = 0;
+            let oldminute = 0;
+            let oldhour = 0;
+            let oldday = 0;
+            let oldmonth = 0;
+
+            function transformBox() {
+                let nowDate = new Date();
+                let second = nowDate.getSeconds();
+                let minute = nowDate.getMinutes();
+                let hour = nowDate.getHours();
+                let day = nowDate.getDate();
+                let month = nowDate.getMonth();
+                let year = nowDate.getFullYear();
+                if (second === 0 && oldsecond !== second) {
+                    second360 = second360 + 1;
+                }
+                if (minute === 0 && oldminute !== minute) {
+                    minute360 = minute360 + 1;
+                }
+                if (hour === 0 && oldhour !== hour) {
+                    hour360 = hour360 + 1;
+                }
+                if (day === 0 && oldday !== day) {
+                    day360 = day360 + 1;
+                }
+                if (month === 0 && oldmonth !== month) {
+                    month360 = month360 + 1;
+                }
+                secondbox.style.transform = `rotate(${second360 * 360 + (second - 1) * 6}deg)`;
+                minutebox.style.transform = `rotate(${minute360 * 360 + (minute - 1) * 6}deg)`;
+                hourbox.style.transform = `rotate(${hour360 * 360 + (hour - 1) * 15}deg)`;
+                daybox.style.transform = `rotate(${day360 * 360 + (day - 1) * _deg}deg)`;
+                monthbox.style.transform = `rotate(${month360 * 360 + month * 30}deg)`;
+                yearbox.innerHTML = year + ' 年';
+                let nowDates = document.querySelectorAll('.now-date');
+                nowDates.forEach((ele) => {
+                    ele.classList = '';
+                });
+                document.querySelector(`#second${second + 1}`).classList = 'now-date';
+                document.querySelector(`#minute${minute === 0 ? '60' : minute}`).classList = 'now-date';
+                document.querySelector(`#hour${hour === 0 ? '24' : hour}`).classList = 'now-date';
+                document.querySelector(`#day${day}`).classList = 'now-date';
+                document.querySelector(`#month${month + 1}`).classList = 'now-date';
+
+                oldsecond = second;
+                oldminute = minute;
+                oldhour = hour;
+                oldday = day;
+                oldmonth = month;
+            }
+            transformBox()
+
+            setInterval(() => {
+                transformBox()
+            }, 1000);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="second-box"></div>
+        <div class="minute-box"></div>
+        <div class="hour-box"></div>
+        <div class="day-box"></div>
+        <div class="month-box"></div>
+        <div class="year-box"></div>
+    </div>
+</body>
+
+</html>

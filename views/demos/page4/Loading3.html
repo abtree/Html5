@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>环形文字加载动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #000;
+            color: aqua;
+            font-size: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            width: 500px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: tiltSpan 8s linear infinite;
+        }
+
+        .loader,
+        .loader-ring {
+            transform-style: preserve-3d;
+        }
+
+        .loader-ring {
+            font-size: 56px;
+            position: relative;
+            width: 42px;
+            height: 84px;
+            animation: spin 4s linear infinite;
+        }
+
+        .loader-ring:nth-child(2) {
+            animation-direction: reverse;
+        }
+
+        .loader-sector {
+            font-weight: 600;
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            transform: rotateY(calc(var(--y) * 12deg)) translateZ(200px);
+        }
+
+        .loader-sector,
+        .loader-sector:empty::before {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader-sector:empty::before {
+            content: "";
+            background: linear-gradient(transparent 45%, currentColor 45% 50%, transparent 55%);
+        }
+
+        @keyframes tiltSpan {
+            from {
+                transform: rotateY(0) rotateX(30deg);
+            }
+
+            to {
+                transform: rotateY(1turn) rotateX(30deg);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotateY(0);
+            }
+
+            to {
+                transform: rotateY(1turn);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader">
+        <div class="loader-ring">
+            <div style="--y:0;" class="loader-sector">L</div>
+            <div style="--y:1;" class="loader-sector">O</div>
+            <div style="--y:2;" class="loader-sector">A</div>
+            <div style="--y:3;" class="loader-sector">D</div>
+            <div style="--y:4;" class="loader-sector">I</div>
+            <div style="--y:5;" class="loader-sector">N</div>
+            <div style="--y:6;" class="loader-sector">G</div>
+            <div style="--y:7;" class="loader-sector">.</div>
+            <div style="--y:8;" class="loader-sector">.</div>
+            <div style="--y:9;" class="loader-sector">.</div>
+            <div style="--y:10;" class="loader-sector"></div>
+            <div style="--y:11;" class="loader-sector"></div>
+            <div style="--y:12;" class="loader-sector"></div>
+            <div style="--y:13;" class="loader-sector"></div>
+            <div style="--y:14;" class="loader-sector"></div>
+            <div style="--y:15;" class="loader-sector"></div>
+            <div style="--y:16;" class="loader-sector"></div>
+            <div style="--y:17;" class="loader-sector"></div>
+            <div style="--y:18;" class="loader-sector"></div>
+            <div style="--y:19;" class="loader-sector"></div>
+            <div style="--y:20;" class="loader-sector"></div>
+            <div style="--y:21;" class="loader-sector"></div>
+            <div style="--y:22;" class="loader-sector"></div>
+            <div style="--y:23;" class="loader-sector"></div>
+            <div style="--y:24;" class="loader-sector"></div>
+            <div style="--y:25;" class="loader-sector"></div>
+            <div style="--y:26;" class="loader-sector"></div>
+            <div style="--y:27;" class="loader-sector"></div>
+            <div style="--y:28;" class="loader-sector"></div>
+            <div style="--y:29;" class="loader-sector"></div>
+        </div>
+        <div class="loader-ring">
+            <div style="--y:0;" class="loader-sector">L</div>
+            <div style="--y:1;" class="loader-sector">O</div>
+            <div style="--y:2;" class="loader-sector">A</div>
+            <div style="--y:3;" class="loader-sector">D</div>
+            <div style="--y:4;" class="loader-sector">I</div>
+            <div style="--y:5;" class="loader-sector">N</div>
+            <div style="--y:6;" class="loader-sector">G</div>
+            <div style="--y:7;" class="loader-sector">.</div>
+            <div style="--y:8;" class="loader-sector">.</div>
+            <div style="--y:9;" class="loader-sector">.</div>
+            <div style="--y:10;" class="loader-sector"></div>
+            <div style="--y:11;" class="loader-sector"></div>
+            <div style="--y:12;" class="loader-sector"></div>
+            <div style="--y:13;" class="loader-sector"></div>
+            <div style="--y:14;" class="loader-sector"></div>
+            <div style="--y:15;" class="loader-sector"></div>
+            <div style="--y:16;" class="loader-sector"></div>
+            <div style="--y:17;" class="loader-sector"></div>
+            <div style="--y:18;" class="loader-sector"></div>
+            <div style="--y:19;" class="loader-sector"></div>
+            <div style="--y:20;" class="loader-sector"></div>
+            <div style="--y:21;" class="loader-sector"></div>
+            <div style="--y:22;" class="loader-sector"></div>
+            <div style="--y:23;" class="loader-sector"></div>
+            <div style="--y:24;" class="loader-sector"></div>
+            <div style="--y:25;" class="loader-sector"></div>
+            <div style="--y:26;" class="loader-sector"></div>
+            <div style="--y:27;" class="loader-sector"></div>
+            <div style="--y:28;" class="loader-sector"></div>
+            <div style="--y:29;" class="loader-sector"></div>
+        </div>
+    </div>
+</body>
+
+</html>

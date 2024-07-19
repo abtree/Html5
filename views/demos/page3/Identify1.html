@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字点击验证</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #222;
+        }
+
+        .box {
+            width: 420px;
+            height: 420px;
+            border: 10px solid #fff;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .box .fl {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+        }
+
+        /* 小绿点 */
+        .box .radio {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #1abd6c;
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+            position: absolute;
+            z-index: 99;
+        }
+
+        /* 要点击的文字 */
+        .box span {
+            font-size: 40px;
+            color: blueviolet;
+            font-weight: bold;
+            position: absolute;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        /* 底部提示区域 */
+        .tit-box {
+            width: 420px;
+            height: 50px;
+            border-radius: 10px;
+            font-size: 26px;
+            text-align: center;
+            line-height: 50px;
+            color: #333;
+            background-color: #fff;
+            margin-top: 15px;
+        }
+
+        .tit-box span {
+            color: #6097eb;
+            font-weight: bold;
+        }
+
+        .bg-blur {
+            background: url("/views/imgs/184/1.jpg") no-repeat;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px);
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            // 要点击的词语
+            const arr = ['一帆风顺', '二龙腾飞', '三羊开泰', '四季平安', '五福临门'];
+            // 混淆的字
+            const dic = '一乙二十丁厂七卜人入八九几儿了力乃刀又三于干亏士工土才寸下大丈与万上小口巾山千乞川亿个勺久凡及夕丸么广亡门义之尸弓己已子卫也女飞刃习叉马乡丰王井开夫天无元专云扎艺木五支厅不太犬区历尤友匹车巨牙屯比互切瓦止少日中冈贝内水见午牛手毛气升长仁什片仆化仇币仍仅斤爪反介父从今凶分乏公仓月氏勿欠风丹匀乌凤勾文六方火为斗忆订计户认心尺引丑巴孔队办以允予劝双书幻玉刊示末未击打巧正扑扒功扔去甘世古节本术可丙左厉右石布龙平灭轧东卡北占业旧帅归且旦目叶甲申叮电号田由史只央兄叼叫另叨叹四生失禾丘付仗代仙们仪白仔他斥瓜乎丛令用甩印乐句匆册犯外处冬鸟务包饥主市立闪兰半汁汇头汉宁穴它讨写让礼训必议讯记永司尼民出辽奶奴加召皮边发孕圣对台矛纠母幼丝式刑动扛寺吉扣考托老执巩圾扩扫地扬场耳共芒亚芝朽朴机权过臣再协西压厌在有百存而页匠夸夺灰达列死成夹轨邪划迈毕至此贞师尘尖劣光当早吐吓虫曲团同吊吃因吸吗屿帆岁回岂刚则肉网年朱先丢舌竹迁乔伟传乒乓休伍伏优伐延件任伤价份华仰限妹姑姐姓始驾参艰线练组细驶织终驻驼绍经贯奏春帮珍玻毒型挂封帘实试郎诗肩房诚衬衫视话诞询该详建肃录隶居届刷屈弦承孟孤陕降河沾泪油泊沿泡注泻泳泥沸波泼泽治怖性怕怜怪学宝宗定宜审宙官空京享店夜庙府底剂郊废净盲放刻育闸闹郑券卷单炒炊炕炎炉沫浅法泄斧爸采受乳贪念贫肤肺肢肿胀朋股肥服胁周昏鱼兔狐忽狗备饰饱饲变';
+            const place = [
+                { left: '120px', top: '0px' },
+                { left: '160px', top: '20px' },
+                { left: '80px', top: '200px' },
+                { left: '240px', top: '260px' },
+                { left: '40px', top: '260px' },
+                { left: '240px', top: '50px' },
+                { left: '40px', top: '150px' },
+                { left: '40px', top: '110px' },
+                { left: '160px', top: '120px' },
+            ]
+            const box = document.querySelector(".box")
+            const titbox = document.querySelector(".tit-box")
+            const fls = []
+            const radios = []
+            const flspan = []
+
+            // 清空重置元素
+            function clear() {
+                fls.forEach(fl => {
+                    fl.style.display = 'none'
+                })
+                radios.forEach(radio => {
+                    radio.style.opacity = 0;
+                })
+                fls.splice(0, fls.length)
+                radios.splice(0, radios.length)
+            }
+
+            function start() {
+                box.innerHTML = '<div class="bg-blur"></div>'
+                titbox.innerHTML = ''
+                titbox.style.color = '#333'
+
+                let bingo = arr[Math.floor(Math.random() * arr.length)]
+                titbox.innerHTML = `请依次点击：<span>${bingo}</span>`
+
+                let timer
+                place.sort(() => {
+                    return Math.random() - 0.5
+                })
+
+                let verify = []
+                let extraStr = ''
+                for (let i = 0; i < 5; i++) {
+                    extraStr += dic[Math.floor(Math.random() * dic.length)]
+                }
+                extraStr = bingo + extraStr
+
+                for (i in extraStr) {
+                    verify.push(i)
+                    let left = Math.floor(Math.random() * (i * 10))
+                    let top = Math.floor(Math.random() * (i * 10))
+
+                    const divs = document.createElement('div')
+                    divs.classList.add('fl')
+                    divs.style.left = place[i].left
+                    divs.style.top = place[i].top
+                    fls.push(divs)
+
+                    const span = document.createElement('span')
+                    span.innerText = extraStr[i]
+                    span.style.left = `${left}px`
+                    span.style.top = `${top}px`
+                    span.setAttribute('data-index', i)
+                    span.setAttribute('data-judge', true)
+                    flspan.push(span)
+
+                    divs.appendChild(span)
+                    box.appendChild(divs)
+                }
+
+                let cspan = []
+                flspan.forEach(fs => {
+                    // 为每个文字添加点击事件
+                    fs.addEventListener("click", () => {
+                        if (fs.getAttribute('data-judge')) {
+                            cspan.push(fs.getAttribute("data-index"))
+                            fs.setAttribute("data-index", false)
+                        } else {
+                            console.log("重复点击");
+                        }
+                    })
+                })
+
+                let a = 0
+                box.addEventListener("click", e => {
+                    a++
+                    let rad = document.createElement('div')
+                    rad.classList.add('radio')
+                    rad.innerText = a
+                    rad.style.left = `${e.pageX - box.offsetLeft - 20}px`
+                    rad.style.top = `${e.pageY - box.offsetTop - 20}px`
+                    radios.push(rad)
+                    box.appendChild(rad)
+
+                    if (a == 4) {
+                        if (cspan.join() == verify.slice(0, 4).join()) {
+                            titbox.innerHTML = "验证成功"
+                            titbox.style.color = 'green'
+                            clear()
+                        } else {
+                            titbox.innerHTML = "验证失败"
+                            titbox.style.color = 'red'
+                            clear()
+                        }
+                        clearTimeout(timer)
+                        timer = setTimeout(() => {
+                            start()
+                        }, 1000);
+                        a = 0;
+                    }
+                })
+            }
+
+            start()
+        }
+    </script>
+</head>
+
+<body>
+    <div class="verify-box">
+        <div class="box">
+            <div class="bg-blur"></div>
+        </div>
+        <div class="tit-box"></div>
+    </div>
+</body>
+
+</html>

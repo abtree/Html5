@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彩虹按钮</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #242424;
+        }
+
+        .button {
+            width: 200px;
+            height: 60px;
+            border: 1px solid rgba(0, 0, 0, 0.35);
+            border-radius: 8px;
+            background-color: #d8d8d8;
+            cursor: pointer;
+            font-size: 20px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+
+        .button.dark {
+            border-color: rgba(255, 255, 255, 0.12);
+            background-color: #2b2b2b;
+            color: #d8d8d8;
+        }
+
+        .button::after {
+            content: "";
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: var(--x);
+            top: var(--y);
+            transform: translate(-50%, -50%);
+            /* 圆锥渐变 */
+            background-image: conic-gradient(#00f, #0ff, #0f0, #ff0, #f00, #f0f, #00f);
+            border-radius: 50%;
+            /* 模糊滤镜 */
+            filter: blur(15px);
+            /* 混合模式：叠加 */
+            mix-blend-mode: overlay;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .button:hover::after {
+            opacity: 1;
+        }
+
+        .button.dark:hover::after {
+            opacity: 0.5;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const btns = document.querySelectorAll(".button")
+            btns.forEach(btn => {
+                btn.addEventListener('mousemove', e => {
+                    const x = e.offsetX
+                    const y = e.offsetY
+                    btn.style.setProperty('--x', `${x}px`)
+                    btn.style.setProperty('--y', `${y}px`)
+                })
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <button class="button">Light</button>
+    <button class="button dark">Dark</button>
+</body>
+
+</html>

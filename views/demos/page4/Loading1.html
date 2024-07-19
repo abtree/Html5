@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹性小球加载动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #549688;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle {
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            box-shadow: -60px 0 0 rgba(255, 255, 255, 1);
+            animation: spin 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes spin {
+            from {
+                opacity: 0.35;
+                transform: rotate(0deg) scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: rotate(360deg) scale(1.2);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader">
+        <div class="circle"></div>
+    </div>
+</body>
+
+</html>

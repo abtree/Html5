@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆环溶解加载效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        .loader {
+            width: 300px;
+            height: 300px;
+            background-color: #000;
+            position: relative;
+            animation: spin 16s linear infinite;
+            /* 模糊滤镜+对比度滤镜实现溶球效果 */
+            filter: blur(2px) contrast(2);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader i {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: hsl(var(--hue), 75%, 75%);
+            position: absolute;
+            left: 150px;
+            top: 150px;
+            transform: rotateZ(var(--rz)) translateY(80px);
+            animation: move 4s ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes move {
+            0% {
+                transform: rotateZ(var(--rz)) translateY(64px) translate(0, 0) scale(0);
+            }
+
+            2% {
+                transform: rotateZ(var(--rz)) translateY(64px) translate(0, 0) scale(1.25);
+            }
+
+            20% {
+                transform: rotateZ(var(--rz)) translateY(64px) translate(0, 0) scale(1.25);
+            }
+
+            90%,
+            100% {
+                transform: rotateZ(var(--rz)) translateY(64px) translate(var(--tx), var(--ty)) scale(0);
+            }
+
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const loader = document.querySelector(".loader")
+            const freq = document.createDocumentFragment();
+            for (let i = 0; i < 72; i++) {
+                const el = document.createElement("i")
+                el.style = `--rz:${i * 5}deg;--delay:${4 / 72 * i - 4}s;--tx:${Math.random(1000) * 150}px;--ty:${Math.random(1000) * 50}px;--hue:${i * 5}`
+                freq.appendChild(el)
+            }
+            loader.appendChild(freq)
+        }
+    </script>
+</head>
+
+<body>
+    <div class="loader"></div>
+</body>
+
+</html>

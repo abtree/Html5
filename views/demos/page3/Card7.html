@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片展示效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to top, #dfe9f3, #fff);
+        }
+
+        .container {
+            width: 1220px;
+        }
+
+        li {
+            list-style: none;
+            position: relative;
+            width: 400px;
+            height: 260px;
+            float: left;
+            margin: 5px 10px 5px 0;
+            overflow: hidden;
+        }
+
+        li img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: 0.25s ease-in;
+        }
+
+        li p {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            position: absolute;
+            left: 0;
+            top: -100%;
+            font-size: 15px;
+            color: #aaa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 24px;
+        }
+
+        li:hover img {
+            transform: scale(1.1);
+        }
+
+        li:nth-child(3) {
+            margin-right: 0;
+            width: 400px;
+            height: 530px;
+        }
+
+        li:nth-child(4),
+        li:nth-child(5) {
+            margin-top: -265px;
+        }
+
+        li:nth-child(5) {
+            margin-left: 410px;
+        }
+
+        li:nth-child(8) {
+            margin-right: 0;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const data = [{
+                img: "/views/imgs/184/1.jpg",
+                p: "也许你永远都不会知道，你的一句话，我会记得很久；你的一个不以为然的承诺，我却苦苦守侯。"
+            }, {
+                img: "/views/imgs/184/2.jpg",
+                p: "谁曾许诺予我一世长安，今只残阳孤帆背影为伴。"
+            }, {
+                img: "/views/imgs/184/8.jpg",
+                p: "这城市总是风很大，孤独的人总是晚回家，外面不像你想的那么好，风雨都要自己挡，愿每个独自走夜路的你都足够坚强。"
+            }, {
+                img: "/views/imgs/184/3.jpg",
+                p: "古之成大事者，不惟有超世之才，亦必有坚忍不拔之志。"
+            }, {
+                img: "/views/imgs/184/4.jpg",
+                p: "轻易不动感情的人，一旦动情，就会地裂山崩，把自己燃烧成一堆灰烬，被他爱上的人，也会被这狼烟烈火烧烤得痛不欲生。"
+            }, {
+                img: "/views/imgs/184/5.jpg",
+                p: "却怕长发及腰，少年倾心他人。待你青丝绾正，笑看君怀她笑颜。"
+            }, {
+                img: "/views/imgs/184/6.jpg",
+                p: "这个社会就是靠实力和背景说话的，你没有强大的背景和实力是没有用的，这就是现实。"
+            }, {
+                img: "/views/imgs/184/7.jpg",
+                p: "没有人规定你必须要长成玫瑰，你愿意的话，做雏菊，做茉莉，做无名小花，做千千万万。"
+            }]
+            const lis = []
+            const ps = []
+
+            const container = document.querySelector(".container")
+            const freq = document.createDocumentFragment();
+            data.forEach(item => {
+                const li = document.createElement("li")
+                const img = document.createElement("img");
+                img.setAttribute("src", item.img)
+                li.appendChild(img)
+                const p = document.createElement("p")
+                p.textContent = item.p
+                li.appendChild(p)
+                ps.push(p)
+                freq.appendChild(li)
+                lis.push(li)
+            })
+            container.appendChild(freq)
+
+            const directName = ['up', 'right', 'down', 'left']
+
+            const direct = (e, o) => {
+                let w = o.offsetWidth
+                let h = o.offsetHeight
+                let t = o.offsetTop
+                let l = o.offsetLeft
+                let st = document.body.scrollTop || document.documentElement.scrollTop
+                let sl = document.body.scrollLeft || document.documentElement.scrollLeft
+                let ot = t - st
+                let ol = l - sl
+                let ex = (e.pageX - sl) || e.clientX
+                let ey = (e.pageY - st) || e.clientY
+                let x = (ex - ol - w / 2) * (w > h ? (h / w) : 1)
+                let y = (ey - ot - h / 2) * (h > w ? (w / h) : 1)
+                let angle = (Math.round((Math.atan2(y, x) * (180 / Math.PI) + 180) / 90) + 3) % 4
+                return directName[angle]
+            }
+
+            const mouseEvent = (dir, o, d) => {
+                let w = o.offsetWidth
+                let h = o.offsetHeight
+                let p = o.querySelector('p')
+                p.style.transition = '0s'
+
+                if (d === "in") {
+                    switch (dir) {
+                        case "up":
+                            if (p.offsetLeft == 0 && p.offsetTop == 0)
+                                break;
+                            p.style.left = 0;
+                            p.style.top = `${-h}px`;
+                            setTimeout(() => {
+                                p.style.left = 0;
+                                p.style.top = 0;
+                                p.style.transition = '0.2s';
+                            }, 50);
+                            break;
+                        case "right":
+                            if (p.offsetLeft == 0 && p.offsetTop == 0)
+                                break;
+                            p.style.left = `${w}px`;
+                            p.style.top = 0;
+                            setTimeout(() => {
+                                p.style.left = 0;
+                                p.style.top = 0;
+                                p.style.transition = '0.2s';
+                            }, 50);
+                            break;
+                        case "down":
+                            if (p.offsetLeft == 0 && p.offsetTop == 0)
+                                break;
+                            p.style.left = 0;
+                            p.style.top = `${h}px`;
+                            setTimeout(() => {
+                                p.style.left = 0;
+                                p.style.top = 0;
+                                p.style.transition = '0.2s';
+                            }, 50);
+                            break;
+                        case "left":
+                            if (p.offsetLeft == 0 && p.offsetTop == 0)
+                                break;
+                            p.style.left = `${-w}px`;
+                            p.style.top = 0;
+                            setTimeout(() => {
+                                p.style.left = 0;
+                                p.style.top = 0;
+                                p.style.transition = '0.2s';
+                            }, 50);
+                            break;
+                    }
+                } else if (d === "out") {
+                    switch (dir) {
+                        case "up":
+                            setTimeout(() => {
+                                p.style.left = 0;
+                                p.style.top = `${-h}px`;
+                                p.style.transition = '0.2s';
+                                p.style.transitionDelay = '0.1s';
+                            }, 50);
+                            break;
+                        case "right":
+                            setTimeout(() => {
+                                p.style.left = `${w}px`;
+                                p.style.top = 0;
+                                p.style.transition = '0.2s';
+                                p.style.transitionDelay = '0.1s';
+                            }, 50);
+                            break;
+                        case "down":
+                            setTimeout(() => {
+                                p.style.left = 0;
+                                p.style.top = `${h}px`;
+                                p.style.transition = '0.2s';
+                                p.style.transitionDelay = '0.1s';
+                            }, 50);
+                            break;
+                        case "left":
+                            setTimeout(() => {
+                                p.style.left = `${-w}px`;
+                                p.style.top = 0;
+                                p.style.transition = '0.2s';
+                                p.style.transitionDelay = '0.1s';
+                            }, 50);
+                            break;
+                    }
+                }
+            }
+
+            lis.forEach(li => {
+                li.addEventListener("mouseenter", e => {
+                    e = e || window.event
+                    let dir = direct(e, li)
+                    mouseEvent(dir, li, "in")
+                })
+                li.addEventListener("mouseleave", e => {
+                    e = e || window.event
+                    let dir = direct(e, li)
+                    mouseEvent(dir, li, "out")
+                })
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <ul class="container">
+    </ul>
+</body>
+
+</html>

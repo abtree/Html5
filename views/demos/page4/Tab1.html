@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航栏效果</title>
+    <link rel="stylesheet" type="text/css" href="/views/font_face/iconfont.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0d142f;
+            --color: #716895;
+            --active-color: #ac8fd1;
+        }
+
+        .tabbar {
+            color: var(--color);
+            display: flex;
+            border-radius: 10px 10px 40px 40px;
+            box-shadow: 0 0 15px 5px var(--color);
+            overflow: hidden;
+        }
+
+        .tabbar div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 110px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            --left: 0;
+        }
+
+        .tabbar div .iconfont {
+            font-size: 32px;
+        }
+
+        .tabbar div span {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .tabbar div::before {
+            content: "";
+            width: 40px;
+            height: 10px;
+            background-color: var(--active-color);
+            border-radius: 50%;
+            position: absolute;
+            left: var(--left);
+            bottom: -5px;
+            filter: blur(6px);
+            opacity: 0;
+            transform: translateX(-50%);
+        }
+
+        .tabbar div::after {
+            content: "";
+            width: 40px;
+            height: 2px;
+            background-color: var(--active-color);
+            border-radius: 1px;
+            position: absolute;
+            left: var(--left);
+            bottom: -1px;
+            filter: blur(2px);
+            opacity: 0;
+            transform: translateX(-50%);
+        }
+
+        .tabbar div:hover {
+            color: var(--active-color);
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .tabbar div:hover::before,
+        .tabbar div:hover::after {
+            opacity: 1;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const divs = document.querySelectorAll(".tabbar div")
+
+            divs.forEach(item => {
+                item.addEventListener("mousemove", e => {
+                    let left = e.clientX - item.getBoundingClientRect().x;
+                    item.style.setProperty("--left", `${left}px`)
+                })
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="tabbar">
+        <div>
+            <i class="iconfont icon-icon-test"></i>
+            <span>Home</span>
+        </div>
+        <div>
+            <i class="iconfont icon-icon-test1"></i>
+            <span>Video</span>
+        </div>
+        <div>
+            <i class="iconfont icon-icon-test2"></i>
+            <span>Plus</span>
+        </div>
+        <div>
+            <i class="iconfont icon-icon-test3"></i>
+            <span>Message</span>
+        </div>
+        <div>
+            <i class="iconfont icon-icon-test4"></i>
+            <span>Me</span>
+        </div>
+    </div>
+</body>
+
+</html>

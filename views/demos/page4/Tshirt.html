@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寸衣颜色切换</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            gap: 10px;
+            --mask: url("/views/imgs/tshirt.png") no-repeat center/contain;
+        }
+
+        [type="color"] {
+            /* 去除颜色控件的外貌 */
+            appearance: none;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            mask: var(--mask);
+            -webkit-mask: var(--mask);
+        }
+
+        /* 颜色控件外部 */
+        [type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        /* 颜色控件内部 */
+        [type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 0;
+            padding: 0;
+        }
+
+        label:has([type="color"]) {
+            width: 200px;
+            /* 宽高比设为1:1 */
+            aspect-ratio: 1/1;
+            background-color: #f4f4f4;
+            display: flex;
+            position: relative;
+        }
+
+        label:has([type="color"])::after {
+            content: "";
+            position: absolute;
+            /* 背景设为蒙版图片 */
+            background: var(--mask);
+            width: 100%;
+            height: 100%;
+            /* 混合模式设为正片叠底 */
+            mix-blend-mode: multiply;
+            pointer-events: none;
+        }
+
+        label:has([type="color"]):hover {
+            box-shadow: inset 0 0 2px #9e9e9e;
+        }
+
+        label:has([type="color"]):hover::before {
+            content: "点击可自定义颜色";
+            position: absolute;
+            background: #555;
+            color: #fff;
+            font-size: smaller;
+            padding: 2px 4px;
+            border-radius: 2px;
+            top: 8px;
+            right: 8px;
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <label><input type="color" value="#e54341" list="red"></label>
+        <label><input type="color" value="#b5c4a2" list="lightgreen"></label>
+        <label><input type="color" value="#626066" list="grey"></label>
+        <label><input type="color" value="#68b1df" list="blue"></label>
+        <!-- datalist的id与上面color控件中的list属性对应 -->
+        <datalist id="red">
+            <option value="#e54341"></option>
+            <option value="#bc2623"></option>
+            <option value="#f4a9a7"></option>
+        </datalist>
+        <datalist id="lightgreen">
+            <option value="#b5c4a2"></option>
+            <option value="#a3b18a"></option>
+            <option value="#d1d9c9"></option>
+        </datalist>
+        <datalist id="grey">
+            <option value="#626066"></option>
+            <option value="#4d4d4f"></option>
+            <option value="#a6a6a8"></option>
+        </datalist>
+        <datalist id="blue">
+            <option value="#68b1df"></option>
+            <option value="#3a8ac1"></option>
+            <option value="#a6d2e0"></option>
+        </datalist>
+    </div>
+</body>
+
+</html>

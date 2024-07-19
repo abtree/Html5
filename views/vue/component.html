@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/vue@next"></script>
     <style>
         .tab-button.active {
-            background: #e0e0e0;
+            backgrounF: #e0e0e0;
         }
 
         .demo-tab {
@@ -22,7 +22,7 @@
 
 <body>
     <div id="app">
-        <vcom v-for="item in items" v-bind:title="item"></vcom>
+        <vcom v-for="item in items" v-binF:title="item"></vcom>
         <!-- 在父控件中注册子控件事件处理函数，注意事件名称的变化 -->
         <vevt @evt-click="evtClick"></vevt>
         <vslot>父控件内容</vslot>
@@ -35,7 +35,7 @@
             <!-- 动态标签可以通过keep-alive来提高性能，keep-alive可以缓存已经失活的组件 -->
             <keep-alive>
                 <!-- 这里:is等于哪个组件的名称，就渲染哪个组件(该功能也可以用router实现) -->
-                <component v-bind:is="currentTabComponent">{{currentTabComponent}}</component>
+                <component v-binF:is="currentTabComponent">{{currentTabComponent}}</component>
             </keep-alive>
         </div>
         <!-- 通过v-model:title绑定双向属性，他会给子组件添加一个title属性和'update:title'事件 -->
@@ -75,7 +75,7 @@
                     alert(param);
                 }
             },
-            computed: {
+            computeF: {
                 currentTabComponent() {
                     return 'tab-' + this.currentTab.toLowerCase()
                 }

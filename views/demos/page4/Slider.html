@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全屏滑块</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Monoton&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(to right, #ff5c5c, #ffa860, #e3dc44, #57b02a);
+        }
+
+        .fill-area {
+            width: 100vw;
+            height: 100vh;
+            background: #333838;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 0;
+            box-shadow: inset 3px 3px 5px -1px #111;
+            pointer-events: none;
+        }
+
+        label {
+            font-family: 'Monoton';
+            font-size: 8rem;
+            position: static;
+            z-index: 1;
+            color: #ec7474;
+            margin: -5rem 0 2rem;
+        }
+
+        label::after {
+            content: "%";
+        }
+
+        input[type=range] {
+            position: static;
+            z-index: 2;
+            width: 50vw;
+            height: 1rem;
+            background: rgba(88, 36, 36, 0.8);
+            appearance: none;
+            border: none;
+            outline: none;
+            border-radius: 0.5rem;
+            box-shadow: inset 3px 3px 5px -1px #000;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            width: 4vw;
+            height: 4vw;
+            background: #eee;
+            appearance: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 5px 5px 8px -1px #000;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        input[type=range]:hover::-webkit-slider-thumb {
+            background: #fff;
+            box-shadow: 3px 3px 5px -1px #000;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const rangeValue = document.querySelector("#range-value")
+            const range = document.querySelector("input[type=range]")
+            const fillArea = document.querySelector(".fill-area")
+
+            function handleMouseMove() {
+                const hueRotate = `hue-rotate(${range.value}deg)`
+                rangeValue.textContent = range.value
+                rangeValue.style.filter = hueRotate
+                range.style.filter = hueRotate
+
+                fillArea.style.left = `${range.value}vw`
+                fillArea.style.width = `${100 - range.value}vw`
+                fillArea.style.filter = hueRotate
+            }
+
+            range.addEventListener("mousemove", handleMouseMove)
+            range.addEventListener("change", handleMouseMove)
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="fill-area"></div>
+        <label for="range" id="range-value">0</label>
+        <input type="range" name="range" id="range" value="0" min="0" max="100">
+    </div>
+</body>
+
+</html>

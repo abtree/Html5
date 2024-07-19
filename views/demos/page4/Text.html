@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字溶解切换效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            color: #fff;
+            font-size: 60px;
+            /* 对比度滤镜 */
+            /* 划重点：对比度滤镜+模糊滤镜可以做出溶球效果 */
+            filter: contrast(15);
+        }
+
+        .word {
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            filter: blur(0px);
+            animation: wordChange 8s ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes wordChange {
+
+            0%,
+            10%,
+            100% {
+                filter: blur(0px);
+                opacity: 1;
+            }
+
+            70%,
+            80% {
+                filter: blur(80px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="word" style="--delay:-8s;">别人笑我太疯颠</div>
+        <div class="word" style="--delay:-6s;">我笑他人看不穿</div>
+        <div class="word" style="--delay:-4s;">不见五陵豪杰墓</div>
+        <div class="word" style="--delay:-2s;">无花无酒锄作田</div>
+    </div>
+</body>
+
+</html>

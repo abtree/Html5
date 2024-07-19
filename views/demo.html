@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小样式</title>
     <style type="text/css">
-        .context{
+        .context {
             min-width: 18%;
             float: left;
             height: 100vh;
             overflow-y: scroll;
         }
+
         ul {
             margin-left: 50px;
             white-space: nowrap;
             overflow: visible;
         }
-        li{
+
+        li {
             cursor: pointer;
             color: blue;
         }
-        li:hover{
+
+        li:hover {
             text-decoration: underline;
         }
 
-        .context .menu p{
+        .context .menu p {
             background-color: #eee;
             text-indent: 2em;
             cursor: pointer;
@@ -37,7 +41,7 @@
             height: 750px;
         }
 
-        .hide{
+        .hide {
             display: none;
         }
     </style>
@@ -50,17 +54,18 @@
                 evt.stopPropagation();
             });
 
-            $(".context .menu").click(evt=>{
+            $(".context .menu").click(evt => {
                 el = evt.currentTarget.querySelector("ul");
-                if(el.classList.contains("hide")){
+                if (el.classList.contains("hide")) {
                     el.classList.remove("hide");
-                }else{
+                } else {
                     el.classList.add("hide");
                 }
             });
         });
     </script>
 </head>
+
 <body>
     <div class="context">
         <div class="menu">
@@ -244,10 +249,78 @@
                 <li href="/views/demos/page3/Button.html">按钮效果</li>
                 <li href="/views/demos/page3/Imgs.html">图片展示效果</li>
                 <li href="/views/demos/page3/Effect2.html">二次元看板娘</li>
+                <li href="/views/demos/page3/Identify.html">图片验证码</li>
+                <li href="/views/demos/page3/Nav1.html">tabbar效果</li>
+                <li href="/views/demos/page3/Bee.html">小蜜蜂鼠标跟随</li>
+                <li href="/views/demos/page3/Card7.html">图片展示效果</li>
+                <li href="/views/demos/page3/Portrait.html">文字肖像</li>
+                <li href="/views/demos/page3/Select.html">数字滑动选择效果</li>
+                <li href="/views/demos/page3/Heart.html">心形特效</li>
+                <li href="/views/demos/page3/bottle.html">瓶子旋转</li>
+                <li href="/views/demos/page3/Banner.html">波浪切换banner</li>
+                <li href="/views/demos/page3/Tab1.html">翻转Tab</li>
+                <li href="/views/demos/page3/Identify1.html">文字点击验证</li>
+                <li href="/views/demos/page3/DragList.html">拖动列表</li>
+                <li href="/views/demos/page3/Images.html">图片列表</li>
+                <li href="/views/demos/page3/GrayScale.html">网页置灰</li>
+                <li href="/views/demos/page3/Dock.html">锚点跳转</li>
+                <li href="/views/demos/page3/ChristmasTreeLamp.html">圣诞树灯</li>
+                <li href="/views/demos/page3/FlashLight.html">手电筒</li>
+                <li href="/views/demos/page3/Hyperlink.html">自定义的超链接下划线</li>
+                <li href="/views/demos/page3/Theme.html">百度页主题切换</li>
+                <li href="/views/demos/page3/Shake.html">左右摇晃的输入框</li>
+                <li href="/views/demos/page3/FireWorks.html">烟花秀</li>
+                <li href="/views/demos/page3/Pincode.html">验证码输入框</li>
+                <li href="/views/demos/page3/Loading3.html">圆环溶解加载效果</li>
+                <li href="/views/demos/page3/Text.html">文字上色效果</li>
+                <li href="/views/demos/page3/Card8.html">人物介绍</li>
+                <li href="/views/demos/page3/Card9.html">弹出式卡片</li>
+                <li href="/views/demos/page3/FireWorkTube.html">礼花筒</li>
+            </ul>
+        </div>
+        <div class="menu">
+            <p>Page4</p>
+            <ul>
+                <li href="/views/demos/page4/AudioBar.html">音频可视化</li>
+                <li href="/views/demos/page4/Text.html">文字溶解切换效果</li>
+                <li href="/views/demos/page4/PinYin.html">实时给中文添加拼音</li>
+                <li href="/views/demos/page4/Loading.html">旋转彩色加载动画</li>
+                <li href="/views/demos/page4/Image.html">图片悬停效果</li>
+                <li href="/views/demos/page4/CodeRain.html">代码雨</li>
+                <li href="/views/demos/page4/CodeFace.html">科技脸</li>
+                <li href="/views/demos/page4/Button.html">彩虹按钮</li>
+                <li href="/views/demos/page4/Button1.html">彩色开关</li>
+                <li href="/views/demos/page4/RightMenu.html">右键菜单</li>
+                <li href="/views/demos/page4/Loading1.html">弹性小球加载动画</li>
+                <li href="/views/demos/page4/TextShadow.html">文字阴影</li>
+                <li href="/views/demos/page4/Button2.html">流边开关</li>
+                <li href="/views/demos/page4/Tab1.html">导航栏效果</li>
+                <li href="/views/demos/page4/Tab2.html">tab边框动画</li>
+                <li href="/views/demos/page4/Slider.html">全屏滑块</li>
+                <li href="/views/demos/page4/BgChange.html">全屏背景切换</li>
+                <li href="/views/demos/page4/Card.html">悬停3D效果</li>
+                <li href="/views/demos/page4/Clock.html">创意罗盘时钟</li>
+                <li href="/views/demos/page4/Scroll.html">滚屏</li>
+                <li href="/views/demos/page4/Loading2.html">文字边框视觉错位</li>
+                <li href="/views/demos/page4/Card1.html">旋转中的视差效果</li>
+                <li href="/views/demos/page4/Loading3.html">环形文字加载动画</li>
+                <li href="/views/demos/page4/Button3.html">圣诞按钮</li>
+                <li href="/views/demos/page4/BlurChange.html">图片模糊变换</li>
+                <li href="/views/demos/page4/Button4.html">荧光图标悬停效果</li>
+                <li href="/views/demos/page4/Button5.html">三种菜单按钮</li>
+                <li href="/views/demos/page4/Login.html">登录页</li>
+                <li href="/views/demos/page4/Slider1.html">飞行滑块</li>
+                <li href="/views/demos/page4/Loading4.html">加载动画</li>
+                <li href="/views/demos/page4/Bg.html">渐变背景</li>
+                <li href="/views/demos/page4/Text1.html">斑点文字</li>
+                <li href="/views/demos/page4/Images.html">图片替换效果</li>
+                <li href="/views/demos/page4/Text2.html">文字粘连效果</li>
+                <li href="/views/demos/page4/Login1.html">深色登录页</li>
             </ul>
         </div>
     </div>
     <iframe id="content" scrolling="auto">
     </iframe>
 </body>
+
 </html>

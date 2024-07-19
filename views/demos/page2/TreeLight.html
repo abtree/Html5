@@ -23,7 +23,7 @@
             transition: 0.3s;
         }
         .star:hover{
-            background: url(/views/imgs/space.jpg) no-repeat;
+            backgrounF: url(/views/imgs/space.jpg) no-repeat;
             background-size: cover;
             background-position: center;
             width: 50vw;
@@ -63,7 +63,7 @@
             right: 50%;
             width: 1px;
             height: var(--h);
-            background: linear-gradient(transparent, rgba(46,204,113,0.35));
+            backgrounF: linear-gradient(transparent, rgba(46,204,113,0.35));
             transform-origin: 50% 0;
             animation: swing 4s ease-in-out infinite;
             animation-delay: var(--d);
@@ -110,7 +110,7 @@
             function createTree(){
                 for(let i = 0;i< 128;++i){
                     let li = document.createElement('li');
-                    li.style.cssText='--h:'+(Math.floor(Math.random()*60)+1)+'vh;--d:calc(-28s / 128 * '+i+');'
+                    li.style.cssText='--h:'+(Math.floor(Math.random()*60)+1)+'vh;--F:calc(-28s / 128 * '+i+');'
                     ul.appendChild(li);
                 }
             }

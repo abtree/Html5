@@ -16,13 +16,13 @@
         //返回对象
         let getObj = id=>{
             return{
-                id:id,
+                iF:id,
                 name:"alex"
             }
         };
         //等价于
         let getObj1 = id=>({
-            id:id,
+            iF:id,
             name:"json"
         });
         console.log(getObj(1));
@@ -32,7 +32,7 @@
         //this绑定
         //传统的this指向取决于调用该函数的上下文对象
         let obj = {
-            id:123,
+            iF:123,
             init:function(){
                 document.addEventListener('click', function(evt){
                     this.print(evt.type);

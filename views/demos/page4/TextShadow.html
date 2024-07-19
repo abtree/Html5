@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字阴影</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            --bg: #131313;
+            background-color: var(--bg);
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            --x: 1;
+            --y: 1;
+        }
+
+        h1 {
+            font-size: 5vw;
+            color: var(--bg);
+            text-align: center;
+            text-shadow: -1px -1px 0 #fff, 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+                calc(var(--x) * -0.1vw) calc(var(--y) * -0.1vw) 0px hsl(calc(var(--x) + var(--y) * 11) 30% 50% / 40%),
+                calc(var(--x) * -0.2vw) calc(var(--y) * -0.2vw) 1px hsl(calc(var(--x) + var(--y) * 12) 30% 50% / 36%),
+                calc(var(--x) * -0.3vw) calc(var(--y) * -0.3vw) 2px hsl(calc(var(--x) + var(--y) * 13) 30% 50% / 32%),
+                calc(var(--x) * -0.4vw) calc(var(--y) * -0.4vw) 3px hsl(calc(var(--x) + var(--y) * 14) 30% 50% / 28%),
+                calc(var(--x) * -0.5vw) calc(var(--y) * -0.5vw) 4px hsl(calc(var(--x) + var(--y) * 15) 30% 50% / 24%),
+                calc(var(--x) * -0.6vw) calc(var(--y) * -0.6vw) 5px hsl(calc(var(--x) + var(--y) * 16) 30% 50% / 20%),
+                calc(var(--x) * -0.7vw) calc(var(--y) * -0.7vw) 6px hsl(calc(var(--x) + var(--y) * 17) 30% 50% / 16%),
+                calc(var(--x) * -0.8vw) calc(var(--y) * -0.8vw) 7px hsl(calc(var(--x) + var(--y) * 18) 30% 50% / 12%);
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const container = document.querySelector(".container")
+
+            // 获取当前坐标
+            function getCursorPosition(event, rect, divider = 20) {
+                const x = event.clientX - rect.left
+                const y = event.clientY - rect.top
+                const res = {
+                    x: (x - rect.width / 2) / divider,
+                    y: (y - rect.height / 2) / divider
+                }
+                return res
+            }
+            // 根据日期计算获取数字
+            function getNumbersFromDate() {
+                const startDate = new Date();
+
+                function updateNumbers() {
+                    const currentDate = new Date();
+                    const timeDiff = currentDate - startDate;
+
+                    const number1 = Math.sin(timeDiff / 400)
+                    const number2 = Math.cos(timeDiff / 400)
+
+                    return {
+                        number1,
+                        number2
+                    }
+                }
+
+                function updateElementPosition(x, y) {
+                    container.style.setProperty("--x", x)
+                    container.style.setProperty("--y", y)
+                }
+
+                function animationLoop() {
+                    const isHovered = container.matches(":hover")
+                    const rect = container.getBoundingClientRect()
+
+                    if (isHovered) {
+                        document.body.addEventListener("pointermove", event => {
+                            const cursorPosition = getCursorPosition(event, rect)
+                            updateElementPosition(cursorPosition.x, cursorPosition.y)
+                        })
+                    } else {
+                        // 鼠标移除 初始化做标
+                        const numbers = updateNumbers()
+                        updateElementPosition(numbers.number1 * 10, numbers.number2 * 10)
+                    }
+
+                    requestAnimationFrame(animationLoop)
+                }
+
+                animationLoop()
+
+            }
+
+            getNumbersFromDate();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>HELLO WORLD!</h1>
+    </div>
+</body>
+
+</html>

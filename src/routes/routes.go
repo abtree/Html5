@@ -8,7 +8,7 @@ import (
 
 type HandleFnc func(http.ResponseWriter, *http.Request)
 
-//处理异常的闭包封装函数
+// 处理异常的闭包封装函数
 func logPanics(f HandleFnc) HandleFnc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
@@ -31,4 +31,8 @@ func init() {
 	http.HandleFunc("/", logPanics(controllers.BaseCtr.Init))
 	http.HandleFunc("/ajax/base", logPanics(controllers.BaseCtr.AjAxBase))
 	http.HandleFunc("/ajax/sellitem", logPanics(controllers.BaseCtr.AjAxSellItem))
+
+	http.HandleFunc("/api/article/list/random", logPanics(controllers.BaseCtr.ArticleListRandom))
+	http.HandleFunc("/api/user/captcha", logPanics(controllers.BaseCtr.UserCaptcha))
+	http.HandleFunc("/api/user/signin", logPanics(controllers.BaseCtr.UserSignin))
 }

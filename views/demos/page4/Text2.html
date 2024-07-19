@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字粘连效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            user-select: none;
+            background-color: #000;
+        }
+
+        .marquee {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .marquee-blur {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            background-image: linear-gradient(to right, transparent, red);
+            /* 对比度 */
+            filter: contrast(15000);
+
+            p {
+                mix-blend-mode: overlay;
+                filter: blur(0.1em);
+            }
+        }
+
+        .marquee-text {
+            font-size: 100px;
+            position: absolute;
+            min-width: 100%;
+            white-space: nowrap;
+            animation: marquee 8s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                translate: 100%;
+            }
+
+            to {
+                translate: -50%;
+            }
+        }
+
+        .marquee-clear {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marquee">
+        <div class="marquee-blur">
+            <p class="marquee-text">粘性文字的滚动效果</p>
+        </div>
+        <div class="marquee-clear">
+            <p class="marquee-text">粘性文字的滚动效果</p>
+        </div>
+    </div>
+</body>
+
+</html>

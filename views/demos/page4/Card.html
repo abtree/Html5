@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>悬停3D效果</title>
+    <style>
+        /* 自定义属性 */
+        /* @property可以直接载样式表中注册自定义属性，无需运行任何JS代码。是CSS变量的升级版本，比CSS变量更加规范和严谨 */
+        /* 控制渐变旋转 */
+        @property --a {
+            /* 声明类型 angle：角度 */
+            syntax: "<angle>";
+            /* 声明初始值 */
+            initial-value: 45deg;
+            /* 是否允许继承 */
+            inherits: true;
+        }
+
+        /* 控制图像旋转 */
+        @property --r {
+            syntax: "<angle>";
+            initial-value: 5deg;
+            inherits: true;
+        }
+
+        /* 控制渐变颜色停止 */
+        @property --p {
+            syntax: "<percentage>";
+            initial-value: 0%;
+            inherits: true;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            --c: #bec1c9;
+            width: 250px;
+            /* 宽高比 */
+            aspect-ratio: 1;
+            border-radius: 25px;
+            border: 4px solid #fff;
+            padding: 10px;
+            /* 锥形渐变 */
+            background: conic-gradient(from var(--a),
+                    #fff calc(30% - var(--p)),
+                    var(--c) calc(50% - var(--p)) calc(50% + var(--p)),
+                    #fff calc(50% + var(--p))) border-box;
+            --g: linear-gradient(#000 0 0);
+            mask: var(--g), var(--g) padding-box, conic-gradient(from var(--a),
+                    #000d calc(30% - var(--p)),
+                    #000 calc(50% - var(--p)) calc(50% + var(--p)),
+                    #000d calc(70% + var(--p))) content-box;
+            -webkit-mask: var(--g), var(--g) padding-box, conic-gradient(from var(--a),
+                    #000d calc(30% - var(--p)),
+                    #000 calc(50% - var(--p)) calc(50% + var(--p)),
+                    #000d calc(70% + var(--p))) content-box;
+            /* 设置遮罩的混合方式 */
+            mask-composite: xor;
+            -webkit-mask-composite: xor;
+            /* 设置过渡效果 */
+            transition: --p 0.5s, --r 0.4s;
+            cursor: pointer;
+            animation: 4s linear infinite;
+            /* 指定动画名 */
+            animation-name: a, r;
+        }
+
+        @keyframes a {
+            to {
+                --a: 405deg;
+            }
+        }
+
+        @keyframes r {
+
+            0%,
+            100% {
+                transform: perspective(450px) rotate3d(1, 1, 0, var(--r));
+            }
+
+            12.5% {
+                transform: perspective(450px) rotate3d(0, 1, 0, var(--r));
+            }
+
+            25% {
+                transform: perspective(450px) rotate3d(-1, 1, 0, var(--r));
+            }
+
+            37.5% {
+                transform: perspective(450px) rotate3d(-1, 0, 0, var(--r));
+            }
+
+            50% {
+                transform: perspective(450px) rotate3d(-1, -1, 0, var(--r));
+            }
+
+            62.5% {
+                transform: perspective(450px) rotate3d(0, -1, 0, var(--r));
+            }
+
+            75% {
+                transform: perspective(450px) rotate3d(1, -1, 0, var(--r));
+            }
+
+            87.5% {
+                transform: perspective(450px) rotate3d(1, 0, 0, var(--r));
+            }
+        }
+
+        img:hover {
+            --p: 50%;
+            --r: 0deg;
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="/views/imgs/228/lighthouse.jpg" alt="">
+</body>
+
+</html>
